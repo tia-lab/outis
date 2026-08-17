@@ -5,7 +5,7 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 # Outis Local Pilot P1 MI-01 Implementation Plan
 
-Status: `APPROVED_P1_02`
+Status: `APPROVED_P1_03`
 Classification: implementation planning; no code authorized by this artifact
 Date: 2026-08-17
 Specification: `docs/specs/outis_local_pilot_SPEC.md`, approved through S1-21
@@ -17,6 +17,9 @@ P1-01 approval: explicitly granted by the user on 2026-08-17
 P1-02 amendment: full inventory-purpose emission corrected after the blocked
 pre-test audit
 P1-02 approval: explicitly granted by the user on 2026-08-17
+P1-03 amendment: gap-marker and complete changed-path validation corrected
+after the repeated blocked pre-test audit
+P1-03 approval: explicitly granted by the user on 2026-08-17
 
 ## 1. Goal and authorization boundary
 
@@ -667,11 +670,13 @@ Validate the fixed inventory markers with:
 ~~~text
 rg -F '# `outis` - Global Inventory (GENERATED; DO NOT EDIT)' inventory.md
 test "$(rg -c '^- `crate::outis-core`$' inventory.md)" -eq 1
-! rg -n 'INVENTORY GAP' inventory.md
+! rg -F ': INVENTORY GAP (add 1-line purpose in ' inventory.md
 ~~~
 
 Expected: the title is present, exactly one component-list marker is present,
-and no gap marker is present. The detail heading is exactly
+and no generated source-file gap record is present. The generator's fixed
+explanatory sentence may contain the words `INVENTORY GAP`; the record marker
+is the fixed string searched above. The detail heading is exactly
 ``## `crates/outis-core` ``. The five entries are then compared literally
 with Section 7 while reading the generated file.
 
@@ -703,12 +708,48 @@ thread access and no linter suppression.
 ~~~text
 git diff --check
 git diff --cached --check
-git status --short --branch
+git status --short --untracked-files=all
+git status --porcelain=v1 --untracked-files=all | cut -c4- | LC_ALL=C sort
 git diff --name-status "$P1_BASE_COMMIT" --
 ~~~
 
-Expected: both diff checks exit zero. The name-status set contains only the 15
-implementation paths in Section 5 plus the pre-test audit and result review.
+Expected: both diff checks exit zero. During Section 12.5, before the result
+review exists, the sorted status path set is exactly:
+
+~~~text
+.gitignore
+Cargo.lock
+Cargo.toml
+Makefile.toml
+crates/outis-core/Cargo.toml
+crates/outis-core/docs/inventory.md
+crates/outis-core/src/candidate.rs
+crates/outis-core/src/detect.rs
+crates/outis-core/src/detect/email.rs
+crates/outis-core/src/detect/email/tests.rs
+crates/outis-core/src/lib.rs
+docs/reviews/outis_local_pilot/outis_local_pilot_pre_test_audit.md
+inventory.md
+release.toml
+rust-toolchain.toml
+src/main.rs
+~~~
+
+The short status reports modified `.gitignore`, `Cargo.toml`, `inventory.md`,
+and the pre-test audit; deleted `Makefile.toml`, `release.toml`, and
+`src/main.rs`; and the remaining nine paths as untracked creations. The
+name-status command is a tracked-path cross-check only and must report exactly
+those seven tracked changes. It is not the complete path oracle because Git
+diff omits untracked files.
+
+After the result review is authored, ordered-procedure step 12 reruns all four
+commands. The sorted status path set must then contain the same 16 paths plus
+exactly:
+
+~~~text
+docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md
+~~~
+
 The already committed plan and planning-status documents are part of
 `P1_BASE_COMMIT`, not the implementation diff. `target/` remains ignored. No
 model, fixture, generated binding, application, Swift, runtime, FFI, vault,
@@ -719,7 +760,7 @@ unless the user separately requests a commit. No unrelated path may appear.
 
 ## 13. Pre-test audit and result-review contracts
 
-The existing `BLOCKED` pre-test audit records the P1-02 discovery and is
+The existing `BLOCKED` pre-test audit records the P1-03 discoveries and is
 committed with the amended planning baseline. After implementation and
 formatting are recreated, the same artifact is re-authored before the
 validation suite and records:
@@ -822,18 +863,15 @@ work and does not block this dependency-free increment.
 
 ## 17. Approval gate
 
-The original plan, P1-01, and P1-02 are explicitly approved. P1-02 changes one
-exact physical-line binding after the immutable generator truncated the
-approved two-line purpose during pre-test inspection. Implementation remains
-blocked until this amended plan and the blocked audit are committed on a clean
-baseline and the exact S1-21 preflight passes again.
+The original plan, P1-01, P1-02, and P1-03 are explicitly approved. P1-03
+corrects the gap-record search and the pre-result and final changed-path
+oracles after the repeated pre-test audit falsified their prior forms.
+Implementation remains blocked until this amended plan and blocked audit are
+committed on a clean baseline and the exact S1-21 preflight passes again.
 
 The amended-plan approval received was:
 
-> I approve the P1-02 full inventory-purpose correction and the amended P1
-> MI-01 implementation plan exactly as written. Proceed only after the amended
-> plan and blocked pre-test audit are committed on a clean baseline and the
-> S1-21 preflight passes again.
+> I approve P1-03. Restore and complete MI-01 now.
 
 Any later modification returns this artifact to implementation planning and
 requires a new explicit approval after the change.

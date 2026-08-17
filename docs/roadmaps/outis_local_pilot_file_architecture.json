@@ -3,7 +3,7 @@
   "schema_version": "1.0",
   "architecture_id": "outis_local_pilot_file_architecture",
   "title": "Outis Local Pilot File and Folder Architecture",
-  "status": "P1_02_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
+  "status": "P1_03_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
   "date": "2026-08-17",
   "document_role": {
     "classification": "normative S1 file-architecture companion",
@@ -11,7 +11,7 @@
     "is_specification": false,
     "authorizes_file_creation": false,
     "authorizes_code": false,
-    "ratification_gate": "This document is normative only through Sections 37 and 40 of the working specification. The S1-21 author pre-audit and peer audit passed, and P1-01 and P1-02 are approved. File creation and removal remain blocked until the amended plan and blocked audit are committed on a clean baseline and followed by the exact S1-21 offline preflight."
+    "ratification_gate": "This document is normative only through Sections 37 and 40 of the working specification. The S1-21 author pre-audit and peer audit passed, and P1-01, P1-02, and P1-03 are approved. File creation and removal remain blocked until the amended plan and blocked audit are committed on a clean baseline and followed by the exact S1-21 offline preflight."
   },
   "architecture_rules": {
     "primary_rule": "Every production file has one semantic responsibility and one owning runtime or evidence surface.",

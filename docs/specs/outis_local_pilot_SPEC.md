@@ -18,7 +18,7 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 ## 2. Status
 
-Status: `APPROVED_S1_21_PEER_AUDIT_PASSED_P1_02_APPROVED`
+Status: `APPROVED_S1_21_PEER_AUDIT_PASSED_P1_03_APPROVED`
 
 Approved decision packets:
 
@@ -84,9 +84,11 @@ generated bindings, model artifacts, schemas, fixtures, or build changes. The
 S1-21 author pre-audit and separate peer audit passed. The original `MI-01`
 implementation plan and P1-01 are approved. P1-02 corrects a full inventory-
 purpose emission contradiction found by the pre-test audit and is approved.
-MI-01 starts only after the amended plan and blocked audit are committed on a
-clean baseline and its exact offline preflight passes. Model-specific work
-also requires the qualified legal clearance above.
+P1-03 corrects the gap-marker and complete changed-path validation contracts
+falsified by the repeated pre-test audit and is approved. MI-01 starts only
+after the amended plan and blocked audit are committed on a clean baseline and
+its exact offline preflight passes. Model-specific work also requires the
+qualified legal clearance above.
 
 ## 3. Purpose
 
@@ -3852,6 +3854,7 @@ plan requires explicit approval before model-specific work.
 - [x] Separate peer audit passed.
 - [x] P1-01 amended MI-01 implementation plan explicitly approved.
 - [x] P1-02 amended MI-01 implementation plan explicitly approved.
+- [x] P1-03 amended MI-01 implementation plan explicitly approved.
 
 Specification approval, including `S1-21`: granted by the user on 2026-08-17.
 
@@ -3860,8 +3863,9 @@ Specification approval, including `S1-21`: granted by the user on 2026-08-17.
 No design decision remains intentionally open. The missing qualified model
 legal review blocks only the exact model-specific surfaces and complete-pilot
 acceptance defined above; it does not block MI-01 after its lifecycle gates.
-The S1-21 author pre-audit, separate peer audit, P1-01 approval, and P1-02
-approval passed. MI-01 requires the amended plan and blocked audit in a new
-committed clean baseline and an exact offline preflight. An implementation
-detail that contradicts or is absent from this specification requires a
-specification amendment; it cannot be delegated to the implementation plan.
+The S1-21 author pre-audit, separate peer audit, P1-01 approval, P1-02
+approval, and P1-03 approval passed. MI-01 requires the amended plan and audit
+in a new committed clean baseline and an exact offline preflight. An
+implementation detail that contradicts or is absent from this specification
+requires a specification amendment; it cannot be delegated to the
+implementation plan.
