@@ -3,7 +3,7 @@
   "schema_version": "1.0",
   "roadmap_id": "outis_local_macos_pilot",
   "title": "Outis Local macOS Pilot Roadmap",
-  "status": "A1_PEER_AUDIT_PASSED_READY_FOR_P1",
+  "status": "P1_MI_01_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
   "date": "2026-08-17",
   "document_role": {
     "classification": "active roadmap and implementation sequence",
@@ -11,7 +11,7 @@
     "authorizes_code": false,
     "authorizes_dependencies": false,
     "authorizes_stack_selection": false,
-    "next_gate": "author and explicitly approve the exact MI-01 implementation plan; code remains blocked"
+    "next_gate": "commit the approved exact MI-01 plan on a clean baseline and pass the S1-21 offline preflight before code"
   },
   "roadmap_artifacts": {
     "file_architecture": "docs/roadmaps/outis_local_pilot_file_architecture.json",
@@ -20,6 +20,7 @@
     "s1_working_spec": "docs/specs/outis_local_pilot_SPEC.md",
     "s1_author_pre_audit": "docs/reviews/outis_local_pilot/outis_local_pilot_spec_pre_audit.md",
     "a1_peer_audit": "docs/reviews/outis_local_pilot/outis_local_pilot_peer_audit.md",
+    "p1_mi_01_implementation_plan": "docs/reviews/outis_local_pilot/outis_local_pilot_implementation_plan.md",
     "relationship": "The file architecture is the S1 specification-incorporated path and runtime-data allowlist. The R1 closure indexes the research evidence. Neither authorizes file creation or code without the later lifecycle gates."
   },
   "outcome": {
@@ -49,7 +50,7 @@
     ]
   },
   "recommended_first_slice": {
-    "approval_status": "S1-21 approved; author pre-audit and repeated A1 passed; implementation plan still required and implementation is not authorized",
+    "approval_status": "S1-21 approved; author pre-audit and repeated A1 passed; exact MI-01 implementation plan explicitly approved; implementation starts only after its clean committed baseline and exact offline preflight",
     "user_flow": [
       "Open Outis.",
       "Select an authorized source folder and a separate export destination.",
@@ -484,6 +485,8 @@
         "necessity binding for every file, dependency, configuration key, generated artifact, and target",
         "ratified final file set derived from docs/roadmaps/outis_local_pilot_file_architecture.json"
       ],
+      "status": "APPROVED",
+      "artifact": "docs/reviews/outis_local_pilot/outis_local_pilot_implementation_plan.md",
       "code_allowed": false,
       "exit_gate": "implementation plan approved"
     },
@@ -583,19 +586,19 @@
     "Fundraising timing pressure would require claims beyond measured evidence."
   ],
   "current_blockers_to_code": [
-    "No implementation plan has been authored or approved for MI-01; code and repository migration remain blocked.",
+    "The exact MI-01 implementation plan is approved but not yet committed as the clean implementation baseline; code and repository migration remain blocked until that baseline and preflight pass.",
     "Repository-owned extraction and OCR fixtures and their complete oracles do not exist; this blocks later extraction and complete-pilot work, not MI-01.",
     "No implementation change is authorized; approved paths, fixtures, model artifacts, targets, dependencies, generated bindings, and build settings may be created only after the remaining lifecycle gates.",
     "The selected model still requires legal review, but this blocks only its dependencies, source, tests, fixtures, acquisition, integration, execution, packaging, distribution, and complete-pilot acceptance.",
     "The plaintext funding-demo vault is restricted to synthetic data and is not an approved confidential-data design.",
     "Xcode 26.6, SDK 26.5, Swift 6.3.3, macOS 26.5, and disposable arm64 Swift-to-Rust linkage are verified; the complete Outis application build remains unproved until implementation.",
-    "The pilot specification through S1-21 and repeated peer audit pass, but no approved MI-01 implementation plan exists."
+    "The pilot specification through S1-21, repeated peer audit, and MI-01 implementation-plan approval pass; the clean committed baseline and exact offline preflight remain required before code."
   ],
   "next_action": {
-    "phase": "P1_MI_01_IMPLEMENTATION_PLAN",
-    "decision_requested": "None to author P1; the completed exact plan will require explicit user approval before code.",
-    "after_approval": "Implement only the approved MI-01 plan, beginning with its exact toolchain preflight and changed-path boundary.",
-    "code_status": "all code remains blocked until the exact MI-01 implementation plan is authored and explicitly approved; model-specific code additionally requires CLEARED legal review"
+    "phase": "I1_MI_01_BASELINE_AND_PREFLIGHT",
+    "decision_requested": "None; the user explicitly approved P1 MI-01 on 2026-08-17.",
+    "after_approval": "Commit this approved documentation baseline, require a clean worktree, record P1_BASE_COMMIT, pass the exact S1-21 offline preflight, then implement only MI-01.",
+    "code_status": "MI-01 code is authorized only after the approved plan is committed on a clean baseline and the exact S1-21 preflight passes; model-specific code additionally requires CLEARED legal review"
   },
   "authoritative_references": [
     "AGENTS.md",
@@ -617,6 +620,7 @@
     "docs/reviews/outis_local_pilot/outis_local_pilot_r1_2_extraction_evaluation.md",
     "docs/reviews/outis_local_pilot/outis_local_pilot_spec_pre_audit.md",
     "docs/reviews/outis_local_pilot/outis_local_pilot_peer_audit.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_implementation_plan.md",
     "docs/roadmaps/outis_local_pilot_file_architecture.json"
   ]
 }

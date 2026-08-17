@@ -5,7 +5,7 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 # Outis Repository Structure
 
-Status: S1-21 approved; peer audit passed; MI-01 plan pending
+Status: P1 MI-01 plan approved; clean baseline and preflight pending
 Scope: local macOS pilot repository
 
 ## Purpose
