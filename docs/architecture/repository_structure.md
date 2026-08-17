@@ -5,7 +5,7 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 # Outis Repository Structure
 
-Status: P1-03 approved; clean baseline and preflight pending
+Status: MI-01 validated; MI-02 plan approved, baseline and preflight pending
 Scope: local macOS pilot repository
 
 ## Purpose
@@ -15,21 +15,27 @@ Outis pilot. It is not an implementation plan and does not authorize creation,
 renaming, movement, dependency selection, code generation, model conversion, or
 Xcode targets.
 
-The exact path allowlist is incorporated by Section 37 of the working
-specification and recorded in
-`docs/roadmaps/outis_local_pilot_file_architecture.json`. Creation, removal, or
-modification still requires the amended author pre-audit, a passed peer audit,
-and an approved implementation plan.
+The exact complete-pilot path allowlist is incorporated by Section 37 of the
+working specification and recorded in
+`docs/roadmaps/outis_local_pilot_file_architecture.json`. MI-01 used the
+narrower approved Section 40 boundary. Every later creation, removal, or
+modification still requires its applicable approved specification, author
+pre-audit, passed peer audit, and approved implementation plan.
 
 ## Current Workspace Shape
 
 ~~~text
 Cargo.toml
-  package: wuthier-terminal
-  current root Rust binary scaffold
+  one-member Rust workspace
 
-src/main.rs
-  current executable stub
+rust-toolchain.toml
+  stable locator with exact S1-21 identity preflight
+
+Cargo.lock
+  format-4 dependency-free outis-core lockfile
+
+crates/outis-core/
+  validated MI-01 deterministic email-candidate capability
 
 bin/
   repository maintenance tools
@@ -54,7 +60,8 @@ inventory.md
 ~~~
 
 No Swift application, Xcode project, Finder extension, extraction adapter,
-model adapter, private vault, or agent-export implementation exists.
+telephone or IBAN detector, model adapter, private vault, tokenization path, or
+agent-export implementation exists.
 
 ## S1-Bound Workspace Shape
 
@@ -118,26 +125,23 @@ directory may be created merely because it appears in an architecture
 document. The specification, peer-audit, and implementation-plan gates remain
 mandatory even for an allowlisted path.
 
-The final workspace has three members. S1-20 stages that transition without
-empty placeholders: the first implementation plan may create only
-`crates/outis-core` and list only that member. Later crates enter the workspace
-only with an approved complete capability that uses them.
+The final workspace has three members. S1-20 began that transition without
+empty placeholders: MI-01 created only `crates/outis-core` and listed only that
+member. Later crates enter the workspace only with an approved complete
+capability that uses them.
 
-The S1-20 root migration also creates `rust-toolchain.toml`, commits and stops
-ignoring the dependency-free format-4 `Cargo.lock`, removes the obsolete root
-`src/main.rs`, and removes stale `mbt_cache`-oriented `Makefile.toml` and
-`release.toml`. S1-21 fixes the rustup locator to installed alias `stable` but
-accepts it only when the Section 40 preflight observes the exact Rust 1.89.0
-commit, Cargo identity, required components, and arm64 host and target while
-distribution endpoints are redirected to unreachable loopback tripwires.
-`inventory.md` is regenerated
-only through its existing generator. These remain future implementation-plan
-actions, not current documentation edits. The existing user-owned deletion of
-`architecture-public.md` remains preserved.
+The completed S1-20 root migration created `rust-toolchain.toml`, committed and
+stopped ignoring the dependency-free format-4 `Cargo.lock`, removed the
+obsolete root `src/main.rs`, and removed stale `mbt_cache`-oriented
+`Makefile.toml` and `release.toml`. The S1-21 preflight observed exact Rust
+1.89.0 and Cargo identities, required components, and the arm64 host and target
+while distribution endpoints used unreachable loopback tripwires.
+`inventory.md` was regenerated only through its existing generator. The
+existing user-owned deletion of `architecture-public.md` remains preserved.
 
 ## First Complete Implementation Increment
 
-`MI-01` is exactly the pure Rust email-discovery capability in specification
+`MI-01` is the validated pure Rust email-discovery capability in specification
 Section 40. It accepts validated UTF-8 text plus its source-snapshot identity
 and returns ordered email `SensitiveCandidateV1` records under the Section 11
 grammar. Its production surface is limited to:
@@ -158,10 +162,33 @@ root inventory. Unit tests live in the grammar's private
 The fixed 65,536-record ceiling returns a typed all-or-nothing error before a
 65,537th candidate can be retained. The increment has no registry
 dependency and no application, Xcode, Swift, runtime, FFI, extraction, other
-detector, entity, review, token, vault, export, production or test publication, generated
-binding, model, job, or funding-demo behavior. It is a complete domain
-capability with an exact input, output, terminal return, and oracle; it is not a
-horizontal foundation. A later increment must pass its own applicable gates.
+detector, entity, review, token, vault, export, production or test publication,
+generated binding, model, job, or funding-demo behavior. Its seven bound unit tests and
+offline validation passed as recorded in the MI-01 result review. It is a
+complete domain capability with an exact input, output, terminal return, and
+oracle; it is not a horizontal foundation. A later increment must pass its own
+applicable gates.
+
+## Proposed Next Increment
+
+The approved `S1-22` design defines `MI-02` as two additional pure structured
+detectors in the existing core:
+
+~~~text
+crates/outis-core/src/detect/telephone.rs
+crates/outis-core/src/detect/telephone/tests.rs
+crates/outis-core/src/detect/iban.rs
+crates/outis-core/src/detect/iban/tests.rs
+~~~
+
+It would amend only `candidate.rs`, `detect.rs`, `lib.rs`, the handwritten
+component inventory, and the generated root inventory. It would not change a
+manifest, lockfile, dependency, build setting, runtime, application, vault,
+model, FFI, or publication surface. S1-22B closes the telephone-extension
+contradiction, and S1-22C establishes the Section 8 10 MiB caller ceiling. The
+amended author pre-audit, separate peer audit, and exact implementation plan
+are approved. No file change is authorized until the approved documentation is
+committed on a clean baseline and followed by the repeated offline preflight.
 
 ## Runtime Data Is Outside the Source Tree
 
@@ -301,9 +328,11 @@ revision recorded in
 ONNX Runtime 1.28 CPU execution binding. Model acquisition and bundling remain
 blocked until the qualified model legal review is `CLEARED`. Before clearance,
 the exact model source, tests, fixtures, dependencies, artifacts, bundle phases,
-and temporary substitutes remain absent. The only pre-clearance implementation
-capability is `MI-01`. It may proceed only after the amended author pre-audit,
-repeated peer audit, and its exact implementation plan pass.
+and temporary substitutes remain absent. MI-01 is complete. A later
+model-independent increment can proceed before legal clearance only through a
+separately approved amendment, author pre-audit, peer audit, and implementation
+plan; the approved and audited S1-22 through S1-22C telephone and IBAN design
+now has an exact plan that remains blocked pending explicit approval.
 
 ### Vault Adapters
 

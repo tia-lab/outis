@@ -14,6 +14,12 @@ Commit inspected: `f2e9b7e106f67ce72df9c5ea5364e98fb14f86a5`
 Dirty state: documentation migration in progress; existing user-owned
 `architecture-public.md` deletion preserved
 
+S1-22C correction note, 2026-08-17: the Section 8 10 MiB per-document
+normalized UTF-8 ceiling is authoritative. The stale 16 MiB wording in the
+`S1-20 resource failure` row below is superseded. MI-01 accepts already
+validated `&str` input and intentionally adds no second size check. This note
+does not alter the historical S1-21 audit classification or MI-01 evidence.
+
 ## Finding
 
 The S1-01 through S1-21 decisions are recorded and approved. S1-20 supersedes

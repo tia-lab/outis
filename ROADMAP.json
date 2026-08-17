@@ -3,7 +3,7 @@
   "schema_version": "1.0",
   "roadmap_id": "outis_local_macos_pilot",
   "title": "Outis Local macOS Pilot Roadmap",
-  "status": "P1_03_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
+  "status": "P1_MI_02_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
   "date": "2026-08-17",
   "document_role": {
     "classification": "active roadmap and implementation sequence",
@@ -11,7 +11,7 @@
     "authorizes_code": false,
     "authorizes_dependencies": false,
     "authorizes_stack_selection": false,
-    "next_gate": "commit the approved P1-03 amended MI-01 plan and blocked pre-test audit on a clean baseline and rerun the S1-21 offline preflight before code"
+    "next_gate": "commit the approved MI-02 documentation on a clean baseline, record P1_MI02_BASE_COMMIT, and repeat the S1-21 offline preflight before code"
   },
   "roadmap_artifacts": {
     "file_architecture": "docs/roadmaps/outis_local_pilot_file_architecture.json",
@@ -21,7 +21,12 @@
     "s1_author_pre_audit": "docs/reviews/outis_local_pilot/outis_local_pilot_spec_pre_audit.md",
     "a1_peer_audit": "docs/reviews/outis_local_pilot/outis_local_pilot_peer_audit.md",
     "p1_mi_01_implementation_plan": "docs/reviews/outis_local_pilot/outis_local_pilot_implementation_plan.md",
-    "relationship": "The file architecture is the S1 specification-incorporated path and runtime-data allowlist. The R1 closure indexes the research evidence. Neither authorizes file creation or code without the later lifecycle gates."
+    "mi_01_result_review": "docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md",
+    "mi_02_research_brief": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md",
+    "mi_02_spec_pre_audit": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_spec_pre_audit.md",
+    "mi_02_peer_audit": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_peer_audit.md",
+    "mi_02_implementation_plan": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md",
+    "relationship": "The file architecture is the S1 specification-incorporated path and runtime-data allowlist. The MI-01 result review records the completed first increment. S1-22 through S1-22C, the amended author pre-audit, the separate peer audit, and the exact MI-02 implementation plan are approved. MI-02 code remains blocked until the clean committed baseline and repeated offline preflight."
   },
   "outcome": {
     "product_goal": "A user selects an authorized local folder in a native macOS application and Outis locally produces a separate tokenized Markdown repository while keeping sensitive mappings in a private local vault.",
@@ -50,7 +55,7 @@
     ]
   },
   "recommended_first_slice": {
-    "approval_status": "S1-21 approved; author pre-audit and repeated A1 passed; the original MI-01 plan, P1-01, P1-02, and P1-03 validation corrections are explicitly approved; implementation starts only after the clean committed baseline and exact offline preflight",
+    "approval_status": "S1-22C is explicitly approved and closes the normalized-document caller-limit contradiction. The amended author pre-audit and separate peer audit passed. The exact MI-02 implementation plan is explicitly approved; the clean committed baseline and repeated offline preflight remain required before code.",
     "user_flow": [
       "Open Outis.",
       "Select an authorized source folder and a separate export destination.",
@@ -91,7 +96,7 @@
         "status": "S1-approved guardrails; not capacity claims"
       },
       "determinism_contract": "Native extraction identity includes the source bytes, macOS product/build, framework environment, Vision revision and options, language-support result, 200-DPI render identity, observation ordering, and normalized-document schema. Cross-OS-build equality is not promised.",
-      "evidence_status": "S1 approves strict Rust UTF-8 decoding plus AppKit Word import, PDFKit PDF text and rendering, Core Graphics fixed rendering, and Vision revision 3 OCR. Every binary-format result requires review. Implementation remains blocked by the later lifecycle gates."
+      "evidence_status": "S1 approves strict Rust UTF-8 decoding plus AppKit Word import, PDFKit PDF text and rendering, Core Graphics fixed rendering, and Vision revision 3 OCR. Every binary-format result requires review. These extraction and application surfaces remain unimplemented and require their later lifecycle gates."
     },
     "human_languages": {
       "required_initial": [
@@ -195,7 +200,7 @@
         ]
       },
       "undefined_model_at_spec_or_code": "forbidden",
-      "r1_1_definition_status": "The evaluation and R1 decision closure supplied the exact candidate now bound by S1. Legal clearance blocks its implementation, acquisition, execution, and packaging. The only pre-clearance implementation capability specified by S1-20 is MI-01 deterministic email discovery, subject to amended author pre-audit, peer audit, and an approved plan.",
+      "r1_1_definition_status": "The evaluation and R1 decision closure supplied the exact candidate now bound by S1. Legal clearance blocks its implementation, acquisition, execution, and packaging. MI-01 completed without model work. Any further pre-clearance model-independent increment requires its own approved specification amendment, audits, and implementation plan.",
       "approved_spec_bindings": [
         "upstream model name, source, revision, license, and redistribution terms",
         "exact model and tokenizer artifact hashes",
@@ -213,10 +218,10 @@
     "demo_data_policy": "Synthetic fixtures only until the controlled-pilot gate passes."
   },
   "candidate_code_architecture": {
-    "approval_status": "S1-01 through S1-18 approve the complete first-slice design, S1-19 partitions the model legal gate, S1-20 binds exact MI-01 deterministic email discovery, and S1-21 binds the installed stable alias to exact Rust, Cargo, component, target, and offline-resolution evidence. The S1-21 author pre-audit and repeated peer audit pass; implementation remains unauthorized until the exact MI-01 plan is approved.",
+    "approval_status": "S1-01 through S1-22C are approved. MI-01 passed its complete validation. The MI-02 amended author pre-audit, separate peer audit, and exact implementation plan are approved; code remains blocked until the clean committed baseline and repeated offline preflight.",
     "file_architecture": "docs/roadmaps/outis_local_pilot_file_architecture.json",
     "minimal_structure": {
-      "rust": "The complete pilot has exactly three Rust crates: dependency-light outis-core, side-effecting outis-runtime, and the outis-ffi boundary. MI-01 stages the workspace with outis-core only; no empty runtime or FFI placeholder is allowed.",
+      "rust": "The complete pilot has exactly three Rust crates: dependency-light outis-core, side-effecting outis-runtime, and the outis-ffi boundary. MI-01 created the current one-member outis-core workspace; no empty runtime or FFI placeholder is allowed.",
       "swift": "S1-11 approves exactly one native macOS application target and one test target for the first slice. Do not create a Finder extension target until a future specification approves it.",
       "ffi": "S1-12 approves exactly ten version-one C ABI functions, opaque handles, pointer-length buffers, stable call codes, polling, extraction and review submission, cancellation races, panic containment, explicit release, cbindgen 0.29.4, and byte-clean generated-header verification.",
       "tests": "Keep synthetic fixtures, evaluation tools, and benchmarks outside production targets."
@@ -275,7 +280,7 @@
           "emit private page and extraction-mode provenance; never represent normalized Markdown as layout-faithful",
           "require review for every Word and PDF result and reject unsupported, malformed, encrypted, embedded, incomplete, or out-of-bound content explicitly"
         ],
-        "selection_status": "S1-approved design binding; source creation and implementation remain blocked until the peer audit and implementation plan pass"
+        "selection_status": "S1-approved complete-pilot design binding; this extraction source remains unimplemented and requires its applicable peer audit and approved implementation plan"
       },
       {
         "id": "local_model_adapter",
@@ -453,7 +458,7 @@
       "classification": "spec authoring",
       "goal": "Write the source of truth for the funding-demo slice and nothing beyond it.",
       "entry_gate": "R1.2 complete and R1 decision closure amended",
-      "status": "APPROVED_S1_21_PEER_AUDIT_PASSED",
+      "status": "APPROVED_THROUGH_S1_22C_PEER_AUDIT_PASSED",
       "deliverables": [
         "docs/specs/outis_local_pilot_SPEC.md",
         "exact source, token, vault, model, FFI, export, failure, test, evidence, and code bindings",
@@ -501,7 +506,26 @@
         "no macOS application, Xcode, Swift, runtime crate, FFI, extraction, other detector, vault, tokenization, export, publication, fixture, generated artifact, or model surface",
         "no temporary API, abstraction, job status, model substitute, development application, remote path, or funding-demo claim"
       ],
+      "status": "COMPLETE_MI_01_VALIDATION_PASSED",
+      "evidence": "docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md",
       "exit_gate": "the exact S1-21 toolchain preflight and S1-20 unit oracle, offline format, clippy, test, lockfile, inventory, and changed-path checks pass"
+    },
+    {
+      "id": "I1A",
+      "name": "Deterministic telephone and IBAN discovery",
+      "classification": "new lifecycle increment",
+      "goal": "Extend outis-core with separate pure telephone and IBAN candidate transformations while preserving MI-01 email behavior and the dependency-free compile surface under the approved exhaustive-enum API-evolution contract.",
+      "entry_gate": "S1-22 through S1-22C explicitly approved; amended author pre-audit passed; separate peer audit passed; exact MI-02 implementation plan approved; clean committed baseline recorded; and S1-21 offline preflight passed",
+      "constraints": [
+        "document_text input only; no extraction or path-component discovery",
+        "standard library only; Cargo manifests and lockfile remain unchanged",
+        "no combined detector, cross-class overlap resolver, model, entity graph, tokenization, vault, export, application, FFI, fixture tree, benchmark, or performance claim",
+        "telephone and IBAN accepted subsets are limited to the exact S1-22 grammars; uncertain values are needs_review and detection is not called complete"
+      ],
+      "status": "BLOCKED_PENDING_COMMIT_BASELINE_AND_PREFLIGHT",
+      "research": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md",
+      "implementation_plan": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md",
+      "exit_gate": "the approved MI-02 oracle, offline validation, unchanged lockfile, inventory, and exact changed-path checks pass"
     },
     {
       "id": "I2",
@@ -586,19 +610,20 @@
     "Fundraising timing pressure would require claims beyond measured evidence."
   ],
   "current_blockers_to_code": [
-    "The P1-03 amended MI-01 plan and blocked pre-test audit are approved but not yet committed as the clean implementation baseline; code and repository migration remain blocked until that baseline and preflight pass.",
-    "Repository-owned extraction and OCR fixtures and their complete oracles do not exist; this blocks later extraction and complete-pilot work, not MI-01.",
-    "No implementation change is authorized; approved paths, fixtures, model artifacts, targets, dependencies, generated bindings, and build settings may be created only after the remaining lifecycle gates.",
+    "MI-01 is complete; no additional code is authorized by its closed plan.",
+    "S1-22 through S1-22C are approved, and the amended MI-02 author pre-audit and separate peer audit passed. The exact MI-02 implementation plan exists and still requires explicit approval, a clean committed baseline, and repeated offline preflight.",
+    "S1-22A corrects the exhaustive SensitiveClassV1 compatibility claim, S1-22B defines one maximal telephone-extension digit run with exact 1-through-6 and 7-or-more classification, and S1-22C establishes the Section 8 10 MiB caller ceiling.",
+    "Repository-owned extraction and OCR fixtures and their complete oracles do not exist; this blocks extraction and complete-pilot work, not the proposed pure MI-02 detector increment.",
     "The selected model still requires legal review, but this blocks only its dependencies, source, tests, fixtures, acquisition, integration, execution, packaging, distribution, and complete-pilot acceptance.",
     "The plaintext funding-demo vault is restricted to synthetic data and is not an approved confidential-data design.",
     "Xcode 26.6, SDK 26.5, Swift 6.3.3, macOS 26.5, and disposable arm64 Swift-to-Rust linkage are verified; the complete Outis application build remains unproved until implementation.",
-    "The pilot specification through S1-21, repeated peer audit, P1-01 approval, P1-02 approval, and P1-03 approval pass; the new clean committed baseline and exact offline preflight remain required before code."
+    "No manifest, dependency, build, Swift, Xcode, runtime, FFI, model, vault, tokenization, or publication change is authorized by S1-22."
   ],
   "next_action": {
-    "phase": "I1_MI_01_BASELINE_AND_PREFLIGHT",
-    "decision_requested": "None; the user explicitly approved P1-03 on 2026-08-17.",
-    "after_approval": "Commit the amended plan and blocked pre-test audit on a clean baseline, record a new P1_BASE_COMMIT, rerun the exact S1-21 offline preflight, then restart MI-01 implementation from the quarantined code only after reviewing it against that baseline.",
-    "code_status": "MI-01 code is authorized only after the approved P1-03 plan and blocked audit are committed on a clean baseline and the exact S1-21 offline preflight passes; model-specific code additionally requires CLEARED legal review"
+    "phase": "P1_MI_02_BASELINE_AND_PREFLIGHT",
+    "decision_requested": "None; the user explicitly approved the exact MI-02 implementation plan on 2026-08-17.",
+    "after_approval": "Commit the approved plan and planning documents, require a clean worktree, record P1_MI02_BASE_COMMIT, repeat the exact S1-21 offline preflight, and implement only the approved nine-path MI-02 boundary.",
+    "code_status": "MI-02 code is authorized only after the clean committed baseline and repeated offline preflight. MI-01 is complete; model-specific code additionally requires CLEARED legal review."
   },
   "authoritative_references": [
     "AGENTS.md",
@@ -621,6 +646,11 @@
     "docs/reviews/outis_local_pilot/outis_local_pilot_spec_pre_audit.md",
     "docs/reviews/outis_local_pilot/outis_local_pilot_peer_audit.md",
     "docs/reviews/outis_local_pilot/outis_local_pilot_implementation_plan.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md",
+    "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md",
+    "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_spec_pre_audit.md",
+    "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_peer_audit.md",
+    "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md",
     "docs/roadmaps/outis_local_pilot_file_architecture.json"
   ]
 }

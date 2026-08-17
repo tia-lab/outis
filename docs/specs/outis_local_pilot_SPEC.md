@@ -18,7 +18,7 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 ## 2. Status
 
-Status: `APPROVED_S1_21_PEER_AUDIT_PASSED_P1_03_APPROVED`
+Status: `S1_22C_APPROVED_PEER_AUDIT_PASSED_PLAN_APPROVED`
 
 Approved decision packets:
 
@@ -58,19 +58,31 @@ Approved decision packets:
   2026-08-17.
 - `S1-21` exact installed-toolchain resolution and offline preflight,
   approved 2026-08-17.
+- `S1-22` deterministic telephone and IBAN discovery increment, approved
+  2026-08-17.
+- `S1-22A` exhaustive-enum API-evolution and MI-01 regression correction,
+  approved 2026-08-17.
+- `S1-22B` deterministic telephone-extension maximal-digit-run correction,
+  approved 2026-08-17.
+- `S1-22C` normalized-document caller-limit correction, approved 2026-08-17.
 
-All sequential S1 design packets and gate amendments are explicitly approved.
+All sequential S1 design packets through `S1-22C` are explicitly approved.
 `S1-20` supersedes the broad pre-model implementation permission in `S1-19`;
 `S1-21` resolves the toolchain name without changing the compiler identity or
 complete-pilot architecture. The S1-21 author pre-audit and separate peer audit
-have passed.
+have passed for the prior boundary. S1-22A closes the first S1-22 pre-audit
+finding, S1-22B closes the contradictory telephone-extension rule, and S1-22C
+makes the Section 8 10 MiB per-document normalized UTF-8 ceiling the single
+caller contract. The amended author pre-audit and separate MI-02 peer audit
+passed on 2026-08-17.
 
 Conditional model stop gate: model-weight, base-model, training-corpus,
 commercial redistribution, attribution, notice, and source-obligation
 clearance remains pending. It blocks model-specific dependencies, source,
 tests, acquisition, bundling, integration, distribution, and complete-pilot
-acceptance. It does not block the exact `S1-20` email-discovery capability
-after the author-pre-audit, peer-audit, and implementation-plan gates pass.
+acceptance. It did not block the now-validated `S1-20` email-discovery
+capability and does not block a separately approved model-independent
+increment.
 
 Platform prerequisite resolved: Xcode 26.6 build `17F113`, macOS SDK 26.5,
 Swift 6.3.3, and macOS 26.5 build `25F71` were observed with first-launch
@@ -80,14 +92,14 @@ importing every selected Apple framework. This is toolchain integration
 evidence, not an Outis application build.
 
 This specification alone does not authorize code, dependencies, targets,
-generated bindings, model artifacts, schemas, fixtures, or build changes. The
-S1-21 author pre-audit and separate peer audit passed. The original `MI-01`
-implementation plan and P1-01 are approved. P1-02 corrects a full inventory-
-purpose emission contradiction found by the pre-test audit and is approved.
-P1-03 corrects the gap-marker and complete changed-path validation contracts
-falsified by the repeated pre-test audit and is approved. MI-01 starts only
-after the amended plan and blocked audit are committed on a clean baseline and
-its exact offline preflight passes. Model-specific work also requires the
+generated bindings, model artifacts, schemas, fixtures, or build changes.
+`MI-01` passed its approved pre-test audit and complete validation sequence;
+the result is recorded in
+`docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md`. `S1-22`
+through `S1-22C` are explicitly approved, and the MI-02 author pre-audit and
+separate peer audit passed. The exact MI-02 implementation plan was explicitly
+approved on 2026-08-17. Implementation still requires the clean committed
+baseline and repeated offline preflight. Model-specific work also requires the
 qualified legal clearance above.
 
 ## 3. Purpose
@@ -685,19 +697,21 @@ modified, a written review must clear the model-weight licence, base-model
 terms, training-corpus terms, commercial distribution, attribution and
 notices, and modification or source-availability obligations.
 
-Until then, the only implementation increment permitted by this specification
-is `MI-01`, the complete deterministic email-discovery capability defined in
-Section 40. It has no model, application, FFI, extraction, vault, tokenization,
-export, publication, fixture, or generated-artifact surface. It must not add
-`ort`, `tokenizers`, `local_entity_model.rs`, `model_contract.rs`, `models/`,
-the ONNX Runtime dylib, `fixtures/`, model resources, model build phases, or a
-temporary model interface, stub, fallback, feature flag, or substitute.
+`MI-01`, the complete deterministic email-discovery capability in Section 40,
+was the first permitted pre-clearance increment and is now validated. It has
+no model, application, FFI, extraction, vault, tokenization, export,
+publication, fixture, or generated-artifact surface. It did not add `ort`,
+`tokenizers`, `local_entity_model.rs`, `model_contract.rs`, `models/`, the ONNX
+Runtime dylib, model resources, model build phases, or a temporary model
+interface, stub, fallback, feature flag, or substitute.
 
 `MI-01` neither publishes nor simulates an agent repository, and it has no job
-or `completed` status. Any later pre-model increment requires a separately
-approved specification amendment or an already exact complete-capability
-binding plus its own approved implementation plan. `S1-20` is not blanket
-authorization for other model-independent surfaces.
+or `completed` status. The approved `MI-02` telephone and IBAN increment is
+defined by `S1-22` in Section 40. It remains unauthorized until its amended
+author pre-audit and separate peer audit pass and its exact implementation
+plan is approved. Every other later pre-model increment requires the same
+gates.
+`S1-20` is not blanket authorization for model-independent surfaces.
 
 If clearance fails, model selection returns to research. There is no temporary,
 automatic, or undocumented substitute.
@@ -3463,6 +3477,25 @@ docs/reviews/outis_local_pilot/outis_local_pilot_pre_test_audit.md
 docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md
 ~~~
 
+The proposed MI-02 lifecycle uses separate artifacts so MI-01 evidence is not
+rewritten:
+
+~~~text
+docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md
+docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_spec_pre_audit.md
+docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_peer_audit.md
+docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md
+docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_pre_test_audit.md
+docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_result_review.md
+~~~
+
+The research brief, passed amended author pre-audit, and passed separate peer
+audit exist. S1-22A closes the exhaustive-enum finding, S1-22B closes the
+contradictory telephone-extension rule, and S1-22C closes the normalized-
+document caller-limit contradiction. Each later artifact is created at its
+applicable lifecycle stage; its path does not pre-authorize its content or any
+code.
+
 The model legal review must be authored or approved by a qualified human and
 classify exactly `CLEARED` or `BLOCKED`. `CLEARED` addresses model weights,
 base-model terms, training corpora, commercial use, redistribution, notices,
@@ -3471,9 +3504,10 @@ supply that legal conclusion. `BLOCKED` returns model selection to research.
 
 The author pre-audit records closure evidence without changing the spec. A
 separate peer audit then classifies exactly `PEER_AUDIT_PASSED` or `BLOCKED`.
-The implementation plan separately binds and requests approval for every
-change. The pre-test audit checks the completed implementation, and the result
-review may claim only evidence from the approved acceptance command.
+The MI-02 implementation plan is `APPROVED`; it binds every authorized change.
+The clean committed baseline and repeated offline preflight remain mandatory.
+The pre-test audit checks the completed implementation, and the result review
+may claim only evidence from the approved acceptance command.
 
 ## 40. Implementation-plan requirement
 
@@ -3557,9 +3591,10 @@ input; it is not configurable and is not a performance claim.
 The function is deterministic, performs no I/O, logs nothing, and has no
 locale, clock, random, environment, thread, model, database, or platform input.
 The input `&str` proves UTF-8 validity at the Rust boundary. Empty text or text
-without ASCII `@` returns `Ok` with an empty vector. The 16-MiB
-normalized-document bound from Section 9 remains the caller contract; `MI-01`
-does not add a second size check.
+without ASCII `@` returns `Ok` with an empty vector. The Section 8 10 MiB
+per-document normalized UTF-8 ceiling is the authoritative caller contract;
+`MI-01` and `MI-02` accept already validated input and add no second size
+check.
 
 ### Exact first-plan file boundary
 
@@ -3790,6 +3825,279 @@ not prove extraction, multilingual contextual detection, complete sensitive
 discovery, privacy, anonymization, publication, application operation, or
 performance.
 
+Observed completion evidence is recorded in
+`docs/reviews/outis_local_pilot/outis_local_pilot_pre_test_audit.md` and
+`docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md`. The result
+classification is `MI_01_VALIDATION_PASSED`: seven bound tests passed and the
+dependency, lockfile, inventory, changed-path, format, and Clippy checks exited
+zero. This is an implementation result, not a broader pilot claim.
+
+### `S1-22`: `MI-02` deterministic telephone and IBAN discovery
+
+Approval status: approved 2026-08-17; no code authorized.
+
+The research input is
+`docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md`.
+MI-02 extends the validated pure `outis-core` transformation with two
+independent class-specific entrypoints. It does not create a combined detector,
+cross-class overlap resolver, extractor, application, runtime, FFI, model,
+entity graph, tokenization path, vault, exporter, publication path, fixture
+tree, benchmark, or funding-demo behavior.
+
+The proposed public additions are exactly:
+
+~~~text
+pub const MAX_STRUCTURED_CANDIDATES_PER_SURFACE: usize = 65_536;
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum StructuredDiscoveryErrorV1 {
+    CandidateLimitExceeded { limit: usize },
+}
+
+pub fn detect_telephone_candidates(
+    source_snapshot_sha256: [u8; 32],
+    text: &str,
+) -> Result<Vec<SensitiveCandidateV1>, StructuredDiscoveryErrorV1>
+
+pub fn detect_iban_candidates(
+    source_snapshot_sha256: [u8; 32],
+    text: &str,
+) -> Result<Vec<SensitiveCandidateV1>, StructuredDiscoveryErrorV1>
+~~~
+
+`SensitiveClassV1` intentionally gains `TelephoneNumber` and `Iban` under the
+S1-20 variant-evolution allowance. Existing variant names, MI-01 record fields,
+email entrypoint, error, limit, and email behavior remain unchanged. Because
+the public enum is exhaustive, downstream exhaustive matches may require new
+arms; S1-22 does not claim source or binary compatibility for that enum
+expansion. The current repository has no such exhaustive match. MI-02
+validation must rerun all seven MI-01 tests unchanged in expectation and
+compile every workspace library and test target. The new error is shared only
+by the two new entrypoints; the existing `EmailDiscoveryErrorV1` and
+`MAX_EMAIL_CANDIDATES_PER_SURFACE` are not renamed or aliased. Each entrypoint
+has its own independent 65,536-record ceiling. A 65,537th record returns
+`StructuredDiscoveryErrorV1::CandidateLimitExceeded { limit: 65_536 }` and no
+partial vector.
+
+Both entrypoints accept only `DocumentText`, return ascending non-nested
+candidates from their own class, and populate the common record as follows:
+
+- source identity equals the input identity;
+- `surface` is `DocumentText` and `path_component_index` is absent;
+- byte ranges are half-open scalar-aligned ranges selecting exactly
+  `observed`;
+- evidence is `StructuredGrammar`;
+- accepted records have the class-specific equality key below;
+- `NeedsReview` records have no equality key; and
+- no `Conflict` status or cross-class ordering decision is produced by MI-02.
+
+The functions are deterministic, perform no I/O, log nothing, and have no
+locale, clock, random, environment, thread, model, database, filesystem, or
+platform input. The Section 8 10 MiB per-document normalized UTF-8 ceiling
+remains the authoritative caller contract; neither entrypoint adds a second
+size check.
+
+#### Telephone scanner
+
+The detector identifier is `outis.telephone.e164_subset` and its version is
+`1`. A logical line ends at LF, CRLF, CR, U+2028, or U+2029. No candidate can
+cross a logical line.
+
+A scan start is an ASCII `+` or ASCII digit whose preceding scalar is absent,
+Rust 1.89 `char::is_whitespace`, or one of the ASCII delimiters
+`(`, `[`, `{`, `<`, `'`, `"`, `:`, `;`, `,`, or `=`. From a start, the scanner
+consumes the maximal run of ASCII digits, ASCII space, U+00A0, `.`, `-`, `(`,
+and `)`. A `+` is consumed only as the first scalar. Trailing ASCII space,
+U+00A0, `.`, `-`, and unmatched opening `(` are excluded from the observed
+span. A closing `)` may terminate the span. After inspecting a maximal run,
+the scanner resumes after that run; it does not emit an interior suffix.
+
+A base span is telephone-like only when it contains 8 through 15 ASCII digits.
+Non-ASCII digits do not count. A span beginning with an ASCII digit must also
+contain at least one ASCII space, U+00A0, `.`, `-`, `(`, or `)`; therefore an
+unformatted national digit string is outside MI-02 and is not emitted.
+
+After the maximal base span, the detector skips optional ASCII space or U+00A0
+and matches ASCII-case-insensitively one of these exact cues:
+
+~~~text
+x
+ext
+ext.
+extension
+interno
+int.
+durchwahl
+dw
+poste
+~~~
+
+The cue must begin after only the optional whitespace where the maximal
+telephone body stopped, and a letter cue must not be a prefix of a longer
+ASCII-letter word. After the cue, the detector skips optional ASCII space or
+U+00A0 and consumes one maximal non-empty consecutive ASCII digit run. The
+record includes the full intervening whitespace, cue, following whitespace,
+and complete digit run in `observed`, is `NeedsReview`, and has no equality
+key. A run of 1 through 6 digits is the declared extension shape. A run of 7
+or more digits is an invalid extension shape. Both produce one complete
+`NeedsReview` record with no equality key. A cue without a non-empty digit run
+is not an extension, and the base follows the trailing-text classification
+below.
+
+Without an extension, a leading-plus value is `Accepted` only when its digits
+start with country code `33`, `39`, `41`, or `49`. The country-code match uses
+that fixed order and performs no national numbering-plan validation. The
+equality key is `+` followed by every ASCII digit in the base span. A
+leading-plus value with another country code and every telephone-like
+national-form value is `NeedsReview` with no equality key.
+
+If a non-whitespace ASCII letter or digit immediately follows the maximal base
+span and is not a declared extension, the base is emitted as `NeedsReview`;
+it is not accepted as a prefix. Other trailing punctuation is outside the
+span. Empty input, a line without a start, a body outside the 8-through-15
+digit interval, and an unformatted digit-only national value emit nothing.
+
+This policy deliberately favors a bounded syntax over broad national-number
+discovery. It does not prove that an accepted number exists, is assigned, is
+reachable, or is complete.
+
+#### IBAN scanner
+
+The detector identifier is `outis.iban.swift_subset` and its version is `1`.
+The logical-line boundary is the same as the telephone scanner. Inline
+whitespace is Rust 1.89 `char::is_whitespace` excluding LF, CR, U+2028, and
+U+2029. The Rust toolchain identity is therefore part of deterministic replay.
+
+A candidate starts at two contiguous ASCII letters followed by two contiguous
+ASCII digits when the preceding scalar is absent or is not ASCII alphanumeric.
+The scanner then consumes ASCII letters, ASCII digits, and inline whitespace
+on that logical line. Trailing inline whitespace is excluded from `observed`.
+ASCII letters are uppercased and inline whitespace is removed for validation.
+
+For CH, DE, FR, and IT, scanning stops at the exact country length after the
+last required alphanumeric scalar. Immediately contiguous additional ASCII
+alphanumerics make the value overlength: the complete contiguous run is
+included and the record becomes `NeedsReview`. Inline whitespace after the
+exact country length is a candidate boundary, so ordinary following prose is
+not consumed.
+
+If the line or a disallowed scalar occurs before the supported-country length,
+the value is emitted as `NeedsReview` only when it has at least 8 normalized
+characters. Shorter prefix-like values emit nothing. For an unsupported
+country, the scanner consumes the maximal same-line run, excluding trailing
+inline whitespace, and emits `NeedsReview` when it contains at least 15
+normalized characters. Values beyond the ISO 13616 34-character maximum stay
+whole and remain `NeedsReview`; they are not truncated into a valid-looking
+prefix. Unsupported countries are never accepted, even when MOD-97 succeeds.
+This increment does not embed or claim validation against the complete
+international registry.
+
+Acceptance requires all of:
+
+- normalized length and country-specific structure exactly match the Section
+  11 CH, DE, FR, or IT table;
+- the two check characters are ASCII digits; and
+- ISO 7064 MOD-97-10 remainder is one after moving the first four normalized
+  characters to the end and mapping `A` through `Z` to decimal `10` through
+  `35`.
+
+MOD-97 is computed incrementally from decimal digits; no unbounded integer,
+cryptographic primitive, or dependency is used. The accepted equality key is
+the uppercase whitespace-free normalized value. Wrong length, structure, or
+checksum is `NeedsReview` with no equality key. Lowercase input can be accepted
+after ASCII uppercase normalization while `observed` preserves the input
+bytes.
+
+The following current SWIFT source binds the country table for this detector:
+[IBAN Registry, Release 102, June 2026](https://www.swift.com/swift-resource/9606/download).
+The registry version is evidence for S1-22; changing the supported country
+table or claiming a later registry requires a new approved amendment.
+
+#### Exact MI-02 file boundary
+
+An MI-02 implementation plan may bind only these product and generated paths:
+
+~~~text
+crates/outis-core/docs/inventory.md
+crates/outis-core/src/lib.rs
+crates/outis-core/src/candidate.rs
+crates/outis-core/src/detect.rs
+crates/outis-core/src/detect/telephone.rs
+crates/outis-core/src/detect/telephone/tests.rs
+crates/outis-core/src/detect/iban.rs
+crates/outis-core/src/detect/iban/tests.rs
+inventory.md
+~~~
+
+The first four existing files may change, the four detector files are created,
+and `inventory.md` is regenerated only through the existing approved
+generator. No other product, manifest, lockfile, toolchain, build, package,
+fixture, model, Swift, Xcode, runtime, FFI, vault, export, or generated path is
+allowed. Lifecycle review and plan artifacts remain governed by Section 39.
+
+The handwritten component inventory adds exactly one complete one-line purpose
+for each new source file. The immutable root inventory generator is not
+modified. No public generic detector framework, trait, configuration value,
+feature, environment variable, combined detector, compatibility layer,
+benchmark, integration-test target, or unused class variant is allowed.
+
+#### MI-02 oracle and validation
+
+The implementation plan must bind exact literal synthetic inputs and expected
+records for at least:
+
+- compact and formatted accepted values for `+33`, `+39`, `+41`, and `+49`;
+- national-form, unsupported-code, each extension cue, extension runs of 1,
+  6, and 7 or more digits, a cue without a digit run, direct trailing ASCII,
+  Unicode adjacency, punctuation, 8-digit, 15-digit, 7-digit, 16-digit,
+  non-ASCII-digit, cross-line, and unformatted-national telephone cases;
+- compact and print-format CH, DE, FR, and IT examples from the cited registry,
+  lowercase variants, wrong checksum, each structure violation, 8-character
+  minimum review, 7-character rejection, supported-country underlength and
+  overlength, unsupported-country 15- and 34-character boundaries, a
+  35-character overlength value, Unicode inline whitespace, adjacent ASCII,
+  punctuation, and cross-line IBAN cases;
+- empty and marker-free input for both entrypoints;
+- exact source identity, observed bytes, range, class, detector identity,
+  evidence, status, equality key, and ascending order;
+- three exact replays for both entrypoints; and
+- each independent 65,536-record success and 65,537th-record all-or-nothing
+  error.
+
+The four registry examples are public standards examples, not user documents.
+All other values must be synthetic. No real sensitive or confidential value is
+allowed.
+
+MI-02 reuses the exact S1-21 offline toolchain preflight and MI-01 format,
+Clippy, library-test, metadata, dependency-tree, lockfile, and strict inventory
+commands. The plan adds an exact changed-path audit against its own committed
+baseline and static searches for forbidden failure constructs and external
+surfaces. `Cargo.lock` must remain byte-identical and contain only local
+`outis-core`. No benchmark or speed claim is authorized.
+
+Acceptance requires every bound case and command to pass with no ignored or
+conditional test. The accepted-subset precision and recall are exactly `1.0`
+only on the bound grammar table. Passing does not prove complete telephone or
+IBAN discovery, national-plan validity, account existence, extraction,
+privacy, anonymization, publication, application operation, or pilot
+readiness.
+
+All seven existing MI-01 email tests must run with unchanged expected records,
+statuses, equality keys, ranges, ordering, replay results, and limit behavior.
+The workspace library-and-test compilation covers the intentional exhaustive-
+enum expansion. No compatibility shim, duplicate enum, or alternate versioned
+candidate record is permitted.
+
+#### MI-02 lifecycle and rollback
+
+Before code, S1-22 through S1-22C require explicit user approval, an amended
+author pre-audit classification that closes MI-02, a separate peer-audit
+`PEER_AUDIT_PASSED` classification, and an exact approved implementation plan.
+The plan must record a clean committed baseline and bind all file states,
+literal tests, validation commands, expected outputs, line budgets, generated
+artifacts, risks, and a path-specific rollback procedure. A failure restarts
+validation; expectations or grammar must not be weakened to obtain a pass.
+
 After a qualified `CLEARED` review, a separate model-specific implementation
 plan binds the excluded paths, two dependencies, lockfile transition, Xcode
 phase transition, complete tests, acquisition, packaging, and validation. That
@@ -3840,10 +4148,11 @@ plan requires explicit approval before model-specific work.
 - [x] Installed `stable` toolchain resolved with the exact S1-21 identities,
   components, and target while distribution endpoints were redirected to
   loopback and Cargo was offline.
-- [x] All S1 decision packets approved.
+- [x] All S1 decision packets through `S1-22C` approved.
 - [x] Every mandatory section closed as a design binding.
 - [x] Mandatory section order verified after closure.
-- [x] Prior-spec search and disposition complete.
+- [x] Prior-spec search complete; S1-22C explicitly supersedes the stale MI-01
+  author-pre-audit and implementation-plan references.
 - [x] Exact command, UI, dispatch, path, artifact, FFI, target, dependency,
   test, migration, and evidence bindings complete.
 - [x] Correctness, privacy, deterministic replay, publication, and recovery
@@ -3855,17 +4164,42 @@ plan requires explicit approval before model-specific work.
 - [x] P1-01 amended MI-01 implementation plan explicitly approved.
 - [x] P1-02 amended MI-01 implementation plan explicitly approved.
 - [x] P1-03 amended MI-01 implementation plan explicitly approved.
+- [x] MI-01 pre-test audit and complete validation passed.
+- [x] `S1-22` deterministic telephone and IBAN amendment explicitly approved.
+- [x] `S1-22A` exhaustive-enum API-evolution and MI-01 regression correction
+  explicitly approved.
+- [x] `S1-22B` deterministic telephone-extension maximal-digit-run correction
+  explicitly approved.
+- [x] `S1-22C` normalized-document caller-limit correction explicitly
+  approved.
+- [x] `S1-22` amended author pre-audit passed.
+- [x] `S1-22` separate peer audit passed.
+- [x] MI-02 exact implementation plan explicitly approved.
 
-Specification approval, including `S1-21`: granted by the user on 2026-08-17.
+Specification approval, including `S1-22C`: granted by the user on 2026-08-17.
 
 ## 42. Open questions
 
-No design decision remains intentionally open. The missing qualified model
-legal review blocks only the exact model-specific surfaces and complete-pilot
-acceptance defined above; it does not block MI-01 after its lifecycle gates.
-The S1-21 author pre-audit, separate peer audit, P1-01 approval, P1-02
-approval, and P1-03 approval passed. MI-01 requires the amended plan and audit
-in a new committed clean baseline and an exact offline preflight. An
-implementation detail that contradicts or is absent from this specification
-requires a specification amendment; it cannot be delegated to the
+The base S1 design through S1-21 and MI-01 has no intentionally open design
+decision. MI-01 is complete within its evidence boundary. The missing
+qualified model legal review blocks only the exact model-specific surfaces and
+complete-pilot acceptance defined above.
+
+`S1-22A` through `S1-22C` are approved. S1-22B defines one maximal non-empty
+extension-digit run, classifies 1 through 6 digits as the declared shape and 7
+or more as an invalid shape, and keeps both as one complete `NeedsReview`
+record with no equality key.
+
+S1-22C makes the Section 8 10 MiB per-document normalized UTF-8 ceiling the
+authoritative caller contract for already validated MI-01 and MI-02 input.
+Neither transformation adds a second size check. Explicit correction notes in
+the historical MI-01 author pre-audit and implementation plan supersede their
+stale 16 MiB references. This documentation-contract correction changes no
+implemented size check, code, API, detector grammar, or MI-01 evidence.
+
+The amended author pre-audit, separate MI-02 peer audit, and exact MI-02
+implementation plan were approved on 2026-08-17. MI-02 code remains blocked
+until a clean committed baseline and the repeated S1-21 preflight. An
+implementation detail that contradicts or is absent from the approved
+specification requires another amendment; it cannot be delegated to the
 implementation plan.

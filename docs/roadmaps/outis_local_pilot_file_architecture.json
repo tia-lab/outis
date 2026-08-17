@@ -3,7 +3,7 @@
   "schema_version": "1.0",
   "architecture_id": "outis_local_pilot_file_architecture",
   "title": "Outis Local Pilot File and Folder Architecture",
-  "status": "P1_03_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
+  "status": "P1_MI_02_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
   "date": "2026-08-17",
   "document_role": {
     "classification": "normative S1 file-architecture companion",
@@ -11,7 +11,7 @@
     "is_specification": false,
     "authorizes_file_creation": false,
     "authorizes_code": false,
-    "ratification_gate": "This document is normative only through Sections 37 and 40 of the working specification. The S1-21 author pre-audit and peer audit passed, and P1-01, P1-02, and P1-03 are approved. File creation and removal remain blocked until the amended plan and blocked audit are committed on a clean baseline and followed by the exact S1-21 offline preflight."
+    "ratification_gate": "This document is normative through approved S1-22C. The amended author pre-audit, separate peer audit, and exact MI-02 implementation plan are approved. File changes remain blocked until the clean committed baseline and repeated offline preflight."
   },
   "architecture_rules": {
     "primary_rule": "Every production file has one semantic responsibility and one owning runtime or evidence surface.",
@@ -52,33 +52,33 @@
   "current_root_transitions": [
     {
       "path": "rust-toolchain.toml",
-      "proposed_action": "create the stable rustup locator with exact Rust 1.89.0 commit, Cargo, component, arm64 host and target, and offline-resolution preflight required by S1-21",
-      "gate": "approved implementation plan"
+      "proposed_action": "MI-01 created the stable rustup locator; later use retains the exact Rust 1.89.0 commit, Cargo, component, arm64 host and target, and offline-resolution preflight required by S1-21",
+      "gate": "completed for MI-01; future edits require a new approved plan"
     },
     {
       "path": "Cargo.toml",
-      "proposed_action": "replace the current package manifest with a staged workspace containing only outis-core for MI-01; later approved complete increments add outis-runtime and outis-ffi so the complete pilot has exactly three members",
-      "gate": "approved implementation plan"
+      "proposed_action": "MI-01 replaced the root package with a staged workspace containing only outis-core; later approved complete increments may add outis-runtime and outis-ffi so the complete pilot has exactly three members",
+      "gate": "completed for MI-01; future edits require a new approved plan"
     },
     {
       "path": "Cargo.lock",
-      "proposed_action": "generate through the approved Cargo commands, require lockfile format version four, commit it, and for MI-01 verify that it contains only outis-core and no registry package",
-      "gate": "approved implementation plan"
+      "proposed_action": "MI-01 generated and committed format-4 Cargo.lock containing only outis-core and no registry package; MI-02 proposes no lockfile change",
+      "gate": "completed for MI-01; future edits require a new approved plan"
     },
     {
       "path": "src/main.rs",
-      "proposed_action": "remove the current Hello World scaffold when the workspace migration is approved",
-      "gate": "approved implementation plan"
+      "proposed_action": "removed by the completed MI-01 workspace migration",
+      "gate": "completed for MI-01"
     },
     {
       "path": ".gitignore",
-      "proposed_action": "for MI-01 stop ignoring Cargo.lock; any other ignore change requires a proved current need in the approved plan",
-      "gate": "approved implementation plan"
+      "proposed_action": "MI-01 stopped ignoring Cargo.lock; any later ignore change requires a proved current need in an approved plan",
+      "gate": "completed for MI-01; future edits require a new approved plan"
     },
     {
       "path": "Makefile.toml",
-      "proposed_action": "remove the stale mbt_cache-oriented file rather than migrate unrelated commands into Outis",
-      "gate": "approved implementation plan"
+      "proposed_action": "removed by MI-01 rather than migrating unrelated mbt_cache commands into Outis",
+      "gate": "completed for MI-01"
     },
     {
       "path": "package.json",
@@ -92,8 +92,8 @@
     },
     {
       "path": "release.toml",
-      "proposed_action": "remove the stale mbt_cache-oriented file; the pilot has no release-automation surface",
-      "gate": "approved implementation plan"
+      "proposed_action": "removed by MI-01; the pilot has no release-automation surface",
+      "gate": "completed for MI-01"
     },
     {
       "path": "bin/generate_global_inventory.rs",
@@ -102,8 +102,8 @@
     },
     {
       "path": "inventory.md",
-      "proposed_action": "regenerate only through bin/generate_global_inventory.rs after the approved migration and never edit manually",
-      "gate": "approved implementation plan and approved generator execution"
+      "proposed_action": "MI-01 regenerated it only through bin/generate_global_inventory.rs; every later regeneration must use the same approved generator and it is never edited manually",
+      "gate": "completed for MI-01; future regeneration requires an approved plan"
     },
     {
       "path": "architecture-public.md",
@@ -171,11 +171,19 @@
           },
           {
             "path": "src/detect/telephone.rs",
-            "responsibility": "approved telephone detection and locale-bound normalization"
+            "responsibility": "S1-22 telephone scanning, accepted-country subset, equality key, review classification, and fixed ceiling"
+          },
+          {
+            "path": "src/detect/telephone/tests.rs",
+            "responsibility": "private S1-22 telephone grammar, record, boundary, replay, and ceiling oracle"
           },
           {
             "path": "src/detect/iban.rs",
-            "responsibility": "IBAN structure, normalization, and checksum validation"
+            "responsibility": "S1-22 IBAN scanning, country structure, normalization, MOD-97, review classification, and fixed ceiling"
+          },
+          {
+            "path": "src/detect/iban/tests.rs",
+            "responsibility": "private S1-22 IBAN grammar, record, boundary, replay, and ceiling oracle"
           },
           {
             "path": "src/detect/matter_identifier.rs",
@@ -485,6 +493,8 @@
   "first_pre_model_increment": {
     "id": "MI-01",
     "capability": "deterministic email discovery",
+    "completion_status": "MI_01_VALIDATION_PASSED",
+    "result_review": "docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md",
     "input": "one already validated UTF-8 document_text surface and one 32-byte source-snapshot SHA-256 identity",
     "output": "either ordered email-only SensitiveCandidateV1 records under the Section 11 grammar and exact Section 40 field contract or the typed all-or-nothing candidate-limit error",
     "complete_oracle": "the S1-21 exact-identity offline toolchain preflight, detect/email/tests.rs private unit-test table, and exact offline format, clippy, test, and inventory commands in specification Section 40",
@@ -516,7 +526,7 @@
       "inventory.md through bin/generate_global_inventory.rs"
     ],
     "excluded_surfaces": "macOS application, Xcode, Swift, runtime, FFI, extraction, other detectors, entity resolution, review, tokenization, vault, export, production or test publication, fixtures, evidence, models, generated bindings, jobs, distribution, and funding-demo claims",
-    "authorization": "No file change is authorized until the S1-21 author pre-audit and repeated peer audit pass and a separate exact MI-01 implementation plan is approved.",
+    "authorization": "Closed: the S1-21 audits, exact MI-01 plan, pre-test audit, and complete validation passed. This closed authorization does not permit later changes.",
     "toolchain_resolution": {
       "rustup_alias": "stable",
       "rustc_release": "1.89.0",
@@ -534,9 +544,36 @@
       "offline_proof": "RUSTUP_DIST_SERVER and RUSTUP_UPDATE_ROOT point to unreachable 127.0.0.1:9 tripwires and CARGO_NET_OFFLINE is true; exact Section 40 preflight commands must still exit zero."
     }
   },
+  "proposed_second_pre_model_increment": {
+    "id": "MI-02",
+    "status": "P1_MI_02_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
+    "capability": "separate deterministic telephone and IBAN discovery entrypoints",
+    "research": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md",
+    "implementation_plan": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md",
+    "specification_binding": "docs/specs/outis_local_pilot_SPEC.md Section 40 S1-22",
+    "input": "one already validated UTF-8 document_text surface and one 32-byte source-snapshot SHA-256 identity per entrypoint call",
+    "output": "ordered class-specific SensitiveCandidateV1 records or a shared typed all-or-nothing candidate-limit error",
+    "registry_dependencies": [],
+    "changed_or_created_paths": [
+      "crates/outis-core/docs/inventory.md",
+      "crates/outis-core/src/lib.rs",
+      "crates/outis-core/src/candidate.rs",
+      "crates/outis-core/src/detect.rs",
+      "crates/outis-core/src/detect/telephone.rs",
+      "crates/outis-core/src/detect/telephone/tests.rs",
+      "crates/outis-core/src/detect/iban.rs",
+      "crates/outis-core/src/detect/iban/tests.rs",
+      "inventory.md"
+    ],
+    "generated_only": [
+      "inventory.md through bin/generate_global_inventory.rs"
+    ],
+    "unchanged_surfaces": "Cargo manifests, Cargo.lock, toolchain, build configuration, Swift, Xcode, runtime, FFI, extraction, model, entity graph, tokenization, vault, export, publication, fixtures, and benchmarks",
+    "authorization": "The exact MI-02 implementation plan was explicitly approved on 2026-08-17. S1-22B closes the telephone-extension contradiction, S1-22C establishes the Section 8 10 MiB caller ceiling, and the amended author pre-audit and separate peer audit passed. No listed source change is authorized until the clean committed baseline and repeated offline preflight pass."
+  },
   "model_specific_gate": {
     "status": "BLOCKED_PENDING_QUALIFIED_LEGAL_CLEARANCE",
-    "does_not_block": "the amended author pre-audit, repeated peer audit, or the exact MI-01 implementation plan and implementation after those gates pass",
+    "does_not_block": "the completed MI-01 result or a separately approved model-independent increment that passes its own specification, audit, and plan gates",
     "forbidden_before_cleared": [
       "crates/outis-runtime/src/local_entity_model.rs",
       "crates/outis-runtime/tests/model_contract.rs",
@@ -550,7 +587,7 @@
       "model execution, complete-pilot acceptance, and distribution"
     ],
     "temporary_surface_rule": "Do not create a stub, fallback, substitute, feature flag, alternate manifest, model-free release mode, or speculative interface.",
-    "mi_01_behavior": "MI-01 is a complete pure Rust capability with no application, FFI, job, publication, completed status, or funding-demo behavior. S1-20 grants no blanket pre-model implementation permission."
+    "mi_01_behavior": "MI-01 is a validated pure Rust capability with no application, FFI, job, publication, completed job status, or funding-demo behavior. S1-20 grants no blanket pre-model implementation permission."
   },
   "fixture_generation_support": {
     "production_dependency": false,
@@ -726,16 +763,22 @@
       "docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md",
       "docs/reviews/outis_local_pilot/outis_local_pilot_r1_2_extraction_evaluation.md",
       "docs/reviews/outis_local_pilot/outis_local_pilot_spec_pre_audit.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_peer_audit.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_implementation_plan.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_pre_test_audit.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md",
+      "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md",
+      "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_spec_pre_audit.md",
+      "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_peer_audit.md",
+      "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md",
       "docs/specs/outis_local_pilot_SPEC.md",
       "ROADMAP.json",
       "docs/roadmaps/outis_local_pilot_file_architecture.json"
     ],
     "future_lifecycle_artifacts": [
       "docs/reviews/outis_local_pilot/outis_local_pilot_model_legal_review.md",
-      "docs/reviews/outis_local_pilot/outis_local_pilot_peer_audit.md",
-      "docs/reviews/outis_local_pilot/outis_local_pilot_implementation_plan.md",
-      "docs/reviews/outis_local_pilot/outis_local_pilot_pre_test_audit.md",
-      "docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md"
+      "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_pre_test_audit.md",
+      "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_result_review.md"
     ],
     "generated_evidence_root": "artifacts/outis_local_pilot/",
     "generated_evidence_rule": "Create only from approved commands; never place real sensitive data, vault records, or plaintext paths in evidence."
@@ -821,5 +864,5 @@
     "services/",
     "plugins/"
   ],
-  "approval_effect": "S1-18 accepts the final architecture allowlist, S1-19 partitions the model legal gate, S1-20 narrows the first pre-model increment to exact MI-01 paths, and S1-21 binds its installed stable alias to exact local toolchain evidence without authorizing work. The S1-21 author pre-audit, repeated peer audit, and approved MI-01 implementation plan remain mandatory before any code change; qualified legal clearance additionally gates every model-specific surface."
+  "approval_effect": "S1-18 accepts the final architecture allowlist, S1-19 partitions the model legal gate, S1-20 and S1-21 bind the validated MI-01 paths and toolchain evidence, S1-22 approves the MI-02 design and path boundary, S1-22A records the intentional exhaustive-enum API evolution and MI-01 regression contract, S1-22B closes the telephone-extension grammar, and S1-22C establishes the Section 8 10 MiB caller ceiling. The amended author pre-audit, separate peer audit, and exact MI-02 implementation plan are approved. Code remains blocked until the clean committed baseline and repeated offline preflight. Qualified legal clearance continues to gate every model-specific surface."
 }

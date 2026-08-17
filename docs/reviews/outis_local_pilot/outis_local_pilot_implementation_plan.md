@@ -21,6 +21,12 @@ P1-03 amendment: gap-marker and complete changed-path validation corrected
 after the repeated blocked pre-test audit
 P1-03 approval: explicitly granted by the user on 2026-08-17
 
+S1-22C correction note, 2026-08-17: the Section 8 10 MiB per-document
+normalized UTF-8 ceiling is authoritative and supersedes this plan's stale
+16 MiB caller-contract wording. MI-01 accepts already validated `&str` input
+and intentionally adds no second size check. No approved MI-01 path, behavior,
+test, command, rollback boundary, or completed evidence changes.
+
 ## 1. Goal and authorization boundary
 
 Implement only S1-20 `MI-01`: a dependency-free Rust library transformation
@@ -152,8 +158,9 @@ This is a locked contract, not an implementation inference.
 
 The function performs no I/O, logging, networking, model use, database access,
 threading, clock access, randomness, locale lookup, environment lookup, or
-unsafe operation. It adds no second 16-MiB input check because that bound is a
-caller contract outside MI-01.
+unsafe operation. It adds no second input-size check because the Section 8
+10 MiB per-document normalized UTF-8 ceiling is a caller contract outside
+MI-01, as clarified by S1-22C.
 
 ## 5. Exact implementation path ledger
 

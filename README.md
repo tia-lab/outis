@@ -11,16 +11,18 @@ base document name, changes the extension to `.md`, and tokenizes sensitive
 path components. The generated repository is named `outis` and is physically
 separate from the original source folder.
 
-The pilot is documentation and research only. Product behavior is not
-implemented.
+The repository now contains the validated `MI-01` Rust capability for
+deterministic email-candidate discovery from already validated UTF-8 text.
+It is not yet the macOS application or the complete document-processing
+pipeline.
 
-R1 proposes Rust for the deterministic engine, Swift with native macOS
-frameworks for the application and native extraction surface, and bundled
-SQLite for the synthetic funding-demo vault. The extraction candidate uses
-AppKit for Word, PDFKit for PDF text/rendering, and Vision revision 3 for local
-OCR. The proposed vault is plaintext and does not use Keychain; it is not
-suitable for confidential data. These remain S1 specification candidates, not
-approved implementation choices.
+S1 approves Rust for the deterministic engine and Swift with native macOS
+frameworks for the planned application and native extraction surface. The
+approved design uses AppKit for Word, PDFKit for PDF text, Core Graphics for
+fixed PDF rendering, and Vision revision 3 for local OCR. Those application,
+extraction, vault, tokenization, and publication surfaces remain unimplemented.
+The specified synthetic-demo vault is plaintext, does not use Keychain, and is
+not approved for confidential data.
 
 Remote services, RAG, embeddings, chat, response rendering, synchronization,
 and Swiss-hosted model review are outside the pilot. A controlled Swiss-hosted
@@ -39,6 +41,11 @@ second-pass review model is a deferred direction only.
 - docs/reviews/outis_local_pilot/outis_local_pilot_r1_decision_closure.md
 - docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md
 - docs/reviews/outis_local_pilot/outis_local_pilot_r1_2_extraction_evaluation.md
+- docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md
+- docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md
+- docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_spec_pre_audit.md
+- docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_peer_audit.md
+- docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md
 - ROADMAP.json
 - docs/roadmaps/outis_local_pilot_file_architecture.json
 - the applicable research brief, spec, review, and implementation-plan
@@ -46,12 +53,17 @@ second-pass review model is a deferred direction only.
 
 ## Current State
 
-R1 is complete for S1 drafting. It selects exact NER and native macOS
-extraction candidates, normalized Markdown behavior, failure gates, and
-provisional resource bounds. The Rust code remains a minimal executable stub.
-No Swift application, Finder integration, extraction pipeline, detector,
-private vault, or agent-facing export exists. Code remains blocked until an
-approved spec, peer audit, and implementation plan exist.
+R1 and the approved S1 design select exact NER and native macOS extraction
+candidates, normalized Markdown behavior, failure gates, and provisional
+resource bounds. `MI-01` passed its bound offline validation: seven Rust unit
+tests passed for the declared email grammar, with no registry dependency. No
+Swift application, Finder integration, extraction pipeline, contextual or
+non-email detector, private vault, tokenization path, or agent-facing export
+exists. The MI-02 telephone and IBAN specification, audits, and exact
+implementation plan are approved. MI-02 code remains blocked until the
+approved documentation is committed on a clean baseline and the offline
+preflight passes again. Each later implementation increment remains blocked
+until its applicable lifecycle gates pass.
 
 Do not treat architectural intent as a proved privacy, security, correctness,
 or performance claim. Claims require the evidence chain defined by the
