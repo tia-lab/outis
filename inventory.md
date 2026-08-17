@@ -4,9 +4,9 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 ```
 
-# `wuthier-terminal` - Global Inventory (GENERATED; DO NOT EDIT)
+# `outis` - Global Inventory (GENERATED; DO NOT EDIT)
 
-Generated: 2026-06-24T11:29:28Z
+Generated: 2026-08-17T17:15:48Z
 Protocol: code-only inventory; docs are excluded from source inventory.
 
 This file is generated from per-component inventories under `crates/*/docs/inventory.md`, `services/*/docs/inventory.md`, and `benchmarks/*/docs/inventory.md`.
@@ -15,5 +15,19 @@ Docs, target directories, and vendored dependency directories are excluded from 
 If a file purpose is missing in a component inventory, this file will mark it as `INVENTORY GAP`.
 
 ## Components
+
+- `crate::outis-core`
+
+---
+
+## `crates/outis-core`
+
+### Source Files
+
+- `crates/outis-core/src/candidate.rs`: MI-01 candidate records, enums, and typed limit error.
+- `crates/outis-core/src/detect.rs`: MI-01 detector module ownership and public entrypoint.
+- `crates/outis-core/src/detect/email.rs`: deterministic email scanner, grammar, equality key, and fixed output ceiling.
+- `crates/outis-core/src/detect/email/tests.rs`: private MI-01 unit oracle.
+- `crates/outis-core/src/lib.rs`: intentional public domain API exports.
 
 ---
