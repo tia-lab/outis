@@ -13,4 +13,4 @@ tests/**.sqlite
 #
 # already existing elements were commented out
 
-#/target
+/target
