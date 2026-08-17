@@ -5,7 +5,7 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 # Outis Repository Structure
 
-Status: P1-01 approved; clean baseline and preflight pending
+Status: P1-02 approved; clean baseline and preflight pending
 Scope: local macOS pilot repository
 
 ## Purpose

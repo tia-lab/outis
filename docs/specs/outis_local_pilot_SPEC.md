@@ -18,7 +18,7 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 ## 2. Status
 
-Status: `APPROVED_S1_21_PEER_AUDIT_PASSED_P1_01_APPROVED`
+Status: `APPROVED_S1_21_PEER_AUDIT_PASSED_P1_02_APPROVED`
 
 Approved decision packets:
 
@@ -82,10 +82,11 @@ evidence, not an Outis application build.
 This specification alone does not authorize code, dependencies, targets,
 generated bindings, model artifacts, schemas, fixtures, or build changes. The
 S1-21 author pre-audit and separate peer audit passed. The original `MI-01`
-implementation plan and its P1-01 inventory-validation correction are
-approved. MI-01 starts only after the amended plan is committed on a clean
-baseline and its exact offline preflight passes. Model-specific work also
-requires the qualified legal clearance above.
+implementation plan and P1-01 are approved. P1-02 corrects a full inventory-
+purpose emission contradiction found by the pre-test audit and is approved.
+MI-01 starts only after the amended plan and blocked audit are committed on a
+clean baseline and its exact offline preflight passes. Model-specific work
+also requires the qualified legal clearance above.
 
 ## 3. Purpose
 
@@ -3700,10 +3701,15 @@ entries under its legal notice and `outis-core` heading:
 - `src/lib.rs`: intentional public domain API exports.
 - `src/candidate.rs`: MI-01 candidate records, enums, and typed limit error.
 - `src/detect.rs`: MI-01 detector module ownership and public entrypoint.
-- `src/detect/email.rs`: deterministic email scanner, grammar, equality key,
-  and fixed output ceiling.
+- `src/detect/email.rs`: deterministic email scanner, grammar, equality key, and fixed output ceiling.
 - `src/detect/email/tests.rs`: private MI-01 unit oracle.
 ~~~
+
+The complete `src/detect/email.rs` purpose is one physical source line. The
+immutable generator parses each inventory line independently at
+`bin/generate_global_inventory.rs:316-346` and does not append Markdown
+continuation lines. P1-02 locks the one-line form so the generated inventory
+retains the full purpose; it does not change the generator or product behavior.
 
 `crates/outis-core/docs/inventory.md` is the handwritten component inventory
 required by the existing generator and lists only the five Rust source files
@@ -3845,6 +3851,7 @@ plan requires explicit approval before model-specific work.
 - [x] S1-21 author pre-audit closure passed.
 - [x] Separate peer audit passed.
 - [x] P1-01 amended MI-01 implementation plan explicitly approved.
+- [x] P1-02 amended MI-01 implementation plan explicitly approved.
 
 Specification approval, including `S1-21`: granted by the user on 2026-08-17.
 
@@ -3853,8 +3860,8 @@ Specification approval, including `S1-21`: granted by the user on 2026-08-17.
 No design decision remains intentionally open. The missing qualified model
 legal review blocks only the exact model-specific surfaces and complete-pilot
 acceptance defined above; it does not block MI-01 after its lifecycle gates.
-The S1-21 author pre-audit, separate peer audit, and P1-01 approval passed.
-MI-01 requires the amended plan's new committed clean baseline and exact
-offline preflight. An implementation detail that contradicts or is absent from
-this specification requires a specification amendment; it cannot be delegated
-to the implementation plan.
+The S1-21 author pre-audit, separate peer audit, P1-01 approval, and P1-02
+approval passed. MI-01 requires the amended plan and blocked audit in a new
+committed clean baseline and an exact offline preflight. An implementation
+detail that contradicts or is absent from this specification requires a
+specification amendment; it cannot be delegated to the implementation plan.
