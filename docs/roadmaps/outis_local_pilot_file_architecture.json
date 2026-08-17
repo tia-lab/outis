@@ -1,0 +1,652 @@
+{
+  "legal_notice": "WUTHIER TERMINAL PROPRIETARY AND CONFIDENTIAL. Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.",
+  "schema_version": "1.0",
+  "architecture_id": "outis_local_pilot_file_architecture",
+  "title": "Outis Local Pilot File and Folder Architecture",
+  "status": "R1_COMPLETE_READY_FOR_S1_DRAFT",
+  "date": "2026-08-17",
+  "document_role": {
+    "classification": "roadmap architecture proposal",
+    "parent_roadmap": "ROADMAP.json",
+    "is_specification": false,
+    "authorizes_file_creation": false,
+    "authorizes_code": false,
+    "ratification_gate": "The approved spec and implementation plan must bind every created, changed, generated, or removed path."
+  },
+  "architecture_rules": {
+    "primary_rule": "Every production file has one semantic responsibility and one owning runtime or evidence surface.",
+    "dependency_direction": "macOS app -> generated FFI contract -> outis-ffi -> outis-runtime -> outis-core",
+    "rules": [
+      "outis-core must not depend on Swift, macOS frameworks, a model runtime, a database engine, Keychain, or FFI.",
+      "outis-runtime owns approved local Rust side effects and concrete adapters; native Word/PDF/OCR remains in the macOS application target; no separate adapter crate is created without measured compile or isolation need.",
+      "outis-ffi owns only the language boundary and must not duplicate domain behavior.",
+      "The macOS application owns user interaction and platform access; it must not reimplement Rust transformation rules.",
+      "Synthetic fixtures, evaluation code, benchmarks, generated bindings, and model artifacts remain outside production source targets.",
+      "No file or directory is created as an empty placeholder.",
+      "No path for Finder, remote services, RAG, rendering, or post-quantum services is created in the first slice.",
+      "Rust runtime owns strict .txt and .md extraction; the single macOS application target owns small AppKit Word, PDFKit PDF, Core Graphics render, and Vision OCR adapters; no format-specific crate or extra Xcode target is created.",
+      "Every successfully processed source maps to exactly one .md target under a separate outis root; target paths preserve the source-relative structure and base names only after sensitive component tokenization."
+    ]
+  },
+  "naming_and_size_policy": {
+    "rust_files": "lower_snake_case domain nouns or actions",
+    "swift_files": "UpperCamelCase matching the primary type or screen",
+    "test_files": "named for the behavior or contract under test",
+    "forbidden_generic_names": [
+      "common",
+      "helpers",
+      "misc",
+      "manager",
+      "service",
+      "utils"
+    ],
+    "soft_review_thresholds": {
+      "rust_or_swift_production_logical_lines": 300,
+      "ffi_or_security_boundary_logical_lines": 200,
+      "ui_view_logical_lines": 220,
+      "test_logical_lines": 400
+    },
+    "threshold_rule": "Crossing a threshold requires responsibility review. Split only at a semantic boundary; do not fragment cohesive code to satisfy a number.",
+    "public_api_rule": "Module roots export only spec-bound types and entrypoints. Everything else remains private."
+  },
+  "current_root_transitions": [
+    {
+      "path": "Cargo.toml",
+      "proposed_action": "convert the current package manifest into the minimal Rust workspace manifest",
+      "gate": "approved implementation plan"
+    },
+    {
+      "path": "Cargo.lock",
+      "proposed_action": "retain and regenerate only through approved Cargo commands after dependency selection",
+      "gate": "approved implementation plan"
+    },
+    {
+      "path": "src/main.rs",
+      "proposed_action": "remove the current Hello World scaffold when the workspace migration is approved",
+      "gate": "approved implementation plan"
+    },
+    {
+      "path": ".gitignore",
+      "proposed_action": "extend only for approved generated bindings, model artifacts, Xcode output, evidence output, and runtime data",
+      "gate": "approved implementation plan"
+    },
+    {
+      "path": "Makefile.toml",
+      "proposed_action": "retain; amend only for approved reproducible commands",
+      "gate": "approved implementation plan"
+    },
+    {
+      "path": "package.json",
+      "proposed_action": "retain repository-maintenance ownership; keep outside the product runtime",
+      "gate": "none"
+    },
+    {
+      "path": "commitlint.config.js",
+      "proposed_action": "retain repository-maintenance ownership",
+      "gate": "none"
+    },
+    {
+      "path": "release.toml",
+      "proposed_action": "retain until release behavior is separately reviewed",
+      "gate": "none"
+    },
+    {
+      "path": "bin/generate_global_inventory.rs",
+      "proposed_action": "retain as repository-maintenance tooling",
+      "gate": "none"
+    },
+    {
+      "path": "inventory.md",
+      "proposed_action": "retain as generated documentation and never edit manually",
+      "gate": "approved generator execution"
+    },
+    {
+      "path": "architecture-public.md",
+      "proposed_action": "do not restore the existing user-owned deletion",
+      "gate": "none"
+    }
+  ],
+  "rust_workspace": {
+    "crate_count": 3,
+    "crate_count_reason": "One dependency-light domain core, one side-effecting local runtime, and one language boundary are the smallest proposed surfaces that preserve dependency and trust isolation.",
+    "crates": [
+      {
+        "path": "crates/outis-core",
+        "role": "deterministic and dependency-light domain engine",
+        "files": [
+          {
+            "path": "Cargo.toml",
+            "responsibility": "core package identity and approved lightweight dependencies"
+          },
+          {
+            "path": "src/lib.rs",
+            "responsibility": "intentional core module and public API exports only"
+          },
+          {
+            "path": "src/error.rs",
+            "responsibility": "typed domain, validation, tokenization, and publication-contract failures"
+          },
+          {
+            "path": "src/job.rs",
+            "responsibility": "job state machine, terminal statuses, progress stages, and cancellation decisions"
+          },
+          {
+            "path": "src/source.rs",
+            "responsibility": "validated source identity, source items, snapshot identity, and deterministic ordering"
+          },
+          {
+            "path": "src/document.rs",
+            "responsibility": "normalized document, Unicode and offset contract, provenance, and extraction status"
+          },
+          {
+            "path": "src/candidate.rs",
+            "responsibility": "candidate span, sensitive class, detector evidence, confidence, and decision state"
+          },
+          {
+            "path": "src/detect.rs",
+            "responsibility": "approved detector orchestration, span validation, overlap handling, and conflict resolution"
+          },
+          {
+            "path": "src/detect/email.rs",
+            "responsibility": "email detection and class-specific normalization"
+          },
+          {
+            "path": "src/detect/telephone.rs",
+            "responsibility": "approved telephone detection and locale-bound normalization"
+          },
+          {
+            "path": "src/detect/iban.rs",
+            "responsibility": "IBAN structure, normalization, and checksum validation"
+          },
+          {
+            "path": "src/detect/matter_identifier.rs",
+            "responsibility": "declared matter or contract identifier rules"
+          },
+          {
+            "path": "src/entity.rs",
+            "responsibility": "repository-local entity graph, exact alias resolution, merge conflicts, and provenance"
+          },
+          {
+            "path": "src/review.rs",
+            "responsibility": "review-required items and allowed confirm, reclassify, or exclude decisions"
+          },
+          {
+            "path": "src/token.rs",
+            "responsibility": "token grammar, repository scope, stable assignment request, escaping, and collision behavior"
+          },
+          {
+            "path": "src/export.rs",
+            "responsibility": "single-pass Markdown token replacement and export-file records"
+          },
+          {
+            "path": "src/export_path.rs",
+            "responsibility": "tokenized source-relative target mapping, extension replacement, Unicode and case policy, and collision detection"
+          },
+          {
+            "path": "src/manifest.rs",
+            "responsibility": "versioned agent-repository manifest model and deterministic serialization"
+          },
+          {
+            "path": "src/publication.rs",
+            "responsibility": "staged-tree allowlist, validation result, and atomic-publication plan contracts"
+          }
+        ],
+        "integration_tests": [
+          "tests/structured_detection.rs",
+          "tests/entity_resolution.rs",
+          "tests/tokenization.rs",
+          "tests/export_contract.rs"
+        ]
+      },
+      {
+        "path": "crates/outis-runtime",
+        "role": "approved local filesystem, strict text extraction, model, vault, and publication effects",
+        "files": [
+          {
+            "path": "Cargo.toml",
+            "responsibility": "runtime package identity and approved adapter dependencies"
+          },
+          {
+            "path": "src/lib.rs",
+            "responsibility": "intentional runtime entrypoints only"
+          },
+          {
+            "path": "src/engine.rs",
+            "responsibility": "compose one local job from approved adapters and the deterministic core"
+          },
+          {
+            "path": "src/filesystem_source.rs",
+            "responsibility": "bounded source access, enumeration, metadata capture, and mutation detection"
+          },
+          {
+            "path": "src/extraction.rs",
+            "responsibility": "content-signature validation, required-format dispatch, native extraction request validation, normalized-document assembly, completeness status, and typed extraction failure"
+          },
+          {
+            "path": "src/extraction/text.rs",
+            "responsibility": "UTF-8 .txt and .md decoding, BOM policy, source preservation, and explicit text failure"
+          },
+          {
+            "path": "src/local_entity_model.rs",
+            "responsibility": "approved model identity, local inference, candidate conversion, and explicit model failure"
+          },
+          {
+            "path": "src/private_vault.rs",
+            "responsibility": "approved vault schema, transactions, entity and token persistence, migrations, and recovery"
+          },
+          {
+            "path": "src/filesystem_publication.rs",
+            "responsibility": "staging, complete-tree validation execution, atomic replacement, cleanup, and last-valid-output preservation"
+          }
+        ],
+        "conditional_files": [
+          {
+            "path": "migrations/0001_private_vault.sql",
+            "condition": "create only if S1 ratifies bundled SQLite and P1 approves the exact migration path",
+            "responsibility": "initial versioned private-vault schema"
+          }
+        ],
+        "integration_tests": [
+          "tests/job_flow.rs",
+          "tests/extraction_contract.rs",
+          "tests/vault_contract.rs",
+          "tests/publication_contract.rs",
+          "tests/cancellation_recovery.rs"
+        ]
+      },
+      {
+        "path": "crates/outis-ffi",
+        "role": "narrow versioned Rust-to-Swift boundary",
+        "files": [
+          {
+            "path": "Cargo.toml",
+            "responsibility": "FFI package identity, library type, and approved boundary dependencies"
+          },
+          {
+            "path": "cbindgen.toml",
+            "responsibility": "pinned generated-C-header contract for the approved ABI surface"
+          },
+          {
+            "path": "src/lib.rs",
+            "responsibility": "export approved ABI symbols and contain Rust panics"
+          },
+          {
+            "path": "src/api.rs",
+            "responsibility": "start, native extraction submission, review, cancel, status, and release entrypoints"
+          },
+          {
+            "path": "src/wire.rs",
+            "responsibility": "C-compatible pointer-length buffers and versioned UTF-8 JSON request, extraction provenance, event, review, and result schemas"
+          },
+          {
+            "path": "src/error.rs",
+            "responsibility": "stable boundary error codes and explicit Rust error mapping"
+          }
+        ],
+        "integration_tests": [
+          "tests/abi_contract.rs",
+          "tests/ownership_contract.rs"
+        ]
+      }
+    ]
+  },
+  "generated_ffi": {
+    "path": "generated/ffi",
+    "production_input": true,
+    "manual_edits_allowed": false,
+    "generator_candidate": "cbindgen 0.29.4",
+    "creation_condition": "approved codegen contract, exact cbindgen command, version check, and byte-clean regeneration check",
+    "files": [
+      {
+        "path": "outis.h",
+        "responsibility": "generated C header consumed by the macOS target"
+      }
+    ]
+  },
+  "macos_application": {
+    "path": "apps/macos",
+    "target_count": 2,
+    "targets": [
+      {
+        "name": "Outis",
+        "kind": "macOS application",
+        "files": [
+          {
+            "path": "Outis.xcodeproj/project.pbxproj",
+            "responsibility": "approved target membership, linkage, build phases, deployment target, and signing settings"
+          },
+          {
+            "path": "Outis/App/OutisApp.swift",
+            "responsibility": "application entrypoint and root scene"
+          },
+          {
+            "path": "Outis/App/AppModel.swift",
+            "responsibility": "top-level UI navigation and one active job ownership"
+          },
+          {
+            "path": "Outis/Job/JobView.swift",
+            "responsibility": "source and destination selection, start, progress, status, and cancellation presentation"
+          },
+          {
+            "path": "Outis/Job/JobViewModel.swift",
+            "responsibility": "translate user actions and engine events into job UI state"
+          },
+          {
+            "path": "Outis/Review/ReviewView.swift",
+            "responsibility": "minimal uncertain-candidate review presentation"
+          },
+          {
+            "path": "Outis/Review/ReviewViewModel.swift",
+            "responsibility": "validate and submit confirm, reclassify, or exclude decisions"
+          },
+          {
+            "path": "Outis/Review/ExtractionReviewView.swift",
+            "responsibility": "embed Quick Look original preview beside complete normalized text and private page or mode evidence"
+          },
+          {
+            "path": "Outis/Review/ExtractionReviewViewModel.swift",
+            "responsibility": "bind source and normalized hashes and submit confirm_extraction or job rejection"
+          },
+          {
+            "path": "Outis/Engine/EngineClient.swift",
+            "responsibility": "own FFI handles, invoke the ABI, map results, and guarantee cleanup"
+          },
+          {
+            "path": "Outis/Engine/EngineEvent.swift",
+            "responsibility": "Swift value model for progress, review, failure, cancellation, and completion events"
+          },
+          {
+            "path": "Outis/Engine/module.modulemap",
+            "responsibility": "small reviewed source module map importing the generated outis.h header"
+          },
+          {
+            "path": "Outis/Platform/FolderAccess.swift",
+            "responsibility": "folder picker results, security-scoped access, path handoff, and access cleanup"
+          },
+          {
+            "path": "Outis/Extraction/DocumentExtractor.swift",
+            "responsibility": "dispatch one validated native extraction request and return bounded typed text and provenance"
+          },
+          {
+            "path": "Outis/Extraction/WordExtractor.swift",
+            "responsibility": "AppKit legacy .doc and Open XML .docx visible-text import with conversion and attachment evidence"
+          },
+          {
+            "path": "Outis/Extraction/PDFExtractor.swift",
+            "responsibility": "PDFKit access checks, per-page native text inspection, fixed page rendering dispatch, and page provenance"
+          },
+          {
+            "path": "Outis/Extraction/VisionOCR.swift",
+            "responsibility": "fixed Vision revision 3 Italian, German, and French OCR configuration, observation ordering, confidence evidence, and cancellation"
+          },
+          {
+            "path": "Outis/Resources/Info.plist",
+            "responsibility": "approved application metadata and declared capabilities"
+          },
+          {
+            "path": "Outis/Resources/Outis.entitlements",
+            "responsibility": "minimal approved App Sandbox and user-selected read/write file entitlement"
+          },
+          {
+            "path": "Outis/Resources/Assets.xcassets",
+            "responsibility": "application icon and approved visual assets only"
+          }
+        ]
+      },
+      {
+        "name": "OutisTests",
+        "kind": "macOS unit-test target",
+        "files": [
+          "OutisTests/AppModelTests.swift",
+          "OutisTests/JobViewModelTests.swift",
+          "OutisTests/ReviewViewModelTests.swift",
+          "OutisTests/ExtractionReviewViewModelTests.swift",
+          "OutisTests/EngineClientTests.swift",
+          "OutisTests/FolderAccessTests.swift",
+          "OutisTests/DocumentExtractorTests.swift",
+          "OutisTests/WordExtractorTests.swift",
+          "OutisTests/PDFExtractorTests.swift",
+          "OutisTests/VisionOCRTests.swift",
+          "OutisTests/ExtractionSubmissionTests.swift"
+        ]
+      }
+    ],
+    "explicitly_absent_targets": [
+      "Finder extension",
+      "command-line product",
+      "background daemon",
+      "remote service client",
+      "response renderer"
+    ]
+  },
+  "model_artifacts": {
+    "selection_status": "R1.1 selected an exact candidate for S1 ratification; dependency, distribution, and artifact creation remain unapproved",
+    "evaluation": "docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md",
+    "selected_candidate": {
+      "model": "Davlan/bert-base-multilingual-cased-ner-hrl",
+      "revision": "e756de7f7b8f64fea0c3d7c3872f1322fab747b1",
+      "runtime": "ONNX Runtime 1.28.0 CPUExecutionProvider",
+      "tokenizer": "publisher tokenizer.json with Rust tokenizers 0.23.1 candidate integration",
+      "threading": "ORT_SEQUENTIAL, batch one, two intra-op threads, one inter-op thread, one inference call at a time, no user selector or automatic tuning",
+      "owner": "crates/outis-runtime/src/local_entity_model.rs"
+    },
+    "required_before_spec": false,
+    "implementation_without_exact_selection": "forbidden",
+    "files": [
+      {
+        "path": "models/manifests/entity_detector.json",
+        "creation_condition": "a model and runtime pass R1 research and enter the approved spec",
+        "responsibility": "model source, license, identity, hash, runtime, configuration, languages, input contract, and evaluation binding"
+      },
+      {
+        "path": "models/artifacts/<artifact-id>/",
+        "creation_condition": "approved reproducible acquisition or conversion",
+        "responsibility": "generated or fetched local model artifact; not manually edited and not committed unless the spec explicitly permits it"
+      }
+    ]
+  },
+  "synthetic_fixtures": {
+    "root": "fixtures",
+    "real_sensitive_data_allowed": false,
+    "paths": [
+      {
+        "path": "extraction/doc/",
+        "responsibility": "synthetic legacy Word fixtures and visible-text, mandatory-review, unsupported-feature, and failure oracles"
+      },
+      {
+        "path": "extraction/docx/",
+        "responsibility": "synthetic Open XML Word fixtures and visible-text, flattening, mandatory-review, attachment, and failure oracles"
+      },
+      {
+        "path": "extraction/pdf_text/",
+        "responsibility": "synthetic text-bearing PDF fixtures and page-text, reading-order ambiguity, mandatory-review, provenance, and failure oracles"
+      },
+      {
+        "path": "extraction/pdf_scan/",
+        "responsibility": "synthetic scanned and mixed-page PDF fixtures with Italian, German, and French OCR coverage, confidence, and failure oracles"
+      },
+      {
+        "path": "extraction/text/",
+        "responsibility": "synthetic UTF-8 .txt and .md fixtures with expected text, offsets, and failure oracles"
+      },
+      {
+        "path": "extraction/oracle.json",
+        "responsibility": "versioned cross-format normalized-document, review or block status, provenance, target-path, and collision expectations"
+      },
+      {
+        "path": "detection/it/documents/",
+        "responsibility": "synthetic Italian entity and ambiguity fixtures"
+      },
+      {
+        "path": "detection/it/oracle.json",
+        "responsibility": "Italian spans, classes, entities, aliases, and review decisions"
+      },
+      {
+        "path": "detection/de/documents/",
+        "responsibility": "synthetic German entity and ambiguity fixtures"
+      },
+      {
+        "path": "detection/de/oracle.json",
+        "responsibility": "German spans, classes, entities, aliases, and review decisions"
+      },
+      {
+        "path": "detection/fr/documents/",
+        "responsibility": "synthetic French entity and ambiguity fixtures"
+      },
+      {
+        "path": "detection/fr/oracle.json",
+        "responsibility": "French spans, classes, entities, aliases, and review decisions"
+      },
+      {
+        "path": "publication/source/",
+        "responsibility": "synthetic complete-job source tree"
+      },
+      {
+        "path": "publication/expected-agent-repository/",
+        "responsibility": "expected tokenized Markdown and manifest tree"
+      },
+      {
+        "path": "publication/oracle.json",
+        "responsibility": "allowlist, known-plaintext, failure, cancellation, and recovery expectations"
+      }
+    ]
+  },
+  "evaluation_surface": {
+    "path": "tools/outis-eval",
+    "production_dependency": false,
+    "creation_condition": "approved evaluation command and dataset contract",
+    "files": [
+      {
+        "path": "Cargo.toml",
+        "responsibility": "evaluation-only package and dependencies"
+      },
+      {
+        "path": "src/main.rs",
+        "responsibility": "checked evaluation command and argument validation"
+      },
+      {
+        "path": "src/corpus.rs",
+        "responsibility": "load and validate synthetic multilingual corpora and oracles"
+      },
+      {
+        "path": "src/metrics.rs",
+        "responsibility": "calculate approved extraction, detection, entity, and uncertainty measures"
+      },
+      {
+        "path": "src/report.rs",
+        "responsibility": "write deterministic machine-readable evaluation evidence"
+      }
+    ]
+  },
+  "documentation_paths": {
+    "active": [
+      "AGENTS.md",
+      "README.md",
+      "initial-intake.md",
+      "architecture.md",
+      "docs/architecture/repository_structure.md",
+      "docs/invariants/core_invariants.md",
+      "docs/protocols/",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_research_brief.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_r1_decision_closure.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_r1_source_discovery_contract.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_r1_token_vault_contract.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_r1_publication_platform_contract.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_r1_acceptance_evidence.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_r1_2_extraction_evaluation.md",
+      "ROADMAP.json",
+      "docs/roadmaps/outis_local_pilot_file_architecture.json"
+    ],
+    "future_lifecycle_artifacts": [
+      "docs/specs/outis_local_pilot_SPEC.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_peer_audit.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_implementation_plan.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md"
+    ],
+    "generated_evidence_root": "artifacts/outis_local_pilot/",
+    "generated_evidence_rule": "Create only from approved commands; never place real sensitive data, vault records, or plaintext paths in evidence."
+  },
+  "runtime_data_layout": {
+    "status": "R1-selected candidate layout; no runtime path is created or approved for code",
+    "source_repository": {
+      "path": "<user-selected-source>/",
+      "zone": "Human Zone",
+      "mode": "read-only"
+    },
+    "private_vault": {
+      "path": "<Outis-application-container>/Application Support/Outis/Vaults/<opaque-repository-id>/outis-vault.sqlite3",
+      "zone": "Key Zone",
+      "condition": "synthetic funding demo only; bundled SQLite candidate, plaintext, parent mode 0700, database and journal mode 0600",
+      "forbidden_parent": [
+        "source repository",
+        "agent repository",
+        "source-code repository"
+      ]
+    },
+    "publication_staging": {
+      "path": "<user-selected-export-parent>/.outis-staging-<opaque-job-id>/",
+      "zone": "trusted local publication boundary",
+      "contents": "tokenized candidate export only; no vault or plaintext extraction intermediate",
+      "condition": "same-parent first rename or supported RENAME_SWAP replacement only; no copy fallback"
+    },
+    "agent_repository": {
+      "path": "<user-selected-export-parent>/outis/",
+      "zone": "AI Zone",
+      "files": [
+        "outis-manifest.json",
+        "<tokenized-source-relative-directories>/<tokenized-source-base-name>.md"
+      ],
+      "forbidden": [
+        "source binaries",
+        "plaintext sensitive source path components",
+        "private vault",
+        "token dictionary",
+        "secret material",
+        "plaintext intermediates",
+        "partial output represented as complete"
+      ],
+      "git_behavior": "No automatic Git initialization in the first slice unless the spec proves it necessary."
+    }
+  },
+  "required_s1_ratifications": [
+    {
+      "id": "native_extraction",
+      "decision": "Ratify Rust strict UTF-8 extraction; AppKit Word import; PDFKit PDF text and access checks; Core Graphics 200-DPI rendering; Vision revision 3 accurate OCR with ordered Italian, German, and French languages, automatic language detection, language correction disabled, and sequential pages; mandatory embedded Quick Look binary review with exact hash-bound confirmation; normalized-document and provenance schemas; limits; failures; fixtures; and validation commands."
+    },
+    {
+      "id": "model_runtime",
+      "decision": "Ratify the R1.1 exact NER candidate and R1 address assembler for the synthetic demo; model legal redistribution and signed packaging remain implementation blockers."
+    },
+    {
+      "id": "vault_store",
+      "decision": "Ratify rusqlite 0.40.2 with bundled SQLite 3.53.2, one connection, exact PRAGMAs, schema, migration, permissions, deletion, and synthetic-only plaintext-vault limitation."
+    },
+    {
+      "id": "keychain_deferral",
+      "decision": "Ratify that no Keychain item or vault secret exists in the synthetic funding demo; confidential-data use remains blocked pending encrypted-vault research."
+    },
+    {
+      "id": "ffi_codegen",
+      "decision": "Ratify Rust repr(C) as ABI source, cbindgen 0.29.4 for generated/ffi/outis.h, a reviewed source module map, staticlib linking, UTF-8 JSON wire schemas, polling, outis_job_submit_extraction with separate bounded plaintext text and provenance buffers, and release ownership."
+    },
+    {
+      "id": "atomic_publication",
+      "decision": "Ratify the fixed export and staging names, first-publish rename, RENAME_SWAP-only replacement, sync, cancellation, cleanup, and last-valid-output behavior; failure injection remains required before readiness claims."
+    }
+  ],
+  "prohibited_first_slice_paths": [
+    "apps/macos/OutisFinderExtension/",
+    "crates/outis-cli/",
+    "crates/outis-server/",
+    "crates/outis-key-service/",
+    "crates/outis-rag/",
+    "crates/outis-render/",
+    "crates/outis-pdf/",
+    "crates/outis-ocr/",
+    "crates/outis-post-quantum/",
+    "services/",
+    "plugins/"
+  ],
+  "approval_effect": "Approval accepts this as an R1 roadmap companion candidate. It does not create paths. S1 and P1 must bind the final exact file set before implementation."
+}

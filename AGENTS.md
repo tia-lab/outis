@@ -1,352 +1,446 @@
-```
+~~~
 WUTHIER TERMINAL PROPRIETARY AND CONFIDENTIAL
 Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
+~~~
 
-```
-
-# Wuthier Terminal Agent Contract
+# Outis Agent Contract
 
 Status: active
-Scope: `/home/tia/_DEV/RUST/CRATES/wuthier-terminal`
+Scope: repository root and all descendants
 
-This repository owns the Wuthier Terminal surface: the trusted local client
-boundary for a zero-trust legal knowledge platform. Wuthier Terminal mediates
-between authorized humans, the AI-facing Agent Service, and the isolated Key
-Service. Its contract is to ensure that AI-facing routes operate on tokenized or
-redacted content while authorized humans can render sensitive values only
-through the approved key and authorization boundary.
+Outis is currently a documentation and research project for a local macOS
+document-pseudonymization pilot. The intended pilot accepts a user-selected
+document folder containing at least `.doc`, `.docx`, `.pdf`, `.txt`, and `.md`
+sources, performs extraction and sensitive-entity discovery locally, assigns
+stable tokens, and publishes a separate Markdown repository for agent use. The
+target mirrors the source-relative tree and base document names after required
+path tokenization; every target document has a `.md` extension. The private
+entity graph, token dictionary, and secret material remain outside that
+agent-facing repository.
 
-This repository is not an experiment dump. It may contain benchmark, review, and
-security-analysis artifacts, but every artifact must be reproducible,
-evidence-bound, and tied to an explicit contract.
+Wuthier Terminal is retained only as copyright or historical attribution.
+Remote Agent Service, remote Key Service, RAG, embeddings, chat, response
+rendering, synchronization, and Swiss-hosted review are not active pilot
+surfaces. Rules for those surfaces apply only if a later approved spec adds
+them.
 
-Stack choices are not approved by this file. Database engines, cryptographic
-algorithms, model providers, OCR engines, embedding engines, UI frameworks, and
-service runtimes remain candidate choices until approved by specs.
+This repository is not an experiment dump. Research, review, security-analysis,
+test, and benchmark artifacts must be reproducible, evidence-bound, and tied to
+an explicit contract.
+
+Stack choices are not approved by this file. Rust, Swift, native macOS
+frameworks, SQLite, macOS Keychain, document extractors, OCR engines, model
+runtimes, cryptographic algorithms, and service runtimes remain candidates
+until approved by specs.
+
+## Active Pilot Boundaries
+
+Human Zone:
+
+- authorized local user;
+- original source repository and extracted plaintext inside trusted local
+  preprocessing;
+- Outis macOS application;
+- trusted local extraction, detection, entity resolution, and tokenization;
+- plaintext temporary buffers explicitly allowed by spec.
+
+AI Zone:
+
+- generated agent-facing Markdown repository;
+- local or remote agents granted access to that repository;
+- future retrieval, embedding, agent-tool, or model-provider surfaces if later
+  approved.
+
+Key Zone:
+
+- private local vault;
+- private entity graph and aliases;
+- token dictionary;
+- encrypted sensitive values when approved;
+- Keychain-held or equivalent secret material when approved;
+- future isolated Key Service if later approved.
+
+The generated agent repository and private local vault are different stores.
+The private vault must never be created inside, copied into, or exposed through
+the agent-facing repository.
 
 ## Inderogable Rules
 
-```
-1. INTELLECTUAL HONESTY AND MATHEMATICAL RIGOR ARE MANDATORY
-2. ALWAYS PROVE THE ASSUMPTION
-3. NEVER LIE OR TWEAK RESPONSE
-4. NEVER WRITE SOMETHING THAT IS NOT PROVED
-5. NEVER USE ICONS OR EMOJIS
-6. CLARITY OVER VERBOSITY
-7. NEVER USE HYPERBOLIC WORDS OR MARKETING LANGUAGE
-8. ALWAYS USE GROUNDED AND HUMBLE TONE
-9. MATHILDE MEASURES, NOT PREDICTS
-10. DETERMINISM IS MANDATORY WHEN DATA CONTRACTS OR BENCHMARKS DEPEND ON IT
-11. PERFORMANCE IS TIME-BOUNDED AND EVIDENCE-BOUND
-12. ZERO DUPLICATION IS MANDATORY UNLESS THE SPEC JUSTIFIES A PROTOTYPE COPY
-13. NEVER RELAX TEST TOLERANCES BEFORE PROVING THE IMPLEMENTATION IS CORRECT
-14. NO LATEX FORMULA FOR MARKDOWN FILES; USE MARKDOWN ENCODING
-15. BUILD FOR PERFORMANCE, CORRECTNESS, REPRODUCIBILITY, AND LOW COMPILE SURFACE
-16. NO CODE CHANGE BEFORE APPROVED SPEC AND APPROVED IMPLEMENTATION PLAN
-17. GENERATED CODE MUST COME ONLY FROM APPROVED CODEGEN
-18. SPEED CLAIMS REQUIRE RUN EVIDENCE
-19. COMPILE-TIME CLAIMS REQUIRE BUILD EVIDENCE
-20. WUTHIER TERMINAL RUNTIME MUST REMAIN SMALL; SERVICE ADAPTERS, BENCHES, TEST FIXTURES, AND DEV TOOLS ARE SEPARATE SURFACES
-21. FIRST SPEC DRAFTS MUST CLOSE PRIOR-SPEC, COMMAND, ARTIFACT, DISPATCH, AND TEST-MIGRATION CONTRACTS BEFORE PEER AUDIT
-22. AI-FACING ROUTES MUST NEVER RECEIVE PLAINTEXT SENSITIVE VALUES
-23. AGENT SERVICE ROUTES MUST NEVER CALL KEY SERVICE ROUTES
-24. KEY DICTIONARIES, DECRYPTION KEYS, AND PLAINTEXT RENDERING MUST NEVER BE EXPOSED TO LLM, RAG, EMBEDDING, OR AGENT TOOL SURFACES
-25. DOCUMENT AND PROMPT FLOWS MUST TOKENIZE OR REDACT BEFORE AI-FACING STORAGE OR MODEL ACCESS
-26. HUMAN RENDERING MUST REQUIRE AUTHORIZATION AND AUDITABLE KEY-SERVICE BOUNDARIES
-27. CONVERSATION MEMORY, RETRIEVAL DATA, EMBEDDINGS, AND AGENT LOGS MUST STORE TOKENIZED OR REDACTED CONTENT ONLY
-```
+1. Intellectual honesty and mathematical rigor are mandatory.
+2. Always prove the assumption.
+3. Never lie, tune, or omit evidence to improve a result.
+4. Never state an unproved claim as proved.
+5. Never use icons or emojis.
+6. Clarity over verbosity.
+7. Never use hyperbolic or promotional language.
+8. Use a grounded and humble tone.
+9. Outis measures; it does not predict.
+10. Determinism is mandatory when data contracts, token equality, replay, or
+    benchmarks depend on it.
+11. Performance is time-bounded and evidence-bound.
+12. Zero duplication is mandatory unless a spec justifies a prototype copy.
+13. Never relax test tolerances before proving the implementation is correct.
+14. Use Markdown encoding rather than LaTeX formulas in Markdown files.
+15. Build for correctness, privacy, reproducibility, performance, and low
+    compile surface.
+16. No code change before an approved spec and approved implementation plan.
+17. Generated code and generated artifacts must come only from approved
+    codegen.
+18. Speed claims require run evidence.
+19. Compile-time claims require build evidence.
+20. The production runtime must remain small. Extractors, model adapters,
+    storage adapters, platform integrations, benches, fixtures, and developer
+    tools are separate surfaces unless a spec proves otherwise.
+21. First spec drafts must close prior-spec, command, artifact, dispatch, FFI,
+    entitlement, model-artifact, and test-migration contracts before peer audit.
+22. Agent-facing routes and repositories must never receive known plaintext
+    sensitive values.
+23. The original source repository must never be used as the agent workspace.
+24. The agent-facing repository must never contain the private vault, token
+    dictionary, decryption keys, Keychain material, or plaintext render values.
+25. Document flows must tokenize or redact before AI-facing storage, model
+    access, embedding, retrieval, agent-tool access, or agent access.
+26. A local detection model that receives plaintext must be explicitly approved
+    as trusted preprocessing and must not have network egress, agent tools,
+    training, or persistent plaintext logs unless a later spec changes those
+    boundaries.
+27. Unsupported, corrupt, partially extracted, or uncertain documents must not
+    silently enter an agent-facing repository.
+28. Detection quality must be measured. Perfect discovery must not be claimed.
+29. Reversible replacement is called tokenization or pseudonymization in
+    technical contracts. An interface label may use Anonymize with Outis.
+30. If future Agent Service and Key Service routes are approved, Agent Service,
+    RAG, model, embedding, and LLM tool surfaces must not call Key Service or
+    receive its dictionary, keys, or rendering authority.
+31. Applicable documents under docs/protocols are mandatory. Pilot speed,
+    prototype status, and iteration pressure are not waivers.
+32. Each implementation iteration must be the smallest complete vertical slice
+    approved by its spec and implementation plan.
+33. Every production file, module, interface, abstraction, configuration item,
+    dependency, and non-trivial branch must have a current spec, invariant,
+    acceptance-test, or evidence binding. Otherwise omit it.
+34. Unsupported or deferred behavior must be rejected explicitly rather than
+    implemented speculatively.
+35. Minimal implementation must not weaken plaintext exclusion, vault
+    isolation, deterministic contracts, typed failure, atomic publication, or
+    required evidence.
 
-**Violation of any rule requires protocol restart.**
+Violation of any rule requires protocol restart.
 
 ## Evidence Discipline
 
-Every non-trivial statement must be grounded by evidence type:
+Every non-trivial statement must identify its evidence type:
 
-- Code-read evidence: identify the file and observed behavior.
-- Run evidence: identify the command and observed output.
-- Build evidence: identify command, profile, dirty state, timing, and output.
-- Storage evidence: identify the local or remote store, schema, query, and
-  observed result.
-- Security-boundary evidence: identify the route, caller, callee, trust zone,
-  authorization check, and observed allowed or denied behavior.
-- Benchmark evidence: identify command, dataset, profile, machine, and result.
-- Data-contract evidence: identify source format, schema or classifier contract,
-  tokenization contract, generated file if any, and check command.
-- External-doc evidence: identify upstream source and date-sensitive claim.
-- Hypothesis: state that it is not proved yet and why it is suspected.
+- Code-read evidence: file and observed behavior.
+- Run evidence: command, environment, input, and observed output.
+- Build evidence: command, profile, dirty state, timing, and output.
+- Storage evidence: store, schema, query, and observed result.
+- Security-boundary evidence: caller, callee, trust zone, authorization or
+  sandbox control, and observed allowed or denied behavior.
+- Benchmark evidence: command, dataset, profile, machine, and result.
+- Data-contract evidence: source format, extraction contract, classifier
+  contract, tokenization contract, generated artifact, and check command.
+- Model-artifact evidence: source, model identity and hash, conversion path,
+  runtime configuration, supported inputs, and evaluation result.
+- Platform evidence: macOS version, Xcode and Swift toolchains, target,
+  entitlements, signing state, and observed behavior.
+- External-doc evidence: upstream source and date-sensitive claim.
+- Hypothesis: an unproved statement with the reason it is suspected.
 
-No statement may sound certain if it has not been proved.
+No statement may sound certain when it has not been proved.
 
 ## Repository Boundaries
 
-Wuthier Terminal owns:
+Outis owns, when approved by spec:
 
-- local trusted client and terminal behavior;
-- file, folder, and repository watch contracts when approved;
-- matter and client selection contracts when approved;
-- prompt tokenization before AI-facing routes;
-- response rendering orchestration through the approved Key Service boundary;
-- local authorization context handling when approved;
-- local audit-event emission when approved;
-- redacted or tokenized conversation persistence when approved;
-- route isolation between Human Zone, AI Zone, and Key Zone;
-- evidence discipline for privacy, security, correctness, and performance.
+- local macOS client behavior;
+- user-initiated folder selection and one-shot processing;
+- local document extraction coordination;
+- local sensitive-entity discovery and entity resolution;
+- deterministic token assignment and Markdown serialization;
+- private local entity-graph and token-dictionary coordination;
+- generation and atomic publication of a separate agent-facing repository;
+- macOS progress, cancellation, Finder integration, sandbox, and Keychain
+  coordination;
+- local audit-event emission;
+- evidence discipline for privacy, correctness, determinism, compile surface,
+  and performance.
 
-Wuthier Terminal does not own unless a later approved spec adds that surface:
+Outis does not own unless a later approved spec adds the surface:
 
-- final legal advice or legal correctness of model output;
-- the Agent Service runtime;
-- the Key Service runtime;
-- key-management internals;
-- model-provider behavior;
-- OCR, embedding, database, or cryptographic implementations;
-- organization-wide identity policy;
-- document-source finality, retention, or legal hold policy;
+- final legal advice or legal correctness of agent output;
+- remote Agent Service or Key Service runtimes;
+- RAG, embeddings, chat, prompt processing, response rendering, or
+  conversation memory;
+- remote synchronization or repository watching;
+- Swiss-hosted model review;
+- organization-wide identity, retention, legal-hold, or authorization policy;
 - stack selection before research, spec, and approval.
 
-Application schemas, service contracts, and deployment manifests may live
-outside this repository. External surfaces are allowed only when they pass the
-approved Wuthier data-flow, trust-boundary, and evidence contracts.
+External schemas, models, services, and deployment manifests are allowed only
+when they pass approved data-flow, trust-boundary, generated-artifact, and
+evidence contracts.
+
+## Minimal Pilot Implementation Discipline
+
+Outis advances through narrow, working vertical slices. Minimal means the
+smallest end-to-end behavior that satisfies the current approved contract. It
+does not mean partially implementing a wider contract.
+
+- Prefer an explicit allowlist and typed rejection over partial support.
+- Validate external and trust boundaries once, then pass validated types
+  through internal code rather than repeating defensive checks at every layer.
+- Do not add general frameworks, plugin systems, future-service adapters,
+  compatibility layers, optional modes, feature flags, caches, concurrency, or
+  extension points before the current slice requires them.
+- Do not add an abstraction for hypothetical reuse. A boundary abstraction is
+  allowed only when the current spec requires isolation, substitution, FFI,
+  or an evidence oracle.
+- Implement edge behavior only when it belongs to the supported contract or is
+  required to protect data boundaries, determinism, vault integrity, atomic
+  publication, cancellation, or recovery. Reject the rest explicitly.
+- Avoid unnecessary allocation, copying, persistence, and compile surface.
+  Optimize measured bottlenecks; do not make performance claims without run
+  evidence.
+- Keep tests proportional to the slice while covering its accepted path,
+  explicit rejection path, and applicable privacy and failure boundaries.
 
 ## Mandatory Execution Flow
 
-Every non-trivial task follows this sequence. No skips.
+Every non-trivial task follows this sequence without skips.
 
-### 1. Intake (NO CODE)
+### 1. Intake
 
-- Restate the goal precisely.
-- Classify the task:
-  - research only,
-  - spec authoring,
-  - peer audit,
-  - implementation planning,
-  - code implementation,
-  - testing or benchmarking,
-  - review or documentation.
-- List required reads, inputs, datasets, configs, trust boundaries, and
-  unknowns.
-- Ask the minimum clarifying questions only if the task cannot be specified.
+No code.
 
-### 2. Context Read (NO CODE)
+- Restate the goal.
+- Classify the task.
+- List required reads, inputs, datasets, configurations, trust zones,
+  sensitive-data classes, and unknowns.
+- State stop/go risks.
+- Ask only blocking questions.
 
-- Read `AGENTS.md`.
-- Read `docs/invariants/core_invariants.md`.
-- Read relevant protocols under `docs/protocols/`.
-- Read existing specs under `docs/specs/` and reviews under `docs/reviews/`.
-- Read target code paths before proposing edits.
-- For Wuthier data surfaces, read the relevant upstream contract before using
-  the data in tests, security claims, or benchmarks.
+### 2. Context Read
 
-### 3. Research Brief (NO CODE)
+No code.
 
-Before a spec can be written, produce a research brief that states:
+- Read this file.
+- Read docs/invariants/core_invariants.md.
+- Read the lifecycle and task-specific protocols.
+- Read relevant architecture, specs, reviews, implementation plans, code, model
+  contracts, source-data contracts, and upstream documentation.
 
-- measured object,
-- candidate approach,
-- Wuthier binding surface,
-- trust zones touched,
-- sensitive-data classes touched,
-- unknowns,
-- risks,
-- evidence already available,
-- evidence required before coding.
+### 3. Research Brief
 
-### 4. Spec (NO CODE)
+No code.
 
-The spec is the source of truth.
+Write docs/reviews/[slug]/[slug]_research_brief.md with:
 
-If a design decision is not in the spec, it must not appear in code.
+- measured object;
+- candidate approach;
+- source-data and extraction contracts;
+- trust zones and sensitive-data classes;
+- model and generated-artifact surfaces;
+- unknowns and risks;
+- available and required evidence;
+- correctness and privacy oracle candidates;
+- required decisions before spec.
 
-Every spec must include:
+### 4. Spec
 
-- goal and non-goals,
-- source data contract,
-- sensitive-data and tokenization contract,
-- redaction contract,
-- trust-zone and route-isolation contract,
-- storage contract,
-- authorization and audit contract,
-- Agent Service boundary contract when relevant,
-- Key Service boundary contract when relevant,
-- human rendering contract when relevant,
-- generated-artifact or codegen contract when relevant,
-- crate and dependency boundaries,
-- determinism policy,
-- failure contract,
-- compile-surface budget,
-- performance budget,
-- benchmark methodology,
-- correctness and privacy proof plan,
-- exact code bindings,
-- exact test and artifact bindings,
-- implementation plan requirement,
-- approval status.
+No code.
 
-Before the first peer audit, every spec draft must complete the pre-audit
-closure gate from `docs/protocols/spec_protocol.md`. A peer audit must not be
-used to discover basic protocol non-compliance, missing command surfaces,
-generated-artifact ownership, dispatch path bindings, prior-spec conflicts, or
-test migration from old behavior to new behavior.
+The spec is the source of truth. If a design decision is not in the spec, it
+must not appear in code.
 
-### 5. Peer Audit (NO CODE)
+Every applicable spec must define:
 
-Every spec must be audited in a separate review artifact before implementation
-planning. The audit must try to falsify the spec and classify exactly:
+- goal, non-goals, and measured object;
+- source formats and extraction contract;
+- sensitive-data classification and uncertainty contract;
+- tokenization and redaction contract;
+- local model and model-artifact contract;
+- Human, AI, and Key Zone boundaries;
+- agent-repository publication and access contract;
+- private-vault, secret, storage, retention, and recovery contract;
+- macOS application, Finder, sandbox, entitlement, Keychain, and cancellation
+  contracts;
+- Rust, Swift, FFI, generated-artifact, crate, target, and dependency
+  boundaries;
+- determinism, failure, compile-surface, and performance budgets;
+- correctness and privacy proof plan;
+- exact code, test, benchmark, and artifact bindings;
+- implementation-plan requirement and approval status;
+- conditional future-service contracts only when those services are in scope.
 
-- `PEER_AUDIT_PASSED`
-- `BLOCKED`
+Before the first peer audit, the spec must pass the pre-audit closure gate in
+docs/protocols/spec_protocol.md.
 
-### 6. Implementation Plan and Approval (NO CODE)
+### 5. Peer Audit
 
-Before touching code, write an implementation plan that binds:
+No code.
 
-- files to edit,
-- files to create,
-- generated files,
-- dependency changes,
-- security-boundary artifacts,
-- benchmark artifacts,
-- validation commands,
-- expected outputs,
-- rollback boundary,
-- known risks.
+Write docs/reviews/[slug]/[slug]_peer_audit.md and classify exactly:
 
-The plan must be approved before any code line is changed.
+- PEER_AUDIT_PASSED
+- BLOCKED
 
-### 7. Implementation (CODE)
+The audit must try to falsify the spec.
+
+### 6. Implementation Plan and Approval
+
+No code.
+
+Write docs/reviews/[slug]/[slug]_implementation_plan.md. Bind every file,
+generated artifact, model artifact, dependency, Xcode target, entitlement, FFI
+surface, test, benchmark, evidence path, validation command, expected output,
+risk, and rollback boundary.
+
+The plan must be explicitly approved before any code change.
+
+### 7. Implementation
 
 - Implement only the approved spec and plan.
-- Keep changes minimal and bounded.
+- Implement the smallest complete approved vertical slice.
+- Keep changes minimal and bounded; omit unbound scaffolding and future-facing
+  code.
+- Reject unsupported inputs and behavior explicitly at the narrowest approved
+  boundary.
 - Preserve deterministic behavior and explicit failure surfaces.
-- Do not introduce hidden allocations on hot paths without spec justification.
-- Do not use `unwrap`, `expect`, or `panic!` in runtime, codegen, measurement,
-  security-boundary, or reusable support logic.
-- Do not add environment variables unless the spec defines default, bounds, and
-  operator meaning.
+- Do not hide allocations or plaintext copies.
+- Do not use unchecked failure in runtime, persistence, model, platform,
+  codegen, measurement, or security-boundary logic.
+- Do not add configuration without a defined default, bounds, and operator
+  meaning.
 
 ### 8. Validation
 
 - Run the narrowest correctness checks first.
-- Run privacy and trust-boundary checks before security claims.
-- Run deterministic replay checks before performance claims.
-- Run build-surface checks before claiming compile-time improvement.
-- Run benchmark commands exactly as specified.
-- If validation fails, stop and diagnose. Do not tweak expectations.
-- Record command, environment, input size, build profile, trust boundary, and
-  output.
+- Validate extraction before detection claims.
+- Validate privacy and trust boundaries before security claims.
+- Validate deterministic replay before performance claims.
+- Validate vault isolation and agent-export contents.
+- Validate model identity and evaluation before model-quality claims.
+- Validate build and compile surfaces before compile-time claims.
+- Record commands, environment, inputs, build profile, trust zones, and output.
+- If validation fails, diagnose without weakening expectations.
 
 ### 9. Review and Report
 
-- Update review artifacts when work produces evidence.
-- Summarize what changed.
+- Update evidence and review artifacts.
+- State what changed.
 - State which invariants are proved.
 - State which claims remain unproved.
 - Do not claim readiness beyond the completed evidence chain.
 
 ## Stop Gates
 
-Work must stop before code if any gate fails:
+Stop before code if any applicable gate fails:
 
-- Required reads incomplete.
-- Source data contract is missing.
-- Sensitive-data classification contract is missing when redaction or
-  tokenization is in scope.
-- Tokenization contract is missing when AI-facing routes are in scope.
-- Redaction contract is missing when document or prompt content reaches the
-  Agent Service, RAG, embeddings, logs, or LLMs.
-- Trust-zone route contract is missing.
-- Agent Service boundary contract is missing when AI-facing work is in scope.
-- Key Service boundary contract is missing when tokens, keys, dictionaries,
-  decryption, or rendering are in scope.
-- Storage contract is missing when persistence is in scope.
-- Authorization or audit contract is missing when human rendering is in scope.
-- Codegen contract is missing when generated artifacts are touched.
-- Crate boundary or dependency policy is missing.
-- Spec is missing, incomplete, or unapproved.
-- Peer audit is missing or blocked.
-- Implementation plan is missing or unapproved.
-- Exact code/test/artifact bindings are missing.
-- Failure contract is missing.
-- Benchmark methodology is missing for performance claims.
-- Correctness and privacy proof plan is missing.
-- Compile-surface budget is missing for generated-code work.
-- Dependency choice is justified by preference rather than evidence.
+- required reads are incomplete;
+- measured object is unclear;
+- source ownership or source-format contract is missing;
+- extraction completeness and failure behavior are unclear;
+- sensitive-data classes or uncertainty semantics are missing;
+- token format, equality, scope, collision, missing-token, or rotation behavior
+  is unclear;
+- trust zones or allowed plaintext copy points are unclear;
+- agent-repository content or access contract is missing;
+- private-vault isolation, secret ownership, storage, recovery, deletion, or
+  audit behavior is missing;
+- local model boundary, identity, supported inputs, evaluation, or failure
+  contract is missing when a model is in scope;
+- macOS sandbox, security-scoped access, Finder dispatch, entitlement, signing,
+  or cancellation behavior is missing when relevant;
+- Rust, Swift, FFI, crate, target, dependency, or generated-artifact ownership
+  is missing;
+- spec is missing, incomplete, or unapproved;
+- peer audit is missing or blocked;
+- implementation plan is missing or unapproved;
+- correctness or privacy oracle is missing;
+- benchmark methodology is missing for performance claims;
+- compile-surface budget is missing for generated or dependency-heavy work;
+- a dependency choice is justified by preference rather than evidence.
+
+For future services, also stop if Agent Service plaintext exclusion, Key Service
+isolation, route authorization, remote storage, or rendering behavior is
+unclear.
 
 ## Mandatory Protocol Reads
 
 Before any non-trivial task, read:
 
-- `docs/protocols/lifecycle_protocol.md`
-- `docs/invariants/core_invariants.md`
+- docs/protocols/lifecycle_protocol.md
+- docs/invariants/core_invariants.md
 
-Then read task-specific protocols:
+Then read the applicable task protocol:
 
-- research:
-  - `docs/protocols/research_protocol.md`
-- spec authoring:
-  - `docs/protocols/spec_protocol.md`
-  - `docs/protocols/peer_audit_protocol.md`
-- peer audit:
-  - `docs/protocols/peer_audit_protocol.md`
+- research: docs/protocols/research_protocol.md
+- spec authoring: docs/protocols/spec_protocol.md and
+  docs/protocols/peer_audit_protocol.md
+- peer audit: docs/protocols/peer_audit_protocol.md
 - implementation planning or coding:
-  - `docs/protocols/implementation_protocol.md`
-  - `docs/protocols/code_style_protocol.md`
-  - `docs/protocols/codegen_protocol.md` when generated code is touched
-- testing or benchmarking:
-  - `docs/protocols/testing_benchmark_protocol.md`
-- reviews and reports:
-  - `docs/protocols/review_documentation_protocol.md`
-- reusable prompts:
-  - `docs/protocols/task_prompts.md`
+  docs/protocols/implementation_protocol.md and
+  docs/protocols/code_style_protocol.md
+- generated work: docs/protocols/codegen_protocol.md
+- testing or benchmarking: docs/protocols/testing_benchmark_protocol.md
+- reviews and reports: docs/protocols/review_documentation_protocol.md
+- reusable prompts: docs/protocols/task_prompts.md
 
 If these reads are incomplete, work must stop.
 
-## Zero-Trust and Trusted-Boundary Rules
+## Privacy and Trusted-Boundary Rules
 
-Zero-trust, privacy-preserving, secure, isolated, or trusted-client claims must
-prove all of:
+Privacy-preserving, secure, isolated, trusted-client, or safe-to-use claims
+require evidence that:
 
-- plaintext sensitive values are identified before AI-facing transfer;
-- tokenization and redaction behavior is deterministic where equality,
-  retrieval, audit, or replay depends on it;
-- Agent Service routes do not receive plaintext sensitive values;
-- RAG, embeddings, conversation memory, retrieval logs, and agent logs do not
-  store plaintext sensitive values;
-- Key Service routes are unreachable from Agent Service and LLM tool surfaces;
-- key dictionaries and decryption keys are isolated from AI-facing routes;
-- human rendering requires authorization and emits auditable evidence;
-- token collision, token reuse, token rotation, and missing-token behavior are
-  explicit when tokens are in scope;
-- corrupt, partial, stale, wrong-tenant, wrong-matter, and unauthorized
-  behavior is explicit;
-- read and write paths do not copy sensitive plaintext beyond spec-allowed
-  boundaries;
-- test and benchmark inputs separate synthetic data from real sensitive data;
-- benchmark comparisons use identical logical payloads;
-- warm-cache and cold-cache results are separated when storage is involved.
+- the original source repository and extracted plaintext stayed inside the
+  approved Human Zone boundary;
+- extraction behavior and unsupported content were identified;
+- declared sensitive classes were evaluated before publication;
+- known plaintext values, source filenames, metadata, temporary files, and
+  vault records were excluded from the agent repository;
+- tokenization was deterministic where equality, audit, or replay required it;
+- the private vault and secret material were unreachable from the tested agent
+  boundary;
+- uncertain and failed documents did not silently publish;
+- partial publication did not replace the last valid output;
+- test and benchmark data were synthetic or explicitly approved;
+- model, extraction, and configuration versions were recorded;
+- future Agent Service, RAG, embeddings, logs, LLMs, and agent tools receive
+  tokenized or redacted content only when those surfaces are approved;
+- future Key Service and rendering routes remain unreachable from Agent
+  Service and model-tool surfaces.
+
+Detection evaluation may prove results only for the recorded dataset, languages,
+document formats, model, rules, and thresholds. It must not be generalized to
+perfect detection.
 
 ## Configuration Hygiene
 
-- Do not add configuration knobs unless strictly necessary.
-- Every knob must have a spec binding, default, bounds, and operator meaning.
-- Avoid environment variables unless the spec explains why a CLI flag or
-  checked config object is insufficient.
+- Do not add configuration unless necessary.
+- Every setting requires a spec binding, default, bounds, and operator meaning.
+- Prefer checked configuration objects and explicit application settings.
+- Environment variables require explicit justification.
 
-## Dependency Hygiene
+## Dependency and Artifact Hygiene
 
-New dependencies require a spec binding that states:
+Every new dependency or model artifact requires a spec binding stating:
 
-- why the dependency is needed;
-- which crate or service owns it;
-- which alternatives were considered;
-- what version was selected;
-- what correctness, privacy, security, or performance risk remains;
-- how the dependency is validated in tests.
+- why it is needed;
+- which crate, Xcode target, adapter, or service owns it;
+- alternatives considered;
+- selected version or artifact identity;
+- source and integrity information;
+- correctness, privacy, security, performance, licensing, and compile-surface
+  risks;
+- validation commands and expected evidence.
 
 ## Documentation Style
 
-- Use concise markdown.
-- Use markdown encoding for formulas and pseudo-formulas.
+- Use concise Markdown.
+- Use Markdown encoding for formulas and pseudocode.
 - Avoid promotional language.
-- Keep public claims separate from internal hypotheses.
-- Use review documents as due-diligence memos, not conversation traces.
+- Separate proved facts, decisions, hypotheses, and deferred work.
+- Use review documents as due-diligence artifacts, not conversation traces.
+- Keep future architecture in one bounded section and reference it elsewhere.

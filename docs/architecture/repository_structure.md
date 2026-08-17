@@ -1,197 +1,371 @@
-```
+~~~
 WUTHIER TERMINAL PROPRIETARY AND CONFIDENTIAL
 Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
+~~~
 
-```
+# Outis Repository Structure
 
-# Wuthier Terminal Repository Structure
-
-Status: initial architecture lock
+Status: R1-selected candidate architecture guardrail
+Scope: local macOS pilot repository
 
 ## Purpose
 
-This document records the intended structure for the Wuthier Terminal
-repository. It is an architecture guardrail, not an implementation plan.
+This document records candidate source-code ownership boundaries for the Outis
+pilot. It is not an implementation plan and does not authorize creation,
+renaming, movement, dependency selection, code generation, model conversion, or
+Xcode targets.
 
-Stack choices remain deferred to approved specs.
+Exact paths require an approved spec, peer audit, and implementation plan.
 
 ## Current Workspace Shape
 
-```text
+~~~text
 Cargo.toml
   package: wuthier-terminal
-  current root Rust crate
+  current root Rust binary scaffold
 
 src/main.rs
   current executable stub
 
-bin
-  repository maintenance tools only
+bin/
+  repository maintenance tools
 
-docs
-  architecture, invariants, protocols, specs, reviews, benchmark evidence
+docs/
+  architecture, invariants, protocols, and future lifecycle artifacts
+
+AGENTS.md
+  active Outis repository contract
 
 initial-intake.md
-  product intake and initial system model
-```
+  approved pilot intake
 
-## Target Workspace Shape
+architecture.md
+  candidate local pilot architecture
 
-The exact split is not approved. A future spec may keep a single crate or split
-the repository into crates and services. If a split is approved, the target
-shape should preserve these ownership boundaries:
+ROADMAP.json
+  canonical phase and gate roadmap
 
-```text
-crates/wuthier-terminal
-  trusted local client, terminal entrypoints, local configuration, local
-  matter/client selection, prompt tokenization, response rendering orchestration
+inventory.md
+  generated repository inventory; not manually editable
+~~~
 
-crates/wuthier-core
-  shared value types, error types, trust-zone route contracts, token and
-  redaction interfaces, audit event interfaces
+No Swift application, Xcode project, Finder extension, extraction adapter,
+model adapter, private vault, or agent-export implementation exists.
 
-crates/wuthier-watch
-  file, folder, and repository watch behavior when approved
+## Candidate Workspace Shape
 
-crates/wuthier-agent-client
-  Agent Service client adapter; AI-facing inputs only
+The phase sequence is defined in the root `ROADMAP.json`. The complete proposed
+first-slice file map and per-file ownership are defined in
+`docs/roadmaps/outis_local_pilot_file_architecture.json`. The latter is the
+single source for the candidate tree. This document owns the enduring
+repository and compile-surface guardrails.
 
-crates/wuthier-key-client
-  Key Service client adapter; rendering and token dictionary routes only
+The proposed high-level shape is:
 
-benchmarks
-  standalone benchmark crates and synthetic datasets, outside production
-  runtime members when approved
+~~~text
+crates/outis-core/
+  dependency-light deterministic domain engine
 
-fixtures
-  synthetic test data only, never real sensitive data
+crates/outis-runtime/
+  approved local filesystem, strict text extraction, model, vault, and
+  publication effects
 
-docs
-  architecture, invariants, protocols, specs, reviews, benchmark evidence
+crates/outis-ffi/
+  narrow versioned Rust-to-Swift boundary
 
-bin
+apps/macos/
+  one Outis application target with native Word/PDF/OCR adapters and one
+  unit-test target
+
+generated/ffi/
+  reproducible generated header when approved
+
+models/
+  approved model manifest and reproducible artifact location only
+
+fixtures/
+  synthetic extraction, multilingual detection, and publication oracles
+
+tools/outis-eval/
+  evaluation-only command surface outside production targets
+
+docs/
+  architecture, invariants, protocols, roadmaps, specs, reviews, and evidence
+
+artifacts/
+  generated evidence only when a spec binds paths and retention
+
+bin/
   repository maintenance tools only
-```
+~~~
 
-This target shape is a boundary model. It is not approval to create these
-crates.
+The first slice has no Finder extension, CLI product, remote service,
+format-specific crate, response renderer, or post-quantum service module. Rust
+runtime owns strict `.txt`/`.md` extraction. Small Swift files in the existing
+application target own AppKit `.doc`/`.docx`, PDFKit PDF, Core Graphics render,
+and Vision OCR adapters. No extra extraction target or crate is created. No
+directory may be created merely because it appears in an architecture
+document. The approved spec and implementation plan must ratify the exact file
+set.
+
+## Runtime Data Is Outside the Source Tree
+
+Production or pilot runtime data must not be committed to this repository.
+
+Conceptual runtime locations are:
+
+~~~text
+user-selected source repository
+  Human Zone original binary and text input
+
+separate generated agent repository
+  AI Zone Markdown-only output rooted at outis/
+
+private application storage
+  Key Zone vault and private entity graph
+
+temporary staging
+  trusted local publication boundary
+~~~
+
+The source repository, agent repository, private vault, and staging location
+are distinct. The export mirrors the source-relative tree and base document
+names after required path tokenization, and changes every target extension to
+`.md`. Exact macOS paths, containers, bookmarks, permissions, sandbox rules,
+and cleanup behavior remain spec decisions.
+
+The private vault must never be placed in:
+
+- the agent repository;
+- the original source repository;
+- this source-code repository;
+- fixtures, benchmarks, logs, or evidence artifacts.
 
 ## Ownership Model
 
-Wuthier Terminal is the trusted local client boundary. It does not replace the
-Agent Service or Key Service.
+### Outis Core
 
-```text
-Human Zone
-  owns authorized human interaction
-  may view plaintext through approved local and key-service rendering
+Candidate ownership:
 
-Wuthier Terminal repository
-  owns local client behavior
-  owns prompt tokenization before AI-facing calls
-  owns response rendering orchestration through Key Service
-  owns file/repository watch behavior when approved
-  owns local matter/client selection when approved
-  owns local audit event emission when approved
-  owns evidence discipline for privacy, correctness, and performance
+- validated normalized-document input;
+- deterministic ordering;
+- candidate-span validation;
+- span conflict resolution;
+- entity and alias resolution;
+- token contracts;
+- deterministic serialization;
+- publication validation;
+- typed errors.
 
-Agent Service
-  owns extraction, OCR, chunking, redacted retrieval, embeddings, search, agent
-  tools, and model orchestration when approved outside or inside a later
-  service-specific spec
-  must not receive plaintext sensitive values
-  must not call Key Service
+The core must not own macOS UI, Finder behavior, Keychain APIs, model runtimes,
+format-heavy extraction dependencies, benchmarks, or real user data unless a
+spec explicitly proves the boundary.
 
-Key Service
-  owns token dictionaries, decryption authority, rendering authorization, and
-  key audit behavior when approved outside or inside a later service-specific
-  spec
-  must not be exposed to AI-facing tools
-```
+### Outis Runtime
 
-## Data-Flow Model
+Candidate ownership:
 
-Plaintext may enter Wuthier Terminal only through approved Human Zone inputs.
+- approved local source enumeration, signature validation, and strict UTF-8
+  text/Markdown extraction effects;
+- approved on-device model adapter;
+- approved private-vault adapter;
+- staging, filesystem publication, cleanup, and recovery effects;
+- composition of one local job from the deterministic core and approved
+  adapters.
 
-```text
-human plaintext document or prompt
-  -> local sensitive-data detection
-  -> local tokenization or redaction
-  -> AI-facing request with tokenized/redacted content
-  -> Agent Service retrieval or model orchestration
-  -> tokenized response
-  -> Wuthier Terminal rendering request to Key Service
-  -> authorized human-visible plaintext response
-```
+The runtime must not own macOS UI, duplicate core domain rules, expose agent
+routes, or pre-create adapters for deferred formats and services. A separate
+adapter crate requires measured dependency or isolation evidence.
 
-The Agent Service and AI-facing stores operate on tokenized or redacted content
-only. The Key Service owns the dictionary and rendering authority. Wuthier
-Terminal coordinates both boundaries but must not create an Agent-to-Key route.
+### macOS Application
 
-## Storage Boundary
+Candidate ownership:
 
-Approved specs must separate:
+- user interaction;
+- folder selection and approved access;
+- application and job lifecycle;
+- progress and cancellation presentation;
+- embedded Quick Look original-versus-normalized extraction review;
+- Finder dispatch coordination only when later approved;
+- sandbox, signing, and entitlement coordination;
+- AppKit Word import, PDFKit page inspection/text, Core Graphics page
+  rendering, and Vision revision 3 OCR;
+- platform-adapter invocation and bounded extraction submission to Rust.
 
-- tokenized or redacted document text;
-- chunks and retrieval metadata;
-- embeddings derived from tokenized or redacted content;
-- token references;
-- conversation memory;
-- audit events;
-- key dictionaries;
-- encrypted sensitive values;
-- plaintext render buffers.
+The application must not make platform UI behavior part of the deterministic
+document result unless the spec defines it as an input.
 
-Database engine choices are intentionally unspecified here. Any database choice
-requires a spec binding, dependency contract, storage schema, failure contract,
-privacy proof, and validation command.
+### Conditional Future Finder Extension
 
-## Compile-Surface Rule
+Candidate ownership:
 
-No crate should compile unrelated surfaces.
+- validate the Finder invocation shape;
+- pass an approved selection request to the application;
+- report dispatch failure.
 
-Examples:
+It must not:
 
-- Runtime users should not compile OCR, embedding, database, or network
-  adapters unless the approved feature needs them.
-- Agent Service client code should not compile Key Service internals.
-- Key Service client code should not compile model-provider or retrieval
-  tooling.
-- Benchmarks and fixtures must not be part of the default production runtime
-  compile path.
-- Synthetic-data generators must not become runtime requirements.
+- process the document repository;
+- access or render the token dictionary;
+- read Keychain secret material;
+- publish partial output.
 
-## Schema and Contract Ownership
+### Extraction Adapters
 
-Schemas and contracts may live outside this repository.
+Candidate ownership:
 
-Allowed ownership shapes:
+- Rust runtime: content-signature and extension validation, source snapshot,
+  strict `.txt` and `.md` decoding, normalized-document validation,
+  deterministic source-to-target path mapping, and typed policy failure;
+- Swift application: AppKit `.doc` and `.docx` import, PDFKit page inspection
+  and text, Core Graphics fixed page render, Vision revision 3 OCR, private
+  provenance, and platform failure;
+- FFI: polling extraction request and bounded status/provenance plus separate
+  UTF-8 text submission, with no callback or retained borrowed pointer.
 
-```text
-application or client crate
-  local data types and client route contracts
+Adapters must not silently discard unsupported content. Every Word and PDF
+result requires review; detected embedded content and incomplete OCR block.
+Exact selection and measured limits are in the R1.2 extraction evaluation.
 
-service repository
-  Agent Service or Key Service API contracts
+### Model Adapters
 
-schema repository
-  shared interface definitions when approved
+Candidate ownership:
 
-Wuthier Terminal repository
-  client-owned contracts, test schemas, and compatibility fixtures only
-```
+- approved model loading;
+- model input and output conversion;
+- artifact identity validation;
+- inference configuration;
+- explicit runtime failure.
 
-No Rust-only annotation may define security-critical behavior unless a spec
-approves that mechanism and its validation path.
+Model output remains an untrusted candidate set.
+
+R1.1 selects `Davlan/bert-base-multilingual-cased-ner-hrl` at the pinned
+revision recorded in
+`docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md`, with an
+ONNX Runtime CPU execution candidate. This research selection does not approve
+dependencies, artifact distribution, model-file creation, or implementation.
+
+### Vault Adapters
+
+Candidate ownership:
+
+- approved storage schema;
+- transactions and migrations;
+- repository identity;
+- entity and token records;
+- secret-provider interface;
+- corruption, recovery, retention, and deletion behavior.
+
+The adapter must not expose a general agent-facing lookup or rendering route.
+
+### FFI Surface
+
+Candidate ownership:
+
+- a narrow versioned boundary between Rust and Swift;
+- explicit memory, encoding, offset, error, cancellation, and concurrency
+  contracts;
+- generated bindings only if approved codegen owns them.
+
+FFI must not become a second domain model or duplicate business rules.
+
+## Compile-Surface Rules
+
+- Runtime users must not compile unrelated extraction, model, database,
+  benchmark, or future-service adapters.
+- The Finder extension must not link private-vault or model internals unless a
+  spec proves necessity and isolation.
+- The deterministic core must not require Swift, AppKit, SwiftUI, Finder,
+  Keychain, SQLite, OCR, or model dependencies by default.
+- Benchmarks, fixtures, synthetic generators, and evaluation tooling must not
+  enter production targets.
+- Model files and generated bindings must not be compiled into unrelated
+  targets.
+- Xcode target and Rust feature relationships require compile-surface evidence.
+- Universal macOS binaries and deployment targets require explicit build
+  evidence when supported.
+
+## Schema and Artifact Ownership
+
+Every schema or generated artifact requires one source of truth and one owner.
+
+Potential schemas include:
+
+- normalized-document schema;
+- candidate-span and detector-evidence schema;
+- private entity-graph schema;
+- token and vault schema;
+- agent-manifest schema;
+- job-state and audit schema;
+- Rust-to-Swift interface schema;
+- model manifest;
+- synthetic evaluation-oracle schema.
+
+No Rust annotation, Swift type, database migration, model metadata file, or
+generated binding may independently define security-critical behavior.
+
+Generated files:
+
+- are not edited by hand;
+- have an approved input and generator;
+- are reproducible by a checked command;
+- record applicable contract or artifact identity;
+- remain outside production targets unless required.
+
+## Test and Evidence Ownership
+
+Candidate separated surfaces:
+
+~~~text
+fixtures/extraction/
+  synthetic format fixtures and extraction oracles
+
+fixtures/detection/
+  synthetic multilingual entity and span oracles
+
+fixtures/publication/
+  synthetic source, vault, and agent-repository boundary cases
+
+crates/outis-core/tests/
+  deterministic detector, entity, token, and export contract tests
+
+crates/outis-runtime/tests/
+  extraction, vault, publication, cancellation, and recovery tests
+
+crates/outis-ffi/tests/
+  ABI and ownership contract tests
+
+apps/macos/OutisTests/
+  application-state, entity review, extraction review, FFI-client,
+  folder-access, Word/PDF, OCR, and extraction-submission tests
+
+tools/outis-eval/
+  evaluation-only corpus measurement and evidence generation
+
+docs/reviews/
+  research, peer audit, implementation plan, and result review
+~~~
+
+Real sensitive documents must not be added as fixtures.
+
+## Conditional Future Services
+
+Remote Agent Service, Key Service, RAG, embeddings, chat, rendering, and
+Swiss-hosted review are outside the pilot. Their repositories, crates, clients,
+schemas, routes, credentials, deployment manifests, and storage must not be
+pre-created by the pilot.
+
+A later approved spec may add them only with separate compile, network,
+credential, storage, authorization, audit, and plaintext-exclusion boundaries.
 
 ## Non-goals
 
 - No undocumented stack lock-in.
-- No Agent Service to Key Service route.
-- No plaintext sensitive values in AI-facing routes.
-- No token dictionary or decryption-key storage in AI-facing surfaces.
-- No benchmark support inside production library crates.
-- No generated code edited by hand.
-- No real sensitive data committed as fixtures.
-- No public privacy, security, performance, or compile-time claim without
-  recorded evidence.
+- No approved crate or Xcode target split.
+- No agent access to the source repository or private vault.
+- No vault or source data in the generated agent repository.
+- No benchmark or fixture support in production targets.
+- No generated code or model artifact edited by hand.
+- No real sensitive data committed as fixtures or evidence.
+- No public privacy, security, performance, compile-time, or detection-quality
+  claim without recorded evidence.

@@ -1,0 +1,617 @@
+{
+  "legal_notice": "WUTHIER TERMINAL PROPRIETARY AND CONFIDENTIAL. Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.",
+  "schema_version": "1.0",
+  "roadmap_id": "outis_local_macos_pilot",
+  "title": "Outis Local macOS Pilot Roadmap",
+  "status": "ACTIVE_S1_READY",
+  "date": "2026-08-17",
+  "document_role": {
+    "classification": "active roadmap and implementation sequence",
+    "is_specification": false,
+    "authorizes_code": false,
+    "authorizes_dependencies": false,
+    "authorizes_stack_selection": false,
+    "next_gate": "draft and approve S1 from the closed R1 contracts; code remains blocked"
+  },
+  "roadmap_artifacts": {
+    "file_architecture": "docs/roadmaps/outis_local_pilot_file_architecture.json",
+    "r1_decision_closure": "docs/reviews/outis_local_pilot/outis_local_pilot_r1_decision_closure.md",
+    "r1_2_extraction_evaluation": "docs/reviews/outis_local_pilot/outis_local_pilot_r1_2_extraction_evaluation.md",
+    "relationship": "The file architecture is the proposed first-slice source tree and runtime-data layout. The R1 closure indexes the exact research candidates. Neither authorizes file creation or code."
+  },
+  "outcome": {
+    "product_goal": "A user selects an authorized local folder in a native macOS application and Outis locally produces a separate tokenized Markdown repository while keeping sensitive mappings in a private local vault.",
+    "first_business_goal": "Demonstrate the complete local workflow on synthetic data for fundraising conversations without representing the demo as production-ready, secure, anonymous, or perfectly detected.",
+    "controlled_pilot_goal": "After the demo, measure extraction, detection, entity resolution, determinism, vault isolation, cancellation, and publication behavior before any approved confidential-data pilot.",
+    "agent_response_contract": "Agents may return Outis tokens such as {{person.person_0001}}. Plaintext response rendering is outside the first pilot."
+  },
+  "delivery_strategy": {
+    "principle": "Build the smallest complete vertical slice, then add one measured capability at a time.",
+    "fast_iteration_rules": [
+      "Protocols and approval gates remain mandatory.",
+      "Every implementation item must bind to a pilot acceptance criterion or an active invariant.",
+      "Unsupported inputs must fail explicitly; they must not receive speculative handling.",
+      "No future-service scaffolding, generalized plugin system, or unused abstraction is permitted.",
+      "Each increment must preserve source, vault, staging, and agent-repository separation.",
+      "A completed job means processing finished under the declared contract; it does not mean every sensitive value was found.",
+      "Claims are limited to recorded evidence from the tested version, fixtures, machine, and configuration."
+    ],
+    "priority_order": [
+      "complete local product loop",
+      "plaintext exclusion from the agent repository under a declared oracle",
+      "deterministic replay under declared inputs and vault state",
+      "clear review, failure, cancellation, and publication behavior",
+      "measured detection improvement",
+      "measured extraction fidelity and platform convenience"
+    ]
+  },
+  "recommended_first_slice": {
+    "approval_status": "roadmap recommendation only",
+    "user_flow": [
+      "Open Outis.",
+      "Select an authorized source folder and a separate export destination.",
+      "Run one local job and observe progress.",
+      "Review every binary extraction and uncertain candidate using the exact minimal actions; unresolved or rejected extraction and identity conflicts remain blocked.",
+      "Publish only after extraction, review, vault, and staged-output validation succeeds.",
+      "Open the generated Markdown repository and use it as the only repository granted to the tested agent."
+    ],
+    "source_formats": {
+      "required_initial": [
+        "legacy Word .doc",
+        "Open XML Word .docx",
+        "text-bearing PDF",
+        "scanned or image-only PDF through local OCR",
+        "UTF-8 .txt",
+        "UTF-8 .md"
+      ],
+      "explicitly_deferred": [
+        "spreadsheets and presentations",
+        "standalone image files",
+        "archives and email containers"
+      ],
+      "target_contract": "Every successfully processed source produces one .md in a separate repository named outis. The output mirrors source-relative directories and base names after sensitive path-component tokenization and replaces the source extension with .md. A target collision blocks publication; nothing is overwritten or silently omitted.",
+      "normalization_contract": "Markdown and plain text preserve their BOM-free UTF-8 text. Binary-derived text uses the selected plain-text Markdown line/page normalization, carries private page or mode provenance, and is not represented as layout-faithful or complete.",
+      "review_contract": "Every .doc, .docx, native-text PDF, and OCR result requires local review of original plus normalized text. Confirmation binds exact source and normalized hashes without proving completeness; rejection blocks the job. Corrupt, encrypted, signature-mismatched, embedded, incomplete, unsupported, source-mutated, or out-of-bound input blocks explicitly.",
+      "candidate_resource_bounds": {
+        "supported_files_per_job": 1000,
+        "text_or_markdown_bytes_per_file": 10485760,
+        "word_or_pdf_bytes_per_file": 52428800,
+        "source_bytes_per_job": 262144000,
+        "normalized_utf8_bytes_per_job": 104857600,
+        "pdf_pages_per_document": 100,
+        "ocr_pages_per_job": 200,
+        "ocr_dpi": 200,
+        "ocr_max_axis_pixels": 4096,
+        "ocr_max_pixels_per_page": 16777216,
+        "ocr_concurrency": 1,
+        "status": "R1.2 guardrail candidates requiring S1 ratification; not capacity claims"
+      },
+      "determinism_contract": "Native extraction identity includes the source bytes, macOS product/build, framework environment, Vision revision and options, language-support result, 200-DPI render identity, observation ordering, and normalized-document schema. Cross-OS-build equality is not promised.",
+      "evidence_status": "R1.2 selects strict Rust UTF-8 decoding plus AppKit Word import, PDFKit PDF text and rendering, Core Graphics fixed rendering, and Vision revision 3 OCR. Every binary-format result requires review. Exact implementation remains subject to S1 ratification."
+    },
+    "human_languages": {
+      "required_initial": [
+        "Italian",
+        "German",
+        "French"
+      ],
+      "future_evaluation_expansion": [
+        "English"
+      ],
+      "scope_status": "Italian, German, and French are mandatory in the first slice.",
+      "evidence_status": "R1.1 provides a 30-case synthetic contextual-detection smoke corpus. R1.2 confirms Vision revision 3 exposes Italian, German, and French on the measured host and records a synthetic OCR probe. Repository-owned language and extraction oracles remain an S1/P1 requirement."
+    },
+    "deterministic_language_boundary": {
+      "largely_language_independent": [
+        "email syntax",
+        "IBAN structure and checksum",
+        "approved telephone syntax after explicit locale and normalization rules",
+        "token assignment, ordering, serialization, and publication"
+      ],
+      "language_dependent": [
+        "person and organization context",
+        "postal-address conventions",
+        "titles, abbreviations, aliases, morphology, and ambiguous words",
+        "contextual-model coverage and uncertainty calibration"
+      ],
+      "extension_rule": "Core contracts must not hardcode one human language, but no additional language is called supported until its corpus and per-language oracles pass.",
+      "performance_rule": "The deterministic gate is expected to be lightweight, but its latency and throughput remain measured budgets rather than assumed claims."
+    },
+    "sensitive_data_classes": {
+      "proposed_initial": [
+        "person",
+        "organization",
+        "postal_address",
+        "email_address",
+        "telephone_number",
+        "iban",
+        "matter_identifier"
+      ],
+      "deferred_until_policy_and_oracles_exist": [
+        "context-sensitive confidential passages",
+        "government identifiers",
+        "credentials and secrets beyond explicitly declared structured patterns",
+        "identifying dates and events"
+      ]
+    },
+    "discovery_layers": [
+      {
+        "layer": "structured",
+        "behavior": "Deterministic, class-specific detectors and normalization for approved structured classes."
+      },
+      {
+        "layer": "contextual",
+        "behavior": "R1.1 selected one exact on-device mBERT ONNX candidate for person and organization spans and location-component evidence. It does not emit complete postal addresses; model output remains untrusted candidate evidence."
+      },
+      {
+        "layer": "corpus_resolution",
+        "behavior": "Exact normalized matches are linked across documents; uncertain alias or entity merges require review rather than hidden heuristics."
+      },
+      {
+        "layer": "review_and_block",
+        "behavior": "Uncertain, conflicting, incomplete, unsupported, or corrupt content receives needs_review or blocked and cannot be silently published as complete."
+      }
+    ],
+    "model_policy": {
+      "pilot_requirement": "The first slice requires exactly one approved offline multilingual NER detector for contextual person and organization candidates and location-component evidence for deterministic postal-address assembly.",
+      "initial_direction": "Evaluate and select an existing fixed on-device NER model before considering training or fine-tuning.",
+      "network_access_during_job": "forbidden",
+      "remote_inference": "out of scope",
+      "model_selection": "R1.1 selected Davlan/bert-base-multilingual-cased-ner-hrl revision e756de7f7b8f64fea0c3d7c3872f1322fab747b1 with its publisher ONNX artifact and ONNX Runtime 1.28.0 CPU execution for the first-slice specification. This research selection does not approve dependencies, redistribution, packaging, or code.",
+      "r1_1_status": "R1_1_SELECTED_FOR_S1_RATIFICATION",
+      "r1_1_evaluation": "docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md",
+      "selected_candidate": {
+        "model": "Davlan/bert-base-multilingual-cased-ner-hrl",
+        "revision": "e756de7f7b8f64fea0c3d7c3872f1322fab747b1",
+        "model_sha256": "6c018415dc8129b358e9d629543c17481ad067ad02f9a6b8750473f161f9c5bd",
+        "tokenizer_sha256": "bf1b59b7b11c95f194f51708d918eea378e09d05f84c0e1656dc5180e8117088",
+        "runtime": "ONNX Runtime 1.28.0",
+        "execution_provider": "CPUExecutionProvider",
+        "target": "arm64 Apple Silicon macOS",
+        "execution": {
+          "mode": "ORT_SEQUENTIAL",
+          "batch_size": 1,
+          "intra_op_threads": 2,
+          "inter_op_threads": 1,
+          "concurrent_inference_calls": 1,
+          "session_lifetime": "one immutable session per active job; release at terminal job status",
+          "configuration_policy": "fixed first-slice configuration; no user thread selector or automatic tuning"
+        },
+        "integration_candidates": [
+          "ort 2.0.0-rc.13 with std, api-28, and load-dynamic only",
+          "tokenizers 0.23.1 with default features disabled and fancy-regex enabled"
+        ],
+        "selection_conditions": [
+          "model and training-data legal review",
+          "the 30-case corpus may gate only the synthetic funding demo; a larger approved legal-genre corpus is required before a controlled confidential-data pilot",
+          "the deterministic postal-address assembler selected in the R1 decision closure",
+          "application payload and memory budget acceptance",
+          "signed application packaging and artifact verification",
+          "spec, peer audit, implementation plan, and dependency approval"
+        ]
+      },
+      "undefined_model_at_spec_or_code": "forbidden",
+      "r1_1_definition_status": "The evaluation and R1 decision closure provide the exact candidate needed for S1 drafting. Legal, dependency, packaging, spec, audit, and plan gates still block implementation.",
+      "required_binding_in_spec": [
+        "upstream model name, source, revision, license, and redistribution terms",
+        "exact model and tokenizer artifact hashes",
+        "runtime name, version, target architecture, execution provider, and packaging",
+        "supported Italian, German, and French inputs and declared document genres",
+        "input normalization, tokenizer, maximum sequence length, chunk size, overlap, and ordering",
+        "output label set, label-to-Outis-class mapping, Unicode and byte-offset conversion, and overlap behavior",
+        "confidence, uncertainty, needs_review, and blocked thresholds per approved class",
+        "threading, batching, cancellation, model lifetime, cache, log, persistence, and network behavior",
+        "cold-load, warm-inference, memory, application-size, CPU, and accelerator budgets",
+        "synthetic corpus identity and extraction, span, class, entity, and uncertainty results for each required language",
+        "artifact verification, failure, upgrade, rollback, and deterministic replay boundary"
+      ]
+    },
+    "demo_data_policy": "Synthetic fixtures only until the controlled-pilot gate passes."
+  },
+  "candidate_code_architecture": {
+    "approval_status": "candidate responsibilities; exact crates, targets, dependencies, APIs, and storage are spec decisions",
+    "file_architecture": "docs/roadmaps/outis_local_pilot_file_architecture.json",
+    "minimal_structure": {
+      "rust": "Propose exactly three Rust crates for the first slice: dependency-light outis-core, side-effecting outis-runtime, and the outis-ffi language boundary. Do not create one crate per detector or adapter.",
+      "swift": "Prefer one native macOS application target for the first slice. Do not create a Finder extension target until the application workflow is validated.",
+    "ffi": "Use the version-one in-process C ABI, opaque handles, pointer-length UTF-8 JSON payloads, polling, bounded native-extraction submission with text outside JSON, cancellation, explicit buffer release, and cbindgen header direction selected by R1; S1 must bind exact schemas and commands.",
+      "tests": "Keep synthetic fixtures, evaluation tools, and benchmarks outside production targets."
+    },
+    "components": [
+      {
+        "id": "macos_app",
+        "candidate_language": "Swift",
+        "responsibilities": [
+          "folder and destination selection",
+          "creation of the separate outis export root",
+          "job lifecycle, progress, cancellation, and status",
+          "minimal uncertainty review and embedded Quick Look original-versus-normalized extraction review",
+        "sandbox, signing, entitlement, and approved local-access coordination",
+        "AppKit Word import, PDFKit PDF inspection and text, Core Graphics page rendering, and Vision revision 3 OCR",
+        "bounded extraction result submission to Rust",
+        "opening the successfully published export"
+        ],
+        "must_not_own": [
+          "tokenization rules",
+          "entity resolution rules",
+          "private token dictionary serialization",
+          "remote model or service calls"
+        ]
+      },
+      {
+        "id": "deterministic_engine",
+        "candidate_language": "Rust",
+        "responsibilities": [
+        "validated source enumeration and deterministic ordering",
+        "content-signature validation and strict UTF-8 .txt and .md extraction",
+          "normalized-document validation",
+          "structured detector orchestration",
+          "candidate-span and overlap resolution",
+          "entity and alias resolution",
+          "repository-scoped token assignment",
+          "Markdown and manifest serialization",
+          "deterministic tokenized source-to-target path mapping and collision detection",
+          "staged-output validation, publication, cancellation, and recovery contracts",
+          "typed failures"
+        ],
+        "must_not_own": [
+          "macOS user-interface behavior",
+          "Finder lifecycle",
+          "unapproved extraction, model, database, or cryptographic dependencies"
+        ]
+      },
+      {
+        "id": "extraction_adapter",
+        "candidate_language": "Rust and Swift",
+        "responsibilities": [
+          "Rust validates extension, content signature, source snapshot, strict UTF-8 text and Markdown, normalized text, limits, and status",
+          "Swift imports .doc and .docx with AppKit and inspects or extracts PDF text with PDFKit",
+          "Swift renders empty-text PDF pages through Core Graphics and runs Vision revision 3 accurate OCR at fixed 200 DPI",
+          "OCR languages are ordered it-IT, de-DE, fr-FR with automatic language detection enabled, language correction disabled, and one page request at a time",
+          "emit private page and extraction-mode provenance; never represent normalized Markdown as layout-faithful",
+          "require review for every Word and PDF result and reject unsupported, malformed, encrypted, embedded, incomplete, or out-of-bound content explicitly"
+        ],
+        "selection_status": "R1.2 candidate for S1 ratification; no extraction dependency or source file is approved"
+      },
+      {
+        "id": "local_model_adapter",
+        "candidate_language": "Rust",
+        "responsibilities": [
+          "validate approved model identity and configuration",
+          "run local inference without network access",
+          "convert model output into untrusted candidate spans",
+          "fail explicitly without persisting plaintext in model caches or logs"
+        ]
+      },
+      {
+        "id": "private_vault_adapter",
+        "candidate_language": "Rust and SQL",
+        "responsibilities": [
+          "persist repository identity, private entity graph, aliases, tokens, provenance, and version state",
+          "provide transactional token reuse and collision handling",
+          "remain outside the source and agent repositories",
+          "deny the tested agent boundary"
+        ],
+        "candidate_technologies": [
+          "rusqlite 0.40.2 with default features disabled and bundled SQLite 3.53.2",
+          "DELETE journal, one connection and writer, explicit immediate transactions",
+          "plaintext synthetic-demo store with no Keychain secret"
+        ],
+        "selection_status": "R1 candidate for S1; unsuitable for confidential data until encrypted-vault and Keychain research is approved"
+      },
+      {
+        "id": "agent_repository",
+        "candidate_language": "not applicable",
+        "allowed_contents": [
+          "tokenized Markdown",
+          "tokenized relative directories and base filenames",
+          "versioned manifest",
+          "approved non-sensitive status metadata"
+        ],
+        "forbidden_contents": [
+          "source documents",
+          "private vault or token mappings",
+          "secrets",
+          "plaintext sensitive source path components",
+          "plaintext intermediates, logs, or errors",
+          "unapproved metadata or partial content represented as complete"
+        ]
+      }
+    ],
+    "job_pipeline": [
+      "validate source, destination, access, and separation",
+      "capture the declared source snapshot and enumerate allowed files deterministically",
+      "extract each supported document to the normalized representation",
+      "run deterministic and approved local contextual discovery",
+      "resolve conflicts, entities, and exact aliases",
+      "complete required user review",
+      "assign or reuse repository-scoped tokens through the private vault",
+      "map every successful source to one tokenized relative .md path and block collisions",
+      "serialize Markdown and manifest into staging under the outis root",
+      "validate the complete staged tree and declared known-plaintext oracle",
+      "atomically publish or preserve the last valid output",
+      "report completed, needs_review, blocked, cancelled, or failed without overstating safety"
+    ]
+  },
+  "milestones": {
+    "funding_demo": {
+      "scope": "first complete local slice on synthetic Italian, German, and French .doc, .docx, text-PDF, scanned-PDF/OCR, .txt, and .md fixtures",
+      "claim_boundary": "workflow demonstration only",
+      "exit_evidence": [
+        "a native macOS run selects a source folder and separate destination",
+        "all processing occurs locally and the tested run performs no remote inference",
+        "declared structured and contextual candidates are tokenized after required review",
+        "extraction, detection, entity-resolution, and uncertainty results are reported separately for Italian, German, and French",
+        "every successfully processed source has one Markdown target at its declared tokenized relative path",
+        "the private graph and mappings persist outside the export",
+        "a repeated run under identical declared inputs produces the expected deterministic output",
+        "known declared plaintext is absent from the complete export scan",
+        "unsupported, uncertain, corrupt, failed, and cancelled jobs do not publish a misleading complete export",
+        "the prior valid export survives injected failure and cancellation"
+      ],
+      "not_proved_by_exit": [
+        "perfect discovery",
+        "formal anonymity",
+        "production security",
+        "fitness for real confidential documents",
+        "performance outside the recorded machine and corpus"
+      ]
+    },
+    "controlled_pilot": {
+      "scope": "approved controlled corpus and explicit agent-access threat model",
+      "entry_requirements": [
+        "funding-demo result review accepted",
+        "format-specific extraction oracles accepted",
+        "detection and entity-resolution thresholds approved and measured",
+        "vault, sandbox, source-access, and agent-access boundaries tested",
+        "retention, deletion, recovery, logging, and support behavior approved",
+        "claims text limited to recorded evidence"
+      ]
+    }
+  },
+  "planning_horizon": {
+    "estimate_status": "unproved planning hypothesis; recalibrate in the S1 implementation budget",
+    "funding_demo_target": "approximately four to six focused working weeks after roadmap approval",
+    "assumptions": [
+      "one primary implementation stream",
+      "full Xcode and required signing capability become available before Swift work",
+      "S1 ratifies the R1.2 native extraction and OCR selection without a new blocker",
+      "the R1.1 selected detector payload and memory are accepted for a synthetic demo and legal redistribution review passes before model implementation",
+      "no dependency, licensing, sandbox, FFI, or model-artifact blocker is discovered"
+    ]
+  },
+  "phases": [
+    {
+      "id": "R0",
+      "name": "Roadmap approval",
+      "classification": "review and documentation",
+      "goal": "Agree the first slice, milestone boundaries, phase order, and explicit deferrals.",
+      "deliverables": [
+        "approved roadmap direction",
+        "recorded objections or changes"
+      ],
+      "code_allowed": false,
+      "exit_gate": "user approval"
+    },
+    {
+      "id": "R1",
+      "name": "Decision-closure research",
+      "classification": "research only",
+      "goal": "Close only the decisions needed to specify the first slice.",
+      "workstreams": [
+        "Italian, German, and French synthetic corpora, taxonomy, annotation, and per-language quality measures",
+        "initial UTF-8 text and Markdown extraction candidate, later found too narrow",
+        "structured-detector baseline and address assembly against the R1.1 selected contextual detector",
+        "token grammar, equality, normalization, uncertainty, and review semantics",
+        "agent process, source access, vault isolation, and local threat model",
+        "vault, secret-protection, migration, recovery, retention, and deletion candidates",
+        "minimum macOS, Xcode, Swift, Rust, sandbox, signing, and entitlement direction",
+        "narrow Rust-to-Swift interface, progress, cancellation, and build candidates",
+        "agent-repository layout, staging, validation, and atomic-publication direction"
+      ],
+      "deliverables": [
+        "updated outis_local_pilot_research_brief.md",
+        "docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md with one selected or explicitly blocked NER candidate",
+        "decision and evidence table",
+        "explicit list of rejected candidates and unresolved blockers"
+      ],
+      "code_allowed": false,
+      "status": "COMPLETE",
+      "closure_artifact": "docs/reviews/outis_local_pilot/outis_local_pilot_r1_decision_closure.md",
+      "exit_gate": "R1.1 and R1.2 selections recorded; decision closure marks R1 complete for S1 drafting"
+    },
+    {
+      "id": "R1.2",
+      "name": "Required extraction and OCR selection",
+      "classification": "research only",
+      "goal": "Select and evidence the smallest local extraction path that covers every required source format and produces the normalized document and tokenized target-path contracts needed by S1.",
+      "workstreams": [
+        "evaluate exact local .doc, .docx, text-PDF, scanned-PDF/OCR, .txt, and .md extraction candidates",
+        "define content-signature, corruption, encryption, unsupported-feature, partial-extraction, cancellation, and source-mutation behavior",
+        "define text, structure, page or block provenance, Unicode offset, table, list, note, tracked-change, embedded-content, and OCR-confidence contracts",
+        "define Italian, German, and French OCR configuration and deterministic artifact boundary",
+        "define tokenized source-relative output paths, extension replacement, Unicode and case handling, and collision blocking",
+        "measure representative synthetic fixtures, resource use, packaging, licensing, dependency, and compile-surface candidates"
+      ],
+      "deliverables": [
+        "amended outis_local_pilot_r1_source_discovery_contract.md",
+        "docs/reviews/outis_local_pilot/outis_local_pilot_r1_2_extraction_evaluation.md with per-format candidate, fidelity, failure, replay, and benchmark evidence",
+        "amended R1 decision closure with one selected or explicitly blocked extraction path",
+        "updated acceptance-oracle and file-architecture bindings"
+      ],
+      "code_allowed": false,
+      "status": "COMPLETE_FOR_S1_DRAFTING",
+      "exit_gate": "passed: every required source format has an exact evidenced local candidate, normalized Markdown contract, typed failure behavior, deterministic boundary, and S1 ratification list"
+    },
+    {
+      "id": "S1",
+      "name": "Minimal pilot specification",
+      "classification": "spec authoring",
+      "goal": "Write the source of truth for the funding-demo slice and nothing beyond it.",
+      "entry_gate": "R1.2 complete and R1 decision closure amended",
+      "status": "READY_TO_START",
+      "deliverables": [
+        "docs/specs/outis_local_pilot_SPEC.md",
+        "exact source, token, vault, model, FFI, export, failure, test, evidence, and code bindings",
+        "explicit compile, application-size, latency, memory, and correctness budgets"
+      ],
+      "code_allowed": false,
+      "exit_gate": "pre-audit closure gate complete"
+    },
+    {
+      "id": "A1",
+      "name": "Peer audit",
+      "classification": "peer audit",
+      "goal": "Try to falsify the pilot specification before implementation planning.",
+      "deliverables": [
+        "separate peer-audit artifact",
+        "PEER_AUDIT_PASSED or BLOCKED classification"
+      ],
+      "code_allowed": false,
+      "exit_gate": "PEER_AUDIT_PASSED"
+    },
+    {
+      "id": "P1",
+      "name": "Minimal implementation plan",
+      "classification": "implementation planning",
+      "goal": "Bind the accepted specification to the smallest exact file, target, dependency, artifact, test, and rollback set.",
+      "deliverables": [
+        "approved implementation-plan artifact",
+        "necessity binding for every file, dependency, configuration key, generated artifact, and target",
+        "ratified final file set derived from docs/roadmaps/outis_local_pilot_file_architecture.json"
+      ],
+      "code_allowed": false,
+      "exit_gate": "implementation plan approved"
+    },
+    {
+      "id": "I1",
+      "name": "End-to-end local skeleton",
+      "classification": "code implementation",
+      "goal": "Produce the first running native path from a folder containing required .doc, .docx, .pdf, .txt, and .md inputs to one validated Markdown target per source in a separate outis repository.",
+      "constraints": [
+        "one native app target and smallest viable Rust surface",
+        "no Finder extension",
+        "all required source formats use only the exact extractors and local OCR approved by S1 and P1",
+        "no remote path",
+        "no speculative adapters"
+      ],
+      "exit_gate": "approved narrow correctness, boundary, build, and integration checks pass"
+    },
+    {
+      "id": "I2",
+      "name": "Private graph and contextual discovery",
+      "classification": "code implementation",
+      "goal": "Add the approved private-vault persistence, repository-scoped token reuse, contextual detector, cross-document resolution, and minimal uncertainty review to the running path.",
+      "constraints": [
+        "existing evaluated model only unless the spec proves another need",
+        "no hidden alias merge",
+        "no model network, logging, or persistence outside the approved boundary"
+      ],
+      "exit_gate": "approved discovery, entity-resolution, vault, determinism, and review oracles pass"
+    },
+    {
+      "id": "I3",
+      "name": "Publication and failure closure",
+      "classification": "code implementation",
+      "goal": "Close staging, complete-tree validation, atomic publication, cancellation, crash recovery, and last-valid-output preservation.",
+      "exit_gate": "injected failure, cancellation, recovery, known-plaintext, and publication checks pass"
+    },
+    {
+      "id": "V1",
+      "name": "Funding-demo validation and result review",
+      "classification": "testing, measurement, and review",
+      "goal": "Record what the first slice actually does and prepare a reproducible synthetic demonstration.",
+      "deliverables": [
+        "result-review artifact",
+        "reproducible synthetic demo corpus and oracle",
+        "recorded build, test, privacy, determinism, resource, and failure evidence",
+        "claim ledger separating proved behavior from hypotheses and unknowns",
+        "decision to stop, revise, or enter the controlled-pilot lifecycle"
+      ],
+      "exit_gate": "funding-demo milestone evidence accepted without expanding its claim boundary"
+    },
+    {
+      "id": "E1",
+      "name": "Additional document-format increment",
+      "classification": "new lifecycle increment",
+      "goal": "Add one evidence-backed format outside the required .doc, .docx, .pdf, .txt, and .md boundary.",
+      "entry_gate": "V1 accepted and new-format research, spec amendment, audit, and plan approved",
+      "code_allowed_before_entry_gate": false
+    },
+    {
+      "id": "E2",
+      "name": "Finder convenience increment",
+      "classification": "new lifecycle increment",
+      "goal": "Add Finder dispatch only after the application-owned job path and sandbox boundaries are stable.",
+      "entry_gate": "application path accepted and Finder research, spec amendment, audit, and plan approved",
+      "code_allowed_before_entry_gate": false
+    },
+    {
+      "id": "E3",
+      "name": "Controlled local pilot",
+      "classification": "new approved pilot lifecycle",
+      "goal": "Evaluate approved controlled documents under explicit operational, privacy, and support boundaries.",
+      "entry_gate": "controlled-pilot milestone requirements complete",
+      "code_allowed_before_entry_gate": false
+    }
+  ],
+  "explicitly_deferred": [
+    "remote inference or storage",
+    "Swiss-hosted second-pass verification",
+    "remote Agent Service or Key Service",
+    "RAG, embeddings, retrieval, chat, conversation memory, and response rendering",
+    "continuous synchronization or folder watching",
+    "agent access to the source repository or private vault",
+    "spreadsheets, presentations, standalone image files, email containers, and archives",
+    "custom model training or fine-tuning",
+    "multi-user, tenant, organization, or server deployment",
+    "cross-repository identity linkage",
+    "irreversible anonymization claims"
+  ],
+  "stop_or_replan_conditions": [
+    "No acceptable local detector can be evaluated for the declared Italian, German, and French classes.",
+    "The selected runtime cannot satisfy local-only, licensing, artifact-identity, application-size, or memory constraints.",
+    "The tested agent cannot be prevented from reading the source or private vault under the declared threat model.",
+    "Extraction completeness or offset provenance cannot be specified for an allegedly supported format.",
+    "The vault and secret boundary cannot provide the required transaction, recovery, and denied-caller behavior.",
+    "Rust-to-Swift ownership, cancellation, error, and build behavior cannot be made explicit and testable.",
+    "A proposed shortcut would publish uncertain or partial content as complete.",
+    "Fundraising timing pressure would require claims beyond measured evidence."
+  ],
+  "current_blockers_to_code": [
+    "R1 candidates must be ratified in an approved exact S1 specification.",
+    "S1 must bind the exact native extraction request, normalized-document, provenance, mandatory review, limits, failure, cancellation, and system-artifact identity contracts.",
+    "Repository-owned extraction and OCR fixtures and their complete oracles do not exist.",
+    "No model, runtime, artifact distribution, Cargo dependency, generated header, Xcode setting, or SQLite schema is approved for implementation.",
+    "The selected model still requires legal redistribution review.",
+    "The plaintext funding-demo vault is restricted to synthetic data and is not an approved confidential-data design.",
+    "Full Xcode was not available in the recorded environment.",
+    "No pilot specification, peer-audit pass, or approved implementation plan exists."
+  ],
+  "next_action": {
+    "phase": "S1",
+    "decision_requested": "Draft the minimal pilot specification from the closed R1 contracts and ratify or reject every exact candidate without adding implementation scope.",
+    "after_approval": "Run the separate A1 peer audit, then write and approve the minimal P1 implementation plan.",
+    "code_status": "blocked until S1, A1, and P1 pass"
+  },
+  "authoritative_references": [
+    "AGENTS.md",
+    "architecture.md",
+    "docs/invariants/core_invariants.md",
+    "docs/protocols/lifecycle_protocol.md",
+    "docs/protocols/research_protocol.md",
+    "docs/protocols/spec_protocol.md",
+    "docs/protocols/peer_audit_protocol.md",
+    "docs/protocols/implementation_protocol.md",
+    "docs/protocols/testing_benchmark_protocol.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_research_brief.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_r1_decision_closure.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_r1_source_discovery_contract.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_r1_token_vault_contract.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_r1_publication_platform_contract.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_r1_acceptance_evidence.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_r1_2_extraction_evaluation.md",
+    "docs/roadmaps/outis_local_pilot_file_architecture.json"
+  ]
+}

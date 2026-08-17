@@ -1,108 +1,138 @@
-```
+~~~
 WUTHIER TERMINAL PROPRIETARY AND CONFIDENTIAL
 Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
+~~~
 
-```
+# Outis Protocol Prompts
 
-# Wuthier Terminal Protocol Prompts
-
-These prompts are reusable task starters. They do not override `AGENTS.md` or
-the protocols.
+These prompts are reusable task starters. They do not override AGENTS.md,
+approved specs, or protocols.
 
 ## Research Prompt
 
-```text
+~~~text
 Read AGENTS.md, docs/invariants/core_invariants.md,
 docs/protocols/lifecycle_protocol.md, and
 docs/protocols/research_protocol.md first.
 
 Task: prepare a research brief for [slug].
 
-Do not write code. Do not change dependencies. Produce
-docs/reviews/[slug]/[slug]_research_brief.md with measured object, source
-materials, affected trust zones, sensitive-data classes, evidence table,
-hypotheses, unknowns, risks, required decisions before spec, and recommended
-next phase.
-```
+Do not write code, change build configuration, select dependencies, generate
+bindings, or add model artifacts.
+
+Write docs/reviews/[slug]/[slug]_research_brief.md with the measured object,
+source ownership, source formats, extraction risks, target languages,
+sensitive-data classes, automatic discovery and entity-resolution candidates,
+token and determinism boundaries, Human/AI/Key Zone surfaces, agent-repository
+contract, private-vault contract, macOS/Rust/Swift/FFI/model/storage candidates,
+evidence table, hypotheses, unknowns, risks, correctness and privacy oracle
+candidates, required decisions before spec, and recommended next phase.
+
+Mark remote services and Swiss-hosted review out of scope unless the task
+explicitly includes them.
+~~~
 
 ## Spec Prompt
 
-```text
+~~~text
 Read AGENTS.md, core_invariants.md, lifecycle_protocol.md,
-research_protocol.md, spec_protocol.md, peer_audit_protocol.md, the research
-brief, and relevant code.
+research_protocol.md, spec_protocol.md, peer_audit_protocol.md, the target
+research brief, relevant architecture, prior specs, and relevant source and
+upstream contracts.
 
 Task: write docs/specs/[slug]_SPEC.md.
 
-Do not write code. The spec must bind source data, sensitive-data classes,
-tokenization, redaction, trust zones, Agent Service boundaries, Key Service
-boundaries, storage, prompt and conversation behavior, rendering authorization
-and audit, generated artifacts when relevant, crate and service boundaries,
-dependencies, determinism, failure behavior, correctness and privacy oracle,
-benchmarks, compile-surface budget, runtime budget, code paths, artifacts,
-tests, review paths, and approval checklist.
-```
+Do not write code.
+
+Follow the mandatory section order exactly. Close source ownership,
+enumeration, formats, extraction, normalized documents, sensitive classes,
+automatic discovery, local model artifacts, entity resolution, uncertainty,
+tokens, trust zones, agent repository, private vault, staging, atomic
+publication, macOS application, Finder, sandbox, signing, entitlements,
+Keychain, Rust/Swift/FFI, dependencies, generated artifacts, determinism,
+failure, recovery, retention, correctness, privacy, benchmarks, tests, code and
+build paths, evidence artifacts, and approval.
+
+Mark future Agent Service, Key Service, RAG, chat, rendering, and Swiss-hosted
+review out of scope unless explicitly included.
+~~~
 
 ## Peer Audit Prompt
 
-```text
-Read AGENTS.md, core_invariants.md, lifecycle_protocol.md,
-spec_protocol.md, peer_audit_protocol.md, the research brief, and the target
-spec.
+~~~text
+Read AGENTS.md, core_invariants.md, lifecycle_protocol.md, spec_protocol.md,
+peer_audit_protocol.md, the research brief, target spec, prior specs, relevant
+source, and upstream contracts.
 
 Task: audit docs/specs/[slug]_SPEC.md.
 
-Do not edit the spec in the first pass. Try to falsify measured object clarity,
-source data ownership, sensitive-data coverage, tokenization semantics,
-redaction semantics, trust-zone boundaries, Agent Service plaintext exclusion,
-Key Service isolation, storage plaintext exclusion, authorization and audit,
-crate isolation, compile-surface budget, dependency containment, correctness
-and privacy oracle, benchmark isolation, failure behavior, and code binding
-completeness. Write docs/reviews/[slug]/[slug]_peer_audit.md and classify
-exactly PEER_AUDIT_PASSED or BLOCKED.
-```
+Do not edit the spec in the first pass. Try to falsify source boundaries,
+extraction completeness, detection and entity semantics, model provenance and
+evaluation, uncertainty, tokens, trust zones, plaintext copies,
+agent-repository contents, private-vault isolation, staging and atomic
+publication, macOS/Finder/sandbox/signing/entitlement/Keychain behavior,
+Rust/Swift/FFI ownership, generated and model artifacts, failure and recovery,
+correctness and privacy oracles, benchmark isolation, compile/application
+surface, and binding completeness.
+
+Write docs/reviews/[slug]/[slug]_peer_audit.md and classify exactly
+PEER_AUDIT_PASSED or BLOCKED.
+~~~
 
 ## Implementation Plan Prompt
 
-```text
+~~~text
 Read AGENTS.md, core_invariants.md, lifecycle_protocol.md,
-implementation_protocol.md, code_style_protocol.md, testing_benchmark_protocol.md,
-the approved spec, and the peer audit.
+implementation_protocol.md, code_style_protocol.md, codegen_protocol.md when
+relevant, testing_benchmark_protocol.md, the approved spec, and peer audit.
 
 Task: write docs/reviews/[slug]/[slug]_implementation_plan.md.
 
-Do not write code. Bind every file to edit/create, generated artifact,
-dependency change, test, benchmark, security-boundary evidence path, command,
-expected output, risk, and validation step. End with an explicit approval gate
-before code.
-```
+Do not write code.
+
+Bind every Rust, Swift, C, Xcode, build, schema, migration, entitlement,
+signing, Finder, sandbox, Keychain, FFI, extraction, model, storage, generated,
+test, benchmark, dataset, security-boundary, and evidence file. Bind commands,
+expected outputs, risks, cleanup, rollback, and validation order. Preserve
+user-owned worktree changes.
+
+End with an explicit approval gate before code.
+~~~
 
 ## Implementation Prompt
 
-```text
+~~~text
 Read AGENTS.md, implementation_protocol.md, code_style_protocol.md,
 codegen_protocol.md when relevant, testing_benchmark_protocol.md, the approved
-spec, and the approved implementation plan.
+spec, peer audit, and approved implementation plan.
 
 Task: implement only the approved plan.
 
-Do not add behavior absent from the spec. Keep changes minimal. After code,
-perform the pre-test audit required by implementation_protocol.md and report
-whether testing may begin.
-```
+Do not add formats, classes, model behavior, dependencies, configuration,
+targets, entitlements, generated artifacts, routes, or storage behavior absent
+from the spec. Keep changes minimal. Preserve source, vault, staging, and agent
+boundaries. Use explicit errors in Rust and Swift. Do not allow panic,
+exception, force unwrap, partial publication, or plaintext leakage across a
+security boundary.
+
+After implementation, perform the required pre-test audit and report whether
+testing may begin.
+~~~
 
 ## Test and Benchmark Prompt
 
-```text
+~~~text
 Read AGENTS.md, testing_benchmark_protocol.md, the approved spec, approved
-implementation plan, and implemented code paths.
+implementation plan, peer audit, and implemented code and build paths.
 
-Task: run the bound tests and benchmarks.
+Task: run the bound tests, evaluations, and benchmarks.
 
-Do not change expected values, tolerances, or benchmark scope unless
-independent evidence proves the original expectation was wrong. Record command,
-machine metadata, source data identity, trust zones, sensitive-data classes,
-storage identity when relevant, dataset identity, correctness, privacy,
-determinism, compile-surface output when relevant, benchmark output, and
-limitations. Prepare the result review.
-```
+Do not change expected values, thresholds, tolerances, datasets, or benchmark
+scope unless independent evidence and the lifecycle prove the original
+contract was wrong.
+
+Record source, extraction, language, sensitive-class, detector, entity, token,
+model, vault, platform, signing, entitlement, FFI, storage, dataset, build,
+privacy, determinism, publication, recovery, compile-surface, performance,
+failure, and interpretation evidence. Prepare the result review.
+~~~
