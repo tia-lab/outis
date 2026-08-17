@@ -3,7 +3,7 @@
   "schema_version": "1.0",
   "roadmap_id": "outis_local_macos_pilot",
   "title": "Outis Local macOS Pilot Roadmap",
-  "status": "ACTIVE_S1_READY",
+  "status": "A1_PEER_AUDIT_PASSED_READY_FOR_P1",
   "date": "2026-08-17",
   "document_role": {
     "classification": "active roadmap and implementation sequence",
@@ -11,13 +11,16 @@
     "authorizes_code": false,
     "authorizes_dependencies": false,
     "authorizes_stack_selection": false,
-    "next_gate": "draft and approve S1 from the closed R1 contracts; code remains blocked"
+    "next_gate": "author and explicitly approve the exact MI-01 implementation plan; code remains blocked"
   },
   "roadmap_artifacts": {
     "file_architecture": "docs/roadmaps/outis_local_pilot_file_architecture.json",
     "r1_decision_closure": "docs/reviews/outis_local_pilot/outis_local_pilot_r1_decision_closure.md",
     "r1_2_extraction_evaluation": "docs/reviews/outis_local_pilot/outis_local_pilot_r1_2_extraction_evaluation.md",
-    "relationship": "The file architecture is the proposed first-slice source tree and runtime-data layout. The R1 closure indexes the exact research candidates. Neither authorizes file creation or code."
+    "s1_working_spec": "docs/specs/outis_local_pilot_SPEC.md",
+    "s1_author_pre_audit": "docs/reviews/outis_local_pilot/outis_local_pilot_spec_pre_audit.md",
+    "a1_peer_audit": "docs/reviews/outis_local_pilot/outis_local_pilot_peer_audit.md",
+    "relationship": "The file architecture is the S1 specification-incorporated path and runtime-data allowlist. The R1 closure indexes the research evidence. Neither authorizes file creation or code without the later lifecycle gates."
   },
   "outcome": {
     "product_goal": "A user selects an authorized local folder in a native macOS application and Outis locally produces a separate tokenized Markdown repository while keeping sensitive mappings in a private local vault.",
@@ -46,7 +49,7 @@
     ]
   },
   "recommended_first_slice": {
-    "approval_status": "roadmap recommendation only",
+    "approval_status": "S1-21 approved; author pre-audit and repeated A1 passed; implementation plan still required and implementation is not authorized",
     "user_flow": [
       "Open Outis.",
       "Select an authorized source folder and a separate export destination.",
@@ -84,10 +87,10 @@
         "ocr_max_axis_pixels": 4096,
         "ocr_max_pixels_per_page": 16777216,
         "ocr_concurrency": 1,
-        "status": "R1.2 guardrail candidates requiring S1 ratification; not capacity claims"
+        "status": "S1-approved guardrails; not capacity claims"
       },
       "determinism_contract": "Native extraction identity includes the source bytes, macOS product/build, framework environment, Vision revision and options, language-support result, 200-DPI render identity, observation ordering, and normalized-document schema. Cross-OS-build equality is not promised.",
-      "evidence_status": "R1.2 selects strict Rust UTF-8 decoding plus AppKit Word import, PDFKit PDF text and rendering, Core Graphics fixed rendering, and Vision revision 3 OCR. Every binary-format result requires review. Exact implementation remains subject to S1 ratification."
+      "evidence_status": "S1 approves strict Rust UTF-8 decoding plus AppKit Word import, PDFKit PDF text and rendering, Core Graphics fixed rendering, and Vision revision 3 OCR. Every binary-format result requires review. Implementation remains blocked by the later lifecycle gates."
     },
     "human_languages": {
       "required_initial": [
@@ -157,8 +160,8 @@
       "initial_direction": "Evaluate and select an existing fixed on-device NER model before considering training or fine-tuning.",
       "network_access_during_job": "forbidden",
       "remote_inference": "out of scope",
-      "model_selection": "R1.1 selected Davlan/bert-base-multilingual-cased-ner-hrl revision e756de7f7b8f64fea0c3d7c3872f1322fab747b1 with its publisher ONNX artifact and ONNX Runtime 1.28.0 CPU execution for the first-slice specification. This research selection does not approve dependencies, redistribution, packaging, or code.",
-      "r1_1_status": "R1_1_SELECTED_FOR_S1_RATIFICATION",
+      "model_selection": "S1 approves Davlan/bert-base-multilingual-cased-ner-hrl revision e756de7f7b8f64fea0c3d7c3872f1322fab747b1 with its publisher ONNX artifact and ONNX Runtime 1.28.0 CPU execution for the first-slice design. Qualified legal clearance blocks only model-specific implementation, acquisition, packaging, execution, distribution, and complete-pilot acceptance.",
+      "r1_1_status": "S1_APPROVED_MODEL_SPECIFIC_LEGAL_GATE",
       "r1_1_evaluation": "docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md",
       "selected_candidate": {
         "model": "Davlan/bert-base-multilingual-cased-ner-hrl",
@@ -177,12 +180,12 @@
           "session_lifetime": "one immutable session per active job; release at terminal job status",
           "configuration_policy": "fixed first-slice configuration; no user thread selector or automatic tuning"
         },
-        "integration_candidates": [
+        "approved_integrations": [
           "ort 2.0.0-rc.13 with std, api-28, and load-dynamic only",
           "tokenizers 0.23.1 with default features disabled and fancy-regex enabled"
         ],
-        "selection_conditions": [
-          "model and training-data legal review",
+        "implementation_stop_gates": [
+          "model and training-data legal review before every model-specific surface",
           "the 30-case corpus may gate only the synthetic funding demo; a larger approved legal-genre corpus is required before a controlled confidential-data pilot",
           "the deterministic postal-address assembler selected in the R1 decision closure",
           "application payload and memory budget acceptance",
@@ -191,8 +194,8 @@
         ]
       },
       "undefined_model_at_spec_or_code": "forbidden",
-      "r1_1_definition_status": "The evaluation and R1 decision closure provide the exact candidate needed for S1 drafting. Legal, dependency, packaging, spec, audit, and plan gates still block implementation.",
-      "required_binding_in_spec": [
+      "r1_1_definition_status": "The evaluation and R1 decision closure supplied the exact candidate now bound by S1. Legal clearance blocks its implementation, acquisition, execution, and packaging. The only pre-clearance implementation capability specified by S1-20 is MI-01 deterministic email discovery, subject to amended author pre-audit, peer audit, and an approved plan.",
+      "approved_spec_bindings": [
         "upstream model name, source, revision, license, and redistribution terms",
         "exact model and tokenizer artifact hashes",
         "runtime name, version, target architecture, execution provider, and packaging",
@@ -209,12 +212,12 @@
     "demo_data_policy": "Synthetic fixtures only until the controlled-pilot gate passes."
   },
   "candidate_code_architecture": {
-    "approval_status": "candidate responsibilities; exact crates, targets, dependencies, APIs, and storage are spec decisions",
+    "approval_status": "S1-01 through S1-18 approve the complete first-slice design, S1-19 partitions the model legal gate, S1-20 binds exact MI-01 deterministic email discovery, and S1-21 binds the installed stable alias to exact Rust, Cargo, component, target, and offline-resolution evidence. The S1-21 author pre-audit and repeated peer audit pass; implementation remains unauthorized until the exact MI-01 plan is approved.",
     "file_architecture": "docs/roadmaps/outis_local_pilot_file_architecture.json",
     "minimal_structure": {
-      "rust": "Propose exactly three Rust crates for the first slice: dependency-light outis-core, side-effecting outis-runtime, and the outis-ffi language boundary. Do not create one crate per detector or adapter.",
-      "swift": "Prefer one native macOS application target for the first slice. Do not create a Finder extension target until the application workflow is validated.",
-    "ffi": "Use the version-one in-process C ABI, opaque handles, pointer-length UTF-8 JSON payloads, polling, bounded native-extraction submission with text outside JSON, cancellation, explicit buffer release, and cbindgen header direction selected by R1; S1 must bind exact schemas and commands.",
+      "rust": "The complete pilot has exactly three Rust crates: dependency-light outis-core, side-effecting outis-runtime, and the outis-ffi boundary. MI-01 stages the workspace with outis-core only; no empty runtime or FFI placeholder is allowed.",
+      "swift": "S1-11 approves exactly one native macOS application target and one test target for the first slice. Do not create a Finder extension target until a future specification approves it.",
+      "ffi": "S1-12 approves exactly ten version-one C ABI functions, opaque handles, pointer-length buffers, stable call codes, polling, extraction and review submission, cancellation races, panic containment, explicit release, cbindgen 0.29.4, and byte-clean generated-header verification.",
       "tests": "Keep synthetic fixtures, evaluation tools, and benchmarks outside production targets."
     },
     "components": [
@@ -271,7 +274,7 @@
           "emit private page and extraction-mode provenance; never represent normalized Markdown as layout-faithful",
           "require review for every Word and PDF result and reject unsupported, malformed, encrypted, embedded, incomplete, or out-of-bound content explicitly"
         ],
-        "selection_status": "R1.2 candidate for S1 ratification; no extraction dependency or source file is approved"
+        "selection_status": "S1-approved design binding; source creation and implementation remain blocked until the peer audit and implementation plan pass"
       },
       {
         "id": "local_model_adapter",
@@ -297,7 +300,7 @@
           "DELETE journal, one connection and writer, explicit immediate transactions",
           "plaintext synthetic-demo store with no Keychain secret"
         ],
-        "selection_status": "R1 candidate for S1; unsuitable for confidential data until encrypted-vault and Keychain research is approved"
+        "selection_status": "S1-approved plaintext synthetic-demo binding; unsuitable for confidential data until encrypted-vault and Keychain research is approved"
       },
       {
         "id": "agent_repository",
@@ -374,8 +377,8 @@
     "funding_demo_target": "approximately four to six focused working weeks after roadmap approval",
     "assumptions": [
       "one primary implementation stream",
-      "full Xcode and required signing capability become available before Swift work",
-      "S1 ratifies the R1.2 native extraction and OCR selection without a new blocker",
+      "the verified full Xcode 26.6 environment remains available for Swift work",
+      "the approved S1 native extraction and OCR selection remains implementable under full Xcode",
       "the R1.1 selected detector payload and memory are accepted for a synthetic demo and legal redistribution review passes before model implementation",
       "no dependency, licensing, sandbox, FFI, or model-artifact blocker is discovered"
     ]
@@ -441,7 +444,7 @@
       ],
       "code_allowed": false,
       "status": "COMPLETE_FOR_S1_DRAFTING",
-      "exit_gate": "passed: every required source format has an exact evidenced local candidate, normalized Markdown contract, typed failure behavior, deterministic boundary, and S1 ratification list"
+      "exit_gate": "passed: every required source format has an exact evidenced local candidate, normalized Markdown contract, typed failure behavior, deterministic boundary, and complete S1 input list"
     },
     {
       "id": "S1",
@@ -449,7 +452,7 @@
       "classification": "spec authoring",
       "goal": "Write the source of truth for the funding-demo slice and nothing beyond it.",
       "entry_gate": "R1.2 complete and R1 decision closure amended",
-      "status": "READY_TO_START",
+      "status": "APPROVED_S1_21_PEER_AUDIT_PASSED",
       "deliverables": [
         "docs/specs/outis_local_pilot_SPEC.md",
         "exact source, token, vault, model, FFI, export, failure, test, evidence, and code bindings",
@@ -467,6 +470,7 @@
         "separate peer-audit artifact",
         "PEER_AUDIT_PASSED or BLOCKED classification"
       ],
+      "status": "PEER_AUDIT_PASSED",
       "code_allowed": false,
       "exit_gate": "PEER_AUDIT_PASSED"
     },
@@ -485,25 +489,25 @@
     },
     {
       "id": "I1",
-      "name": "End-to-end local skeleton",
+      "name": "Deterministic email-discovery capability",
       "classification": "code implementation",
-      "goal": "Produce the first running native path from a folder containing required .doc, .docx, .pdf, .txt, and .md inputs to one validated Markdown target per source in a separate outis repository.",
+      "goal": "Implement and test the complete MI-01 Rust transformation from validated UTF-8 text and source identity to ordered email SensitiveCandidateV1 records.",
       "constraints": [
-        "one native app target and smallest viable Rust surface",
-        "no Finder extension",
-        "all required source formats use only the exact extractors and local OCR approved by S1 and P1",
-        "no remote path",
-        "no speculative adapters"
+        "one outis-core crate and only the exact root migration and email files bound by S1-20 and P1",
+        "Rust standard library only; no registry dependency",
+        "no macOS application, Xcode, Swift, runtime crate, FFI, extraction, other detector, vault, tokenization, export, publication, fixture, generated artifact, or model surface",
+        "no temporary API, abstraction, job status, model substitute, development application, remote path, or funding-demo claim"
       ],
-      "exit_gate": "approved narrow correctness, boundary, build, and integration checks pass"
+      "exit_gate": "the exact S1-21 toolchain preflight and S1-20 unit oracle, offline format, clippy, test, lockfile, inventory, and changed-path checks pass"
     },
     {
       "id": "I2",
-      "name": "Private graph and contextual discovery",
+      "name": "Contextual discovery and complete local path",
       "classification": "code implementation",
-      "goal": "Add the approved private-vault persistence, repository-scoped token reuse, contextual detector, cross-document resolution, and minimal uncertainty review to the running path.",
+      "goal": "After legal clearance, add the approved contextual detector and integrate it with the private graph, repository-scoped token reuse, cross-document resolution, review, and complete local job path.",
       "constraints": [
         "existing evaluated model only unless the spec proves another need",
+        "qualified model legal review must be CLEARED before this phase starts",
         "no hidden alias merge",
         "no model network, logging, or persistence outside the approved boundary"
       ],
@@ -579,20 +583,19 @@
     "Fundraising timing pressure would require claims beyond measured evidence."
   ],
   "current_blockers_to_code": [
-    "R1 candidates must be ratified in an approved exact S1 specification.",
-    "S1 must bind the exact native extraction request, normalized-document, provenance, mandatory review, limits, failure, cancellation, and system-artifact identity contracts.",
-    "Repository-owned extraction and OCR fixtures and their complete oracles do not exist.",
-    "No model, runtime, artifact distribution, Cargo dependency, generated header, Xcode setting, or SQLite schema is approved for implementation.",
-    "The selected model still requires legal redistribution review.",
+    "No implementation plan has been authored or approved for MI-01; code and repository migration remain blocked.",
+    "Repository-owned extraction and OCR fixtures and their complete oracles do not exist; this blocks later extraction and complete-pilot work, not MI-01.",
+    "No implementation change is authorized; approved paths, fixtures, model artifacts, targets, dependencies, generated bindings, and build settings may be created only after the remaining lifecycle gates.",
+    "The selected model still requires legal review, but this blocks only its dependencies, source, tests, fixtures, acquisition, integration, execution, packaging, distribution, and complete-pilot acceptance.",
     "The plaintext funding-demo vault is restricted to synthetic data and is not an approved confidential-data design.",
-    "Full Xcode was not available in the recorded environment.",
-    "No pilot specification, peer-audit pass, or approved implementation plan exists."
+    "Xcode 26.6, SDK 26.5, Swift 6.3.3, macOS 26.5, and disposable arm64 Swift-to-Rust linkage are verified; the complete Outis application build remains unproved until implementation.",
+    "The pilot specification through S1-21 and repeated peer audit pass, but no approved MI-01 implementation plan exists."
   ],
   "next_action": {
-    "phase": "S1",
-    "decision_requested": "Draft the minimal pilot specification from the closed R1 contracts and ratify or reject every exact candidate without adding implementation scope.",
-    "after_approval": "Run the separate A1 peer audit, then write and approve the minimal P1 implementation plan.",
-    "code_status": "blocked until S1, A1, and P1 pass"
+    "phase": "P1_MI_01_IMPLEMENTATION_PLAN",
+    "decision_requested": "None to author P1; the completed exact plan will require explicit user approval before code.",
+    "after_approval": "Implement only the approved MI-01 plan, beginning with its exact toolchain preflight and changed-path boundary.",
+    "code_status": "all code remains blocked until the exact MI-01 implementation plan is authored and explicitly approved; model-specific code additionally requires CLEARED legal review"
   },
   "authoritative_references": [
     "AGENTS.md",
@@ -612,6 +615,8 @@
     "docs/reviews/outis_local_pilot/outis_local_pilot_r1_acceptance_evidence.md",
     "docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md",
     "docs/reviews/outis_local_pilot/outis_local_pilot_r1_2_extraction_evaluation.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_spec_pre_audit.md",
+    "docs/reviews/outis_local_pilot/outis_local_pilot_peer_audit.md",
     "docs/roadmaps/outis_local_pilot_file_architecture.json"
   ]
 }

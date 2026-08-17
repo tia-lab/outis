@@ -5,17 +5,21 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 # Outis Repository Structure
 
-Status: R1-selected candidate architecture guardrail
+Status: S1-21 approved; peer audit passed; MI-01 plan pending
 Scope: local macOS pilot repository
 
 ## Purpose
 
-This document records candidate source-code ownership boundaries for the Outis
-pilot. It is not an implementation plan and does not authorize creation,
+This document records the S1-bound source-code ownership boundaries for the
+Outis pilot. It is not an implementation plan and does not authorize creation,
 renaming, movement, dependency selection, code generation, model conversion, or
 Xcode targets.
 
-Exact paths require an approved spec, peer audit, and implementation plan.
+The exact path allowlist is incorporated by Section 37 of the working
+specification and recorded in
+`docs/roadmaps/outis_local_pilot_file_architecture.json`. Creation, removal, or
+modification still requires the amended author pre-audit, a passed peer audit,
+and an approved implementation plan.
 
 ## Current Workspace Shape
 
@@ -52,12 +56,13 @@ inventory.md
 No Swift application, Xcode project, Finder extension, extraction adapter,
 model adapter, private vault, or agent-export implementation exists.
 
-## Candidate Workspace Shape
+## S1-Bound Workspace Shape
 
 The phase sequence is defined in the root `ROADMAP.json`. The complete proposed
 first-slice file map and per-file ownership are defined in
 `docs/roadmaps/outis_local_pilot_file_architecture.json`. The latter is the
-single source for the candidate tree. This document owns the enduring
+normative S1 path and responsibility allowlist through specification Section
+37. This document owns the enduring
 repository and compile-surface guardrails.
 
 The proposed high-level shape is:
@@ -81,13 +86,18 @@ generated/ffi/
   reproducible generated header when approved
 
 models/
-  approved model manifest and reproducible artifact location only
+  approved model manifest and acquisition script; verified local artifacts are
+  ignored and require prior legal clearance
 
-fixtures/
-  synthetic extraction, multilingual detection, and publication oracles
+fixtures/outis_local_pilot/v1/
+  versioned synthetic extraction, detection, model, entity, publication,
+  performance, and privacy oracles
 
-tools/outis-eval/
-  evaluation-only command surface outside production targets
+tests/acceptance/
+  test-only full-suite runner and controlled sandbox-boundary probe
+
+tests/fixture_generation/
+  three test-only Swift sources for deterministic Word and PDF fixtures
 
 docs/
   architecture, invariants, protocols, roadmaps, specs, reviews, and evidence
@@ -105,8 +115,53 @@ runtime owns strict `.txt`/`.md` extraction. Small Swift files in the existing
 application target own AppKit `.doc`/`.docx`, PDFKit PDF, Core Graphics render,
 and Vision OCR adapters. No extra extraction target or crate is created. No
 directory may be created merely because it appears in an architecture
-document. The approved spec and implementation plan must ratify the exact file
-set.
+document. The specification, peer-audit, and implementation-plan gates remain
+mandatory even for an allowlisted path.
+
+The final workspace has three members. S1-20 stages that transition without
+empty placeholders: the first implementation plan may create only
+`crates/outis-core` and list only that member. Later crates enter the workspace
+only with an approved complete capability that uses them.
+
+The S1-20 root migration also creates `rust-toolchain.toml`, commits and stops
+ignoring the dependency-free format-4 `Cargo.lock`, removes the obsolete root
+`src/main.rs`, and removes stale `mbt_cache`-oriented `Makefile.toml` and
+`release.toml`. S1-21 fixes the rustup locator to installed alias `stable` but
+accepts it only when the Section 40 preflight observes the exact Rust 1.89.0
+commit, Cargo identity, required components, and arm64 host and target while
+distribution endpoints are redirected to unreachable loopback tripwires.
+`inventory.md` is regenerated
+only through its existing generator. These remain future implementation-plan
+actions, not current documentation edits. The existing user-owned deletion of
+`architecture-public.md` remains preserved.
+
+## First Complete Implementation Increment
+
+`MI-01` is exactly the pure Rust email-discovery capability in specification
+Section 40. It accepts validated UTF-8 text plus its source-snapshot identity
+and returns ordered email `SensitiveCandidateV1` records under the Section 11
+grammar. Its production surface is limited to:
+
+~~~text
+crates/outis-core/Cargo.toml
+crates/outis-core/docs/inventory.md
+crates/outis-core/src/lib.rs
+crates/outis-core/src/candidate.rs
+crates/outis-core/src/detect.rs
+crates/outis-core/src/detect/email.rs
+crates/outis-core/src/detect/email/tests.rs
+~~~
+
+The component inventory is the handwritten input to the existing generated
+root inventory. Unit tests live in the grammar's private
+`detect/email/tests.rs` module; no integration-test or fixture path is created.
+The fixed 65,536-record ceiling returns a typed all-or-nothing error before a
+65,537th candidate can be retained. The increment has no registry
+dependency and no application, Xcode, Swift, runtime, FFI, extraction, other
+detector, entity, review, token, vault, export, production or test publication, generated
+binding, model, job, or funding-demo behavior. It is a complete domain
+capability with an exact input, output, terminal return, and oracle; it is not a
+horizontal foundation. A later increment must pass its own applicable gates.
 
 ## Runtime Data Is Outside the Source Tree
 
@@ -131,8 +186,9 @@ temporary staging
 The source repository, agent repository, private vault, and staging location
 are distinct. The export mirrors the source-relative tree and base document
 names after required path tokenization, and changes every target extension to
-`.md`. Exact macOS paths, containers, bookmarks, permissions, sandbox rules,
-and cleanup behavior remain spec decisions.
+`.md`. Exact macOS paths, containers, permissions, sandbox rules, and cleanup
+behavior are bound by the working specification. Persistent folder bookmarks
+are absent from the first slice.
 
 The private vault must never be placed in:
 
@@ -239,11 +295,15 @@ Candidate ownership:
 
 Model output remains an untrusted candidate set.
 
-R1.1 selects `Davlan/bert-base-multilingual-cased-ner-hrl` at the pinned
+S1 selects `Davlan/bert-base-multilingual-cased-ner-hrl` at the pinned
 revision recorded in
 `docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md`, with an
-ONNX Runtime CPU execution candidate. This research selection does not approve
-dependencies, artifact distribution, model-file creation, or implementation.
+ONNX Runtime 1.28 CPU execution binding. Model acquisition and bundling remain
+blocked until the qualified model legal review is `CLEARED`. Before clearance,
+the exact model source, tests, fixtures, dependencies, artifacts, bundle phases,
+and temporary substitutes remain absent. The only pre-clearance implementation
+capability is `MI-01`. It may proceed only after the amended author pre-audit,
+repeated peer audit, and its exact implementation plan pass.
 
 ### Vault Adapters
 
@@ -317,14 +377,17 @@ Generated files:
 Candidate separated surfaces:
 
 ~~~text
-fixtures/extraction/
+fixtures/outis_local_pilot/v1/extraction/
   synthetic format fixtures and extraction oracles
 
-fixtures/detection/
+fixtures/outis_local_pilot/v1/detection/
   synthetic multilingual entity and span oracles
 
-fixtures/publication/
+fixtures/outis_local_pilot/v1/publication/
   synthetic source, vault, and agent-repository boundary cases
+
+tests/fixture_generation/
+  test-only Word and PDF fixture generation and byte-replay checks
 
 crates/outis-core/tests/
   deterministic detector, entity, token, and export contract tests
@@ -339,8 +402,8 @@ apps/macos/OutisTests/
   application-state, entity review, extraction review, FFI-client,
   folder-access, Word/PDF, OCR, and extraction-submission tests
 
-tools/outis-eval/
-  evaluation-only corpus measurement and evidence generation
+tests/acceptance/
+  argument-free acceptance orchestration and controlled sandbox probe
 
 docs/reviews/
   research, peer audit, implementation plan, and result review
@@ -361,7 +424,8 @@ credential, storage, authorization, audit, and plaintext-exclusion boundaries.
 ## Non-goals
 
 - No undocumented stack lock-in.
-- No approved crate or Xcode target split.
+- No crate or Xcode target beyond the approved three Rust crates, one
+  application target, and one unit-test target.
 - No agent access to the source repository or private vault.
 - No vault or source data in the generated agent repository.
 - No benchmark or fixture support in production targets.

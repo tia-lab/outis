@@ -3,15 +3,15 @@
   "schema_version": "1.0",
   "architecture_id": "outis_local_pilot_file_architecture",
   "title": "Outis Local Pilot File and Folder Architecture",
-  "status": "R1_COMPLETE_READY_FOR_S1_DRAFT",
+  "status": "S1_21_FILE_BINDING_PEER_AUDIT_PASSED_AWAITING_P1",
   "date": "2026-08-17",
   "document_role": {
-    "classification": "roadmap architecture proposal",
+    "classification": "normative S1 file-architecture companion",
     "parent_roadmap": "ROADMAP.json",
     "is_specification": false,
     "authorizes_file_creation": false,
     "authorizes_code": false,
-    "ratification_gate": "The approved spec and implementation plan must bind every created, changed, generated, or removed path."
+    "ratification_gate": "This document is normative only through Sections 37 and 40 of the working specification. File creation and removal remain blocked until the S1-21 author pre-audit and peer audit pass and the exact MI-01 implementation plan is approved."
   },
   "architecture_rules": {
     "primary_rule": "Every production file has one semantic responsibility and one owning runtime or evidence surface.",
@@ -51,13 +51,18 @@
   },
   "current_root_transitions": [
     {
+      "path": "rust-toolchain.toml",
+      "proposed_action": "create the stable rustup locator with exact Rust 1.89.0 commit, Cargo, component, arm64 host and target, and offline-resolution preflight required by S1-21",
+      "gate": "approved implementation plan"
+    },
+    {
       "path": "Cargo.toml",
-      "proposed_action": "convert the current package manifest into the minimal Rust workspace manifest",
+      "proposed_action": "replace the current package manifest with a staged workspace containing only outis-core for MI-01; later approved complete increments add outis-runtime and outis-ffi so the complete pilot has exactly three members",
       "gate": "approved implementation plan"
     },
     {
       "path": "Cargo.lock",
-      "proposed_action": "retain and regenerate only through approved Cargo commands after dependency selection",
+      "proposed_action": "generate through the approved Cargo commands, require lockfile format version four, commit it, and for MI-01 verify that it contains only outis-core and no registry package",
       "gate": "approved implementation plan"
     },
     {
@@ -67,12 +72,12 @@
     },
     {
       "path": ".gitignore",
-      "proposed_action": "extend only for approved generated bindings, model artifacts, Xcode output, evidence output, and runtime data",
+      "proposed_action": "for MI-01 stop ignoring Cargo.lock; any other ignore change requires a proved current need in the approved plan",
       "gate": "approved implementation plan"
     },
     {
       "path": "Makefile.toml",
-      "proposed_action": "retain; amend only for approved reproducible commands",
+      "proposed_action": "remove the stale mbt_cache-oriented file rather than migrate unrelated commands into Outis",
       "gate": "approved implementation plan"
     },
     {
@@ -87,8 +92,8 @@
     },
     {
       "path": "release.toml",
-      "proposed_action": "retain until release behavior is separately reviewed",
-      "gate": "none"
+      "proposed_action": "remove the stale mbt_cache-oriented file; the pilot has no release-automation surface",
+      "gate": "approved implementation plan"
     },
     {
       "path": "bin/generate_global_inventory.rs",
@@ -97,8 +102,8 @@
     },
     {
       "path": "inventory.md",
-      "proposed_action": "retain as generated documentation and never edit manually",
-      "gate": "approved generator execution"
+      "proposed_action": "regenerate only through bin/generate_global_inventory.rs after the approved migration and never edit manually",
+      "gate": "approved implementation plan and approved generator execution"
     },
     {
       "path": "architecture-public.md",
@@ -108,7 +113,13 @@
   ],
   "rust_workspace": {
     "crate_count": 3,
-    "crate_count_reason": "One dependency-light domain core, one side-effecting local runtime, and one language boundary are the smallest proposed surfaces that preserve dependency and trust isolation.",
+    "crate_count_scope": "final complete-pilot architecture",
+    "mi_01_crate_count": 1,
+    "mi_01_members": [
+      "crates/outis-core"
+    ],
+    "staged_membership_rule": "MI-01 creates no empty placeholder crate. Each later crate enters the root workspace only in an approved complete capability increment that uses it.",
+    "crate_count_reason": "One dependency-light domain core, one side-effecting local runtime, and one language boundary are the smallest final surfaces that preserve dependency and trust isolation.",
     "crates": [
       {
         "path": "crates/outis-core",
@@ -117,6 +128,10 @@
           {
             "path": "Cargo.toml",
             "responsibility": "core package identity and approved lightweight dependencies"
+          },
+          {
+            "path": "docs/inventory.md",
+            "responsibility": "handwritten component source inventory consumed by the existing generated root-inventory tool"
           },
           {
             "path": "src/lib.rs",
@@ -148,7 +163,11 @@
           },
           {
             "path": "src/detect/email.rs",
-            "responsibility": "email detection and class-specific normalization"
+            "responsibility": "email scanning, grammar, class-specific normalization, fixed candidate limit, and typed all-or-nothing failure"
+          },
+          {
+            "path": "src/detect/email/tests.rs",
+            "responsibility": "private unit oracle for email grammar, records, ordering, replay, scalar ranges, and the candidate ceiling"
           },
           {
             "path": "src/detect/telephone.rs",
@@ -161,6 +180,10 @@
           {
             "path": "src/detect/matter_identifier.rs",
             "responsibility": "declared matter or contract identifier rules"
+          },
+          {
+            "path": "src/detect/postal_address.rs",
+            "responsibility": "deterministic assembly and validation of postal-address candidates from approved structured and location-component evidence"
           },
           {
             "path": "src/entity.rs",
@@ -235,20 +258,18 @@
             "responsibility": "approved vault schema, transactions, entity and token persistence, migrations, and recovery"
           },
           {
+            "path": "migrations/0001_private_vault.sql",
+            "responsibility": "mandatory handwritten initial versioned private-vault schema approved by the specification"
+          },
+          {
             "path": "src/filesystem_publication.rs",
             "responsibility": "staging, complete-tree validation execution, atomic replacement, cleanup, and last-valid-output preservation"
-          }
-        ],
-        "conditional_files": [
-          {
-            "path": "migrations/0001_private_vault.sql",
-            "condition": "create only if S1 ratifies bundled SQLite and P1 approves the exact migration path",
-            "responsibility": "initial versioned private-vault schema"
           }
         ],
         "integration_tests": [
           "tests/job_flow.rs",
           "tests/extraction_contract.rs",
+          "tests/model_contract.rs",
           "tests/vault_contract.rs",
           "tests/publication_contract.rs",
           "tests/cancellation_recovery.rs"
@@ -388,8 +409,8 @@
             "responsibility": "minimal approved App Sandbox and user-selected read/write file entitlement"
           },
           {
-            "path": "Outis/Resources/Assets.xcassets",
-            "responsibility": "application icon and approved visual assets only"
+            "path": "Outis/Resources/THIRD_PARTY_NOTICES.txt",
+            "responsibility": "approved distributed dependency, SQLite, tokenizer, and ONNX Runtime notices; never source or vault data"
           }
         ]
       },
@@ -407,7 +428,8 @@
           "OutisTests/WordExtractorTests.swift",
           "OutisTests/PDFExtractorTests.swift",
           "OutisTests/VisionOCRTests.swift",
-          "OutisTests/ExtractionSubmissionTests.swift"
+          "OutisTests/ExtractionSubmissionTests.swift",
+          "OutisTests/PerformanceTests.swift"
         ]
       }
     ],
@@ -420,122 +442,270 @@
     ]
   },
   "model_artifacts": {
-    "selection_status": "R1.1 selected an exact candidate for S1 ratification; dependency, distribution, and artifact creation remain unapproved",
+    "selection_status": "S1-19 preserves the exact selection and makes qualified legal clearance a gate for model-specific dependencies, paths, artifacts, execution, bundling, distribution, and complete-pilot acceptance; S1-20 does not change that gate",
     "evaluation": "docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md",
     "selected_candidate": {
       "model": "Davlan/bert-base-multilingual-cased-ner-hrl",
       "revision": "e756de7f7b8f64fea0c3d7c3872f1322fab747b1",
       "runtime": "ONNX Runtime 1.28.0 CPUExecutionProvider",
-      "tokenizer": "publisher tokenizer.json with Rust tokenizers 0.23.1 candidate integration",
+      "tokenizer": "publisher tokenizer.json with the S1-approved Rust tokenizers 0.23.1 integration",
       "threading": "ORT_SEQUENTIAL, batch one, two intra-op threads, one inter-op thread, one inference call at a time, no user selector or automatic tuning",
       "owner": "crates/outis-runtime/src/local_entity_model.rs"
     },
-    "required_before_spec": false,
+    "legal_clearance_required_before_model_specific_work": true,
     "implementation_without_exact_selection": "forbidden",
     "files": [
       {
         "path": "models/manifests/entity_detector.json",
-        "creation_condition": "a model and runtime pass R1 research and enter the approved spec",
+        "creation_condition": "approved implementation plan after a qualified CLEARED model legal review",
         "responsibility": "model source, license, identity, hash, runtime, configuration, languages, input contract, and evaluation binding"
       },
       {
-        "path": "models/artifacts/<artifact-id>/",
-        "creation_condition": "approved reproducible acquisition or conversion",
-        "responsibility": "generated or fetched local model artifact; not manually edited and not committed unless the spec explicitly permits it"
+        "path": "models/acquire_entity_detector.sh",
+        "creation_condition": "approved implementation plan after a qualified CLEARED model legal review",
+        "responsibility": "argument-free immutable-URL acquisition, hash verification, and atomic local publication; performs no conversion or modification"
+      },
+      {
+        "path": "models/artifacts/entity_detector_v1/model.onnx",
+        "creation_condition": "successful approved acquisition after a qualified CLEARED model legal review",
+        "responsibility": "ignored local publisher ONNX artifact with the specification-pinned identity"
+      },
+      {
+        "path": "models/artifacts/entity_detector_v1/tokenizer.json",
+        "creation_condition": "successful approved acquisition after a qualified CLEARED model legal review",
+        "responsibility": "ignored local publisher tokenizer artifact with the specification-pinned identity"
+      },
+      {
+        "path": "models/artifacts/entity_detector_v1/libonnxruntime.1.28.0.dylib",
+        "creation_condition": "successful approved acquisition after a qualified CLEARED model legal review",
+        "responsibility": "ignored local ONNX Runtime macOS arm64 dylib with the specification-pinned identity"
+      }
+    ]
+  },
+  "first_pre_model_increment": {
+    "id": "MI-01",
+    "capability": "deterministic email discovery",
+    "input": "one already validated UTF-8 document_text surface and one 32-byte source-snapshot SHA-256 identity",
+    "output": "either ordered email-only SensitiveCandidateV1 records under the Section 11 grammar and exact Section 40 field contract or the typed all-or-nothing candidate-limit error",
+    "complete_oracle": "the S1-21 exact-identity offline toolchain preflight, detect/email/tests.rs private unit-test table, and exact offline format, clippy, test, and inventory commands in specification Section 40",
+    "registry_dependencies": [],
+    "created_or_changed_paths": [
+      "rust-toolchain.toml",
+      "Cargo.toml",
+      "Cargo.lock",
+      ".gitignore",
+      "src/main.rs",
+      "Makefile.toml",
+      "release.toml",
+      "crates/outis-core/Cargo.toml",
+      "crates/outis-core/docs/inventory.md",
+      "crates/outis-core/src/lib.rs",
+      "crates/outis-core/src/candidate.rs",
+      "crates/outis-core/src/detect.rs",
+      "crates/outis-core/src/detect/email.rs",
+      "crates/outis-core/src/detect/email/tests.rs",
+      "inventory.md"
+    ],
+    "removals": [
+      "src/main.rs",
+      "Makefile.toml",
+      "release.toml"
+    ],
+    "generated_only": [
+      "Cargo.lock through Cargo",
+      "inventory.md through bin/generate_global_inventory.rs"
+    ],
+    "excluded_surfaces": "macOS application, Xcode, Swift, runtime, FFI, extraction, other detectors, entity resolution, review, tokenization, vault, export, production or test publication, fixtures, evidence, models, generated bindings, jobs, distribution, and funding-demo claims",
+    "authorization": "No file change is authorized until the S1-21 author pre-audit and repeated peer audit pass and a separate exact MI-01 implementation plan is approved.",
+    "toolchain_resolution": {
+      "rustup_alias": "stable",
+      "rustc_release": "1.89.0",
+      "rustc_commit": "29483883eed69d5fb4db01964cdf2af4d86e9cb2",
+      "cargo_release": "1.89.0",
+      "cargo_commit": "c24e1064277fe51ab72011e2612e556ac56addf7",
+      "host_and_target": "aarch64-apple-darwin",
+      "required_components": [
+        "cargo-aarch64-apple-darwin",
+        "clippy-aarch64-apple-darwin",
+        "rustc-aarch64-apple-darwin",
+        "rustfmt-aarch64-apple-darwin",
+        "rust-std-aarch64-apple-darwin"
+      ],
+      "offline_proof": "RUSTUP_DIST_SERVER and RUSTUP_UPDATE_ROOT point to unreachable 127.0.0.1:9 tripwires and CARGO_NET_OFFLINE is true; exact Section 40 preflight commands must still exit zero."
+    }
+  },
+  "model_specific_gate": {
+    "status": "BLOCKED_PENDING_QUALIFIED_LEGAL_CLEARANCE",
+    "does_not_block": "the amended author pre-audit, repeated peer audit, or the exact MI-01 implementation plan and implementation after those gates pass",
+    "forbidden_before_cleared": [
+      "crates/outis-runtime/src/local_entity_model.rs",
+      "crates/outis-runtime/tests/model_contract.rs",
+      "fixtures/outis_local_pilot/v1/model/",
+      "models/",
+      "ort dependency",
+      "tokenizers dependency",
+      "libonnxruntime.1.28.0.dylib",
+      "model and tokenizer bundle resources",
+      "model verification, copy, dylib-signing, and notice Xcode phases",
+      "model execution, complete-pilot acceptance, and distribution"
+    ],
+    "temporary_surface_rule": "Do not create a stub, fallback, substitute, feature flag, alternate manifest, model-free release mode, or speculative interface.",
+    "mi_01_behavior": "MI-01 is a complete pure Rust capability with no application, FFI, job, publication, completed status, or funding-demo behavior. S1-20 grants no blanket pre-model implementation permission."
+  },
+  "fixture_generation_support": {
+    "production_dependency": false,
+    "production_logic_allowed": false,
+    "creation_gate": "approved implementation plan",
+    "modes": [
+      "--write",
+      "--check"
+    ],
+    "files": [
+      {
+        "path": "tests/fixture_generation/Main.swift",
+        "responsibility": "validate the sole mode, compile-time platform assumptions, declared manifest, and fresh output boundary"
+      },
+      {
+        "path": "tests/fixture_generation/WordFixtures.swift",
+        "responsibility": "produce only the fixed synthetic .doc and .docx fixture bytes declared by the fixture manifest"
+      },
+      {
+        "path": "tests/fixture_generation/PDFFixtures.swift",
+        "responsibility": "produce only the fixed synthetic text-bearing and scanned PDF fixture bytes declared by the fixture manifest"
       }
     ]
   },
   "synthetic_fixtures": {
-    "root": "fixtures",
+    "root": "fixtures/outis_local_pilot/v1",
     "real_sensitive_data_allowed": false,
+    "production_bundle_membership": false,
+    "byte_verification": "shasum -a 256 -c fixtures/outis_local_pilot/v1/SHA256SUMS",
     "paths": [
       {
-        "path": "extraction/doc/",
-        "responsibility": "synthetic legacy Word fixtures and visible-text, mandatory-review, unsupported-feature, and failure oracles"
+        "path": "README.md",
+        "responsibility": "synthetic ownership, creation provenance, format limitations, and no-real-data declaration"
       },
       {
-        "path": "extraction/docx/",
-        "responsibility": "synthetic Open XML Word fixtures and visible-text, flattening, mandatory-review, attachment, and failure oracles"
+        "path": "SHA256SUMS",
+        "responsibility": "complete relative-path SHA-256 allowlist for fixture bytes"
       },
       {
-        "path": "extraction/pdf_text/",
-        "responsibility": "synthetic text-bearing PDF fixtures and page-text, reading-order ambiguity, mandatory-review, provenance, and failure oracles"
-      },
-      {
-        "path": "extraction/pdf_scan/",
-        "responsibility": "synthetic scanned and mixed-page PDF fixtures with Italian, German, and French OCR coverage, confidence, and failure oracles"
+        "path": "fixture_manifest.json",
+        "responsibility": "versioned size, hash, language, format, provenance, and oracle ownership manifest"
       },
       {
         "path": "extraction/text/",
-        "responsibility": "synthetic UTF-8 .txt and .md fixtures with expected text, offsets, and failure oracles"
+        "responsibility": "strict UTF-8 text and Markdown success and failure fixtures"
+      },
+      {
+        "path": "extraction/doc/",
+        "responsibility": "legacy Word visible-text, mandatory-review, unsupported-feature, and failure fixtures"
+      },
+      {
+        "path": "extraction/docx/",
+        "responsibility": "Open XML Word visible-text, flattening, mandatory-review, attachment, and failure fixtures"
+      },
+      {
+        "path": "extraction/pdf_text/",
+        "responsibility": "text-bearing and multipage PDF reading-order, review, provenance, and failure fixtures"
+      },
+      {
+        "path": "extraction/pdf_scan/",
+        "responsibility": "Italian, German, and French scanned-PDF OCR, geometry, confidence, and failure fixtures"
+      },
+      {
+        "path": "extraction/expected_normalized/",
+        "responsibility": "independently authored exact normalized UTF-8 outputs"
       },
       {
         "path": "extraction/oracle.json",
-        "responsibility": "versioned cross-format normalized-document, review or block status, provenance, target-path, and collision expectations"
+        "responsibility": "cross-format status, provenance, normalized-document, target-path, and collision expectations"
       },
       {
-        "path": "detection/it/documents/",
-        "responsibility": "synthetic Italian entity and ambiguity fixtures"
+        "path": "detection/it/",
+        "responsibility": "synthetic Italian structured, contextual, path, uncertainty, and boundary cases"
       },
       {
-        "path": "detection/it/oracle.json",
-        "responsibility": "Italian spans, classes, entities, aliases, and review decisions"
+        "path": "detection/de/",
+        "responsibility": "synthetic German structured, contextual, path, uncertainty, and boundary cases"
       },
       {
-        "path": "detection/de/documents/",
-        "responsibility": "synthetic German entity and ambiguity fixtures"
+        "path": "detection/fr/",
+        "responsibility": "synthetic French structured, contextual, path, uncertainty, and boundary cases"
       },
       {
-        "path": "detection/de/oracle.json",
-        "responsibility": "German spans, classes, entities, aliases, and review decisions"
+        "path": "detection/oracle.json",
+        "responsibility": "exact multilingual candidate, metric, order, and review expectations"
       },
       {
-        "path": "detection/fr/documents/",
-        "responsibility": "synthetic French entity and ambiguity fixtures"
+        "path": "model/ner_smoke.json",
+        "responsibility": "pinned 30-case Italian, German, and French model regression corpus"
       },
       {
-        "path": "detection/fr/oracle.json",
-        "responsibility": "French spans, classes, entities, aliases, and review decisions"
+        "path": "model/replay_inputs.json",
+        "responsibility": "pinned 16, 128, 256, and 510-token replay inputs"
+      },
+      {
+        "path": "model/oracle.json",
+        "responsibility": "candidate, integer metric, raw-logit hash, and known-error expectations"
+      },
+      {
+        "path": "entity/source/",
+        "responsibility": "same-key, distinct-key, alias, merge, class, retry, and counter fixtures"
+      },
+      {
+        "path": "entity/oracle.json",
+        "responsibility": "exact entity, alias, occurrence, token, decision, and blocking expectations"
       },
       {
         "path": "publication/source/",
         "responsibility": "synthetic complete-job source tree"
       },
       {
-        "path": "publication/expected-agent-repository/",
-        "responsibility": "expected tokenized Markdown and manifest tree"
+        "path": "publication/expected_agent_repository/",
+        "responsibility": "independently authored exact tokenized Markdown and manifest tree"
       },
       {
         "path": "publication/oracle.json",
-        "responsibility": "allowlist, known-plaintext, failure, cancellation, and recovery expectations"
+        "responsibility": "allowlist, failure, cancellation, recovery, replay, and last-valid-output expectations"
+      },
+      {
+        "path": "performance/source/",
+        "responsibility": "exact 18-document PERF-SMOKE-V1 source tree"
+      },
+      {
+        "path": "performance/oracle.json",
+        "responsibility": "performance workload counts, identities, review decisions, and expected output"
+      },
+      {
+        "path": "privacy/known_plaintext.json",
+        "responsibility": "versioned forbidden synthetic values and scanned surfaces"
       }
     ]
   },
-  "evaluation_surface": {
-    "path": "tools/outis-eval",
+  "acceptance_support": {
     "production_dependency": false,
-    "creation_condition": "approved evaluation command and dataset contract",
+    "workspace_crate": false,
     "files": [
       {
-        "path": "Cargo.toml",
-        "responsibility": "evaluation-only package and dependencies"
+        "path": "tests/acceptance/run.sh",
+        "responsibility": "single argument-free full-suite and evidence orchestration entry point"
       },
       {
-        "path": "src/main.rs",
-        "responsibility": "checked evaluation command and argument validation"
+        "path": "tests/acceptance/agent_boundary.sb",
+        "responsibility": "controlled test-only sandbox profile granting only agent-repository reads"
       },
       {
-        "path": "src/corpus.rs",
-        "responsibility": "load and validate synthetic multilingual corpora and oracles"
-      },
-      {
-        "path": "src/metrics.rs",
-        "responsibility": "calculate approved extraction, detection, entity, and uncertainty measures"
-      },
-      {
-        "path": "src/report.rs",
-        "responsibility": "write deterministic machine-readable evaluation evidence"
+        "path": "tests/acceptance/agent_boundary_probe.sh",
+        "responsibility": "controlled allowed and denied filesystem and network probe"
       }
+    ],
+    "explicitly_absent": [
+      "tools/outis-eval",
+      "benchmark workspace crate",
+      "command-line product",
+      "UI-test target",
+      "production benchmark mode"
     ]
   },
   "documentation_paths": {
@@ -555,20 +725,23 @@
       "docs/reviews/outis_local_pilot/outis_local_pilot_r1_acceptance_evidence.md",
       "docs/reviews/outis_local_pilot/outis_local_pilot_ner_evaluation.md",
       "docs/reviews/outis_local_pilot/outis_local_pilot_r1_2_extraction_evaluation.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_spec_pre_audit.md",
+      "docs/specs/outis_local_pilot_SPEC.md",
       "ROADMAP.json",
       "docs/roadmaps/outis_local_pilot_file_architecture.json"
     ],
     "future_lifecycle_artifacts": [
-      "docs/specs/outis_local_pilot_SPEC.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_model_legal_review.md",
       "docs/reviews/outis_local_pilot/outis_local_pilot_peer_audit.md",
       "docs/reviews/outis_local_pilot/outis_local_pilot_implementation_plan.md",
+      "docs/reviews/outis_local_pilot/outis_local_pilot_pre_test_audit.md",
       "docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md"
     ],
     "generated_evidence_root": "artifacts/outis_local_pilot/",
     "generated_evidence_rule": "Create only from approved commands; never place real sensitive data, vault records, or plaintext paths in evidence."
   },
   "runtime_data_layout": {
-    "status": "R1-selected candidate layout; no runtime path is created or approved for code",
+    "status": "S1-approved runtime-data binding; no runtime path may be created before the approved implementation plan",
     "source_repository": {
       "path": "<user-selected-source>/",
       "zone": "Human Zone",
@@ -577,7 +750,7 @@
     "private_vault": {
       "path": "<Outis-application-container>/Application Support/Outis/Vaults/<opaque-repository-id>/outis-vault.sqlite3",
       "zone": "Key Zone",
-      "condition": "synthetic funding demo only; bundled SQLite candidate, plaintext, parent mode 0700, database and journal mode 0600",
+      "condition": "synthetic funding demo only; S1-approved bundled SQLite plaintext store, parent mode 0700, database and journal mode 0600",
       "forbidden_parent": [
         "source repository",
         "agent repository",
@@ -609,30 +782,30 @@
       "git_behavior": "No automatic Git initialization in the first slice unless the spec proves it necessary."
     }
   },
-  "required_s1_ratifications": [
+  "approved_s1_bindings": [
     {
       "id": "native_extraction",
-      "decision": "Ratify Rust strict UTF-8 extraction; AppKit Word import; PDFKit PDF text and access checks; Core Graphics 200-DPI rendering; Vision revision 3 accurate OCR with ordered Italian, German, and French languages, automatic language detection, language correction disabled, and sequential pages; mandatory embedded Quick Look binary review with exact hash-bound confirmation; normalized-document and provenance schemas; limits; failures; fixtures; and validation commands."
+      "decision": "Approved: Rust strict UTF-8 extraction; AppKit Word import; PDFKit PDF text and access checks; Core Graphics 200-DPI rendering; Vision revision 3 accurate OCR with ordered Italian, German, and French languages, automatic language detection, language correction disabled, and sequential pages; mandatory embedded Quick Look binary review with exact hash-bound confirmation; normalized-document and provenance schemas; limits; failures; fixtures; and validation commands."
     },
     {
       "id": "model_runtime",
-      "decision": "Ratify the R1.1 exact NER candidate and R1 address assembler for the synthetic demo; model legal redistribution and signed packaging remain implementation blockers."
+      "decision": "Approved for the synthetic demo: the R1.1 exact NER candidate and R1 address assembler; qualified legal clearance remains a model-specific implementation, execution, packaging, distribution, and complete-acceptance blocker only."
     },
     {
       "id": "vault_store",
-      "decision": "Ratify rusqlite 0.40.2 with bundled SQLite 3.53.2, one connection, exact PRAGMAs, schema, migration, permissions, deletion, and synthetic-only plaintext-vault limitation."
+      "decision": "Approved: rusqlite 0.40.2 with bundled SQLite 3.53.2, one connection, exact PRAGMAs, schema, migration, permissions, deletion, and synthetic-only plaintext-vault limitation."
     },
     {
       "id": "keychain_deferral",
-      "decision": "Ratify that no Keychain item or vault secret exists in the synthetic funding demo; confidential-data use remains blocked pending encrypted-vault research."
+      "decision": "Approved: no Keychain item or vault secret exists in the synthetic funding demo; confidential-data use remains blocked pending encrypted-vault research."
     },
     {
       "id": "ffi_codegen",
-      "decision": "Ratify Rust repr(C) as ABI source, cbindgen 0.29.4 for generated/ffi/outis.h, a reviewed source module map, staticlib linking, UTF-8 JSON wire schemas, polling, outis_job_submit_extraction with separate bounded plaintext text and provenance buffers, and release ownership."
+      "decision": "Approved: Rust repr(C) as ABI source, cbindgen 0.29.4 for generated/ffi/outis.h, a reviewed source module map, staticlib linking, UTF-8 JSON wire schemas, polling, outis_job_submit_extraction with separate bounded plaintext text and provenance buffers, and release ownership."
     },
     {
       "id": "atomic_publication",
-      "decision": "Ratify the fixed export and staging names, first-publish rename, RENAME_SWAP-only replacement, sync, cancellation, cleanup, and last-valid-output behavior; failure injection remains required before readiness claims."
+      "decision": "Approved: the fixed export and staging names, first-publish rename, RENAME_SWAP-only replacement, sync, cancellation, cleanup, and last-valid-output behavior; failure injection remains required before readiness claims."
     }
   ],
   "prohibited_first_slice_paths": [
@@ -648,5 +821,5 @@
     "services/",
     "plugins/"
   ],
-  "approval_effect": "Approval accepts this as an R1 roadmap companion candidate. It does not create paths. S1 and P1 must bind the final exact file set before implementation."
+  "approval_effect": "S1-18 accepts the final architecture allowlist, S1-19 partitions the model legal gate, S1-20 narrows the first pre-model increment to exact MI-01 paths, and S1-21 binds its installed stable alias to exact local toolchain evidence without authorizing work. The S1-21 author pre-audit, repeated peer audit, and approved MI-01 implementation plan remain mandatory before any code change; qualified legal clearance additionally gates every model-specific surface."
 }
