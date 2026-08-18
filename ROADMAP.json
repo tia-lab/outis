@@ -3,15 +3,15 @@
   "schema_version": "1.0",
   "roadmap_id": "outis_local_macos_pilot",
   "title": "Outis Local macOS Pilot Roadmap",
-  "status": "P1_MI_02_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
-  "date": "2026-08-17",
+  "status": "S1_23B_APPROVED_AUTHOR_PRE_AUDIT_BLOCKED_S1_23C_REQUIRED",
+  "date": "2026-08-18",
   "document_role": {
     "classification": "active roadmap and implementation sequence",
     "is_specification": false,
     "authorizes_code": false,
     "authorizes_dependencies": false,
     "authorizes_stack_selection": false,
-    "next_gate": "commit the approved MI-02 documentation on a clean baseline, record P1_MI02_BASE_COMMIT, and repeat the S1-21 offline preflight before code"
+    "next_gate": "approve S1-23C to bind the exact MI-03 failure-code and competing-condition precedence matrix; then rerun the author pre-audit and, only if it passes, the separate peer audit; no implementation plan or MI-03 code is authorized"
   },
   "roadmap_artifacts": {
     "file_architecture": "docs/roadmaps/outis_local_pilot_file_architecture.json",
@@ -26,7 +26,17 @@
     "mi_02_spec_pre_audit": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_spec_pre_audit.md",
     "mi_02_peer_audit": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_peer_audit.md",
     "mi_02_implementation_plan": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md",
-    "relationship": "The file architecture is the S1 specification-incorporated path and runtime-data allowlist. The MI-01 result review records the completed first increment. S1-22 through S1-22C, the amended author pre-audit, the separate peer audit, and the exact MI-02 implementation plan are approved. MI-02 code remains blocked until the clean committed baseline and repeated offline preflight."
+    "mi_02_pre_test_audit": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_pre_test_audit.md",
+    "mi_02_result_review": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_result_review.md",
+    "s1_21a_research_brief": "docs/reviews/outis_toolchain_s1_21a/outis_toolchain_s1_21a_research_brief.md",
+    "s1_21a_spec_pre_audit": "docs/reviews/outis_toolchain_s1_21a/outis_toolchain_s1_21a_spec_pre_audit.md",
+    "s1_21a_peer_audit": "docs/reviews/outis_toolchain_s1_21a/outis_toolchain_s1_21a_peer_audit.md",
+    "s1_21a_implementation_plan": "docs/reviews/outis_toolchain_s1_21a/outis_toolchain_s1_21a_implementation_plan.md",
+    "s1_21a_result_review": "docs/reviews/outis_toolchain_s1_21a/outis_toolchain_s1_21a_result_review.md",
+    "mi_03_research_brief": "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_research_brief.md",
+    "mi_03_spec_pre_audit": "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_spec_pre_audit.md",
+    "mi_03_peer_audit": "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_peer_audit.md",
+    "relationship": "The file architecture is the S1 specification-incorporated path and runtime-data allowlist. The MI-01 and MI-02 result reviews record the two completed increments. S1-23 through S1-23B are approved as the next model-independent extraction amendment. S1-23B closes S1-23-PA-07; the corrected author pre-audit is blocked at S1-23-PA-08 pending the exact S1-23C failure-code and precedence matrix."
   },
   "outcome": {
     "product_goal": "A user selects an authorized local folder in a native macOS application and Outis locally produces a separate tokenized Markdown repository while keeping sensitive mappings in a private local vault.",
@@ -55,7 +65,7 @@
     ]
   },
   "recommended_first_slice": {
-    "approval_status": "S1-22C is explicitly approved and closes the normalized-document caller-limit contradiction. The amended author pre-audit and separate peer audit passed. The exact MI-02 implementation plan is explicitly approved; the clean committed baseline and repeated offline preflight remain required before code.",
+    "approval_status": "S1-23 through S1-23B are explicitly approved as the extraction-only MI-03 boundary. MI-01 and MI-02 remain complete. S1-23B closes the identity and canonical-serialization finding. The corrected author pre-audit is blocked on the missing exact failure-code and competing-condition precedence matrix; S1-23C and audit reruns are required before planning.",
     "user_flow": [
       "Open Outis.",
       "Select an authorized source folder and a separate export destination.",
@@ -200,7 +210,7 @@
         ]
       },
       "undefined_model_at_spec_or_code": "forbidden",
-      "r1_1_definition_status": "The evaluation and R1 decision closure supplied the exact candidate now bound by S1. Legal clearance blocks its implementation, acquisition, execution, and packaging. MI-01 completed without model work. Any further pre-clearance model-independent increment requires its own approved specification amendment, audits, and implementation plan.",
+      "r1_1_definition_status": "The evaluation and R1 decision closure supplied the exact candidate now bound by S1. Legal clearance blocks its implementation, acquisition, execution, and packaging. MI-01 and MI-02 completed without model work. Any further pre-clearance model-independent increment requires its own approved specification amendment, audits, and implementation plan.",
       "approved_spec_bindings": [
         "upstream model name, source, revision, license, and redistribution terms",
         "exact model and tokenizer artifact hashes",
@@ -218,7 +228,7 @@
     "demo_data_policy": "Synthetic fixtures only until the controlled-pilot gate passes."
   },
   "candidate_code_architecture": {
-    "approval_status": "S1-01 through S1-22C are approved. MI-01 passed its complete validation. The MI-02 amended author pre-audit, separate peer audit, and exact implementation plan are approved; code remains blocked until the clean committed baseline and repeated offline preflight.",
+    "approval_status": "S1-01 through S1-23B are approved. MI-01 and MI-02 passed their complete validations. The corrected MI-03 author pre-audit is blocked at S1-23-PA-08 pending S1-23C; the separate peer audit cannot restart and no implementation plan or MI-03 code is authorized.",
     "file_architecture": "docs/roadmaps/outis_local_pilot_file_architecture.json",
     "minimal_structure": {
       "rust": "The complete pilot has exactly three Rust crates: dependency-light outis-core, side-effecting outis-runtime, and the outis-ffi boundary. MI-01 created the current one-member outis-core workspace; no empty runtime or FFI placeholder is allowed.",
@@ -522,10 +532,29 @@
         "no combined detector, cross-class overlap resolver, model, entity graph, tokenization, vault, export, application, FFI, fixture tree, benchmark, or performance claim",
         "telephone and IBAN accepted subsets are limited to the exact S1-22 grammars; uncertain values are needs_review and detection is not called complete"
       ],
-      "status": "BLOCKED_PENDING_COMMIT_BASELINE_AND_PREFLIGHT",
+      "status": "COMPLETE_MI_02_VALIDATION_PASSED",
       "research": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md",
       "implementation_plan": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md",
+      "evidence": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_result_review.md at commit 7faf40e",
       "exit_gate": "the approved MI-02 oracle, offline validation, unchanged lockfile, inventory, and exact changed-path checks pass"
+    },
+    {
+      "id": "I1B",
+      "name": "Local extraction to normalized Markdown",
+      "classification": "new lifecycle increment",
+      "goal": "Implement and test the permanent Rust text/native-submission boundaries and Swift native adapters for .doc, .docx, text PDF, scanned or image-only PDF, .txt, and .md against one synthetic byte-exact oracle.",
+      "entry_gate": "S1-23 through S1-23C explicitly approved; MI-03 research complete; corrected author pre-audit passed; corrected separate peer audit passed; exact implementation plan approved; clean committed documentation baseline recorded; and S1-21 offline preflight passed",
+      "constraints": [
+        "one stable synthetic source at a time; no folder enumeration or real documents",
+        "valid text and Markdown return ready; every successful Word or PDF extraction returns needs_review",
+        "Rust owns source, normalization, provenance validation, typed outcomes, and text extraction; Swift owns only AppKit, PDFKit, Core Graphics, and Vision native extraction",
+        "shared synthetic oracle proves the two permanent boundaries separately; no live Swift-to-Rust integration or application claim",
+        "no FFI, Xcode project, application, Finder, model, entity graph, tokenization, vault, agent export, publication, remote service, placeholder, or temporary product API"
+      ],
+      "status": "S1_23B_APPROVED_AUTHOR_PRE_AUDIT_BLOCKED_S1_23C_REQUIRED",
+      "research": "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_research_brief.md",
+      "specification": "docs/specs/outis_local_pilot_SPEC.md Section 40 S1-23",
+      "exit_gate": "the approved extraction, normalization, provenance, failure, replay, privacy, compile-surface, time, memory, fixture, regression, and exact-path checks pass"
     },
     {
       "id": "I2",
@@ -611,19 +640,20 @@
   ],
   "current_blockers_to_code": [
     "MI-01 is complete; no additional code is authorized by its closed plan.",
-    "S1-22 through S1-22C are approved, and the amended MI-02 author pre-audit and separate peer audit passed. The exact MI-02 implementation plan exists and still requires explicit approval, a clean committed baseline, and repeated offline preflight.",
+    "MI-02 passed its complete validation, is committed at 7faf40e, and is closed; no additional code is authorized by its closed plan.",
     "S1-22A corrects the exhaustive SensitiveClassV1 compatibility claim, S1-22B defines one maximal telephone-extension digit run with exact 1-through-6 and 7-or-more classification, and S1-22C establishes the Section 8 10 MiB caller ceiling.",
-    "Repository-owned extraction and OCR fixtures and their complete oracles do not exist; this blocks extraction and complete-pilot work, not the proposed pure MI-02 detector increment.",
+    "S1-21A added only the already installed matching Rust 1.89.0 rust-analyzer component to rust-toolchain.toml and passed its exact offline validation; compiler, Cargo, manifests, lockfile, dependencies, and product behavior are unchanged.",
+    "S1-23A closed MI03-AUD-04 through MI03-AUD-06, and S1-23B closed S1-23-PA-07 by defining the identity and canonical serialization contract. The corrected author pre-audit then found S1-23-PA-08: the exact MI-03 failure-code and competing-condition precedence matrix is incomplete. S1-23C and passed audit reruns are required before an exact implementation plan may be written.",
     "The selected model still requires legal review, but this blocks only its dependencies, source, tests, fixtures, acquisition, integration, execution, packaging, distribution, and complete-pilot acceptance.",
     "The plaintext funding-demo vault is restricted to synthetic data and is not an approved confidential-data design.",
     "Xcode 26.6, SDK 26.5, Swift 6.3.3, macOS 26.5, and disposable arm64 Swift-to-Rust linkage are verified; the complete Outis application build remains unproved until implementation.",
-    "No manifest, dependency, build, Swift, Xcode, runtime, FFI, model, vault, tokenization, or publication change is authorized by S1-22."
+    "No manifest, dependency, build, Swift, Xcode, runtime, FFI, extraction, model, vault, tokenization, or publication change is currently authorized."
   ],
   "next_action": {
-    "phase": "P1_MI_02_BASELINE_AND_PREFLIGHT",
-    "decision_requested": "None; the user explicitly approved the exact MI-02 implementation plan on 2026-08-17.",
-    "after_approval": "Commit the approved plan and planning documents, require a clean worktree, record P1_MI02_BASE_COMMIT, repeat the exact S1-21 offline preflight, and implement only the approved nine-path MI-02 boundary.",
-    "code_status": "MI-02 code is authorized only after the clean committed baseline and repeated offline preflight. MI-01 is complete; model-specific code additionally requires CLEARED legal review."
+    "phase": "S1_23C_FAILURE_PRECEDENCE_APPROVAL",
+    "decision_requested": "Explicit approval of S1-23C exactly as proposed in S1-23-PA-08: use only existing outcomes and codes, bind one ordered MI-03 validation and result-precedence matrix, map every approved rejection/failure/limit case, distinguish malformed input from unexpected platform failure, and add exact single-condition and minimal competing-condition tests.",
+    "after_approval": "Amend only the MI-03 failure-code and precedence contract, rerun the author pre-audit, and only if it passes rerun the separate peer audit; write no implementation plan if either blocks.",
+    "code_status": "MI-01 and MI-02 are complete. MI-03 implementation planning and code are blocked until S1-23C is approved and both audits pass on rerun. Model-specific code additionally requires CLEARED legal review."
   },
   "authoritative_references": [
     "AGENTS.md",
@@ -651,6 +681,11 @@
     "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_spec_pre_audit.md",
     "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_peer_audit.md",
     "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md",
+    "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_pre_test_audit.md",
+    "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_result_review.md",
+    "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_research_brief.md",
+    "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_spec_pre_audit.md",
+    "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_peer_audit.md",
     "docs/roadmaps/outis_local_pilot_file_architecture.json"
   ]
 }

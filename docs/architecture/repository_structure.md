@@ -5,7 +5,7 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 # Outis Repository Structure
 
-Status: MI-01 validated; MI-02 plan approved, baseline and preflight pending
+Status: MI-01 and MI-02 validated; S1-23C failure matrix required
 Scope: local macOS pilot repository
 
 ## Purpose
@@ -29,13 +29,15 @@ Cargo.toml
   one-member Rust workspace
 
 rust-toolchain.toml
-  stable locator with exact S1-21 identity preflight
+  stable locator with exact S1-21 identity preflight and validated matching
+  rust-analyzer component declaration
 
 Cargo.lock
   format-4 dependency-free outis-core lockfile
 
 crates/outis-core/
-  validated MI-01 deterministic email-candidate capability
+  validated MI-01 and MI-02 deterministic email, telephone, and IBAN
+  candidate capabilities
 
 bin/
   repository maintenance tools
@@ -60,8 +62,8 @@ inventory.md
 ~~~
 
 No Swift application, Xcode project, Finder extension, extraction adapter,
-telephone or IBAN detector, model adapter, private vault, tokenization path, or
-agent-export implementation exists.
+contextual model adapter, private vault, tokenization path, or agent-export
+implementation exists.
 
 ## S1-Bound Workspace Shape
 
@@ -118,12 +120,15 @@ bin/
 
 The first slice has no Finder extension, CLI product, remote service,
 format-specific crate, response renderer, or post-quantum service module. Rust
-runtime owns strict `.txt`/`.md` extraction. Small Swift files in the existing
-application target own AppKit `.doc`/`.docx`, PDFKit PDF, Core Graphics render,
-and Vision OCR adapters. No extra extraction target or crate is created. No
-directory may be created merely because it appears in an architecture
-document. The specification, peer-audit, and implementation-plan gates remain
-mandatory even for an allowlisted path.
+runtime owns strict `.txt`/`.md` extraction. The permanent Swift files own
+AppKit `.doc`/`.docx`, PDFKit PDF, Core Graphics render, and Vision OCR
+adapters. S1-23 stages those files through one test-only direct Swift harness
+without creating a placeholder application or temporary target. The later
+application target owns the same files without source duplication. No extra
+extraction target or crate is created. No directory may be created merely
+because it appears in an architecture document. The specification,
+peer-audit, and implementation-plan gates remain mandatory even for an
+allowlisted path.
 
 The final workspace has three members. S1-20 began that transition without
 empty placeholders: MI-01 created only `crates/outis-core` and listed only that
@@ -138,6 +143,11 @@ obsolete root `src/main.rs`, and removed stale `mbt_cache`-oriented
 while distribution endpoints used unreachable loopback tripwires.
 `inventory.md` was regenerated only through its existing generator. The
 existing user-owned deletion of `architecture-public.md` remains preserved.
+
+S1-21A later added only `rust-analyzer` to the existing toolchain component
+array. Its offline result resolves rust-analyzer 1.89.0 at the same Rust commit
+while preserving Clippy, rustfmt, the minimal profile, arm64 target, Cargo
+manifests, lockfile, dependencies, and product code.
 
 ## First Complete Implementation Increment
 
@@ -169,10 +179,10 @@ complete domain capability with an exact input, output, terminal return, and
 oracle; it is not a horizontal foundation. A later increment must pass its own
 applicable gates.
 
-## Proposed Next Increment
+## Second Validated Implementation Increment
 
-The approved `S1-22` design defines `MI-02` as two additional pure structured
-detectors in the existing core:
+The approved `S1-22` design and implementation plan bound `MI-02` as two
+additional pure structured detectors in the existing core:
 
 ~~~text
 crates/outis-core/src/detect/telephone.rs
@@ -181,14 +191,41 @@ crates/outis-core/src/detect/iban.rs
 crates/outis-core/src/detect/iban/tests.rs
 ~~~
 
-It would amend only `candidate.rs`, `detect.rs`, `lib.rs`, the handwritten
-component inventory, and the generated root inventory. It would not change a
-manifest, lockfile, dependency, build setting, runtime, application, vault,
-model, FFI, or publication surface. S1-22B closes the telephone-extension
-contradiction, and S1-22C establishes the Section 8 10 MiB caller ceiling. The
-amended author pre-audit, separate peer audit, and exact implementation plan
-are approved. No file change is authorized until the approved documentation is
-committed on a clean baseline and followed by the repeated offline preflight.
+It amended only `candidate.rs`, `detect.rs`, `lib.rs`, the handwritten
+component inventory, the four detector paths above, and the generated root
+inventory. It did not change a manifest, lockfile, dependency, build setting,
+runtime, application, vault, model, FFI, or publication surface. S1-22B closes
+the telephone-extension contradiction, and S1-22C establishes the Section 8
+10 MiB caller ceiling. The pre-test audit and complete validation passed: 21
+library tests passed, including the seven unchanged MI-01 tests. The evidence
+is recorded in
+`docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_result_review.md`,
+and the implementation is committed at `7faf40e`.
+
+## Approved Third Increment Boundary
+
+The user approved `S1-23` on 2026-08-18 as the specification boundary for
+`MI-03`: one-source local extraction to in-memory normalized Markdown for
+`.txt`, `.md`, `.doc`, `.docx`, text-bearing PDFs, and scanned or image-only
+PDFs.
+
+The increment proposes one used `outis-runtime` crate, the core source and
+normalized-document types, the four permanent Swift native adapter files, one
+test-only native extraction harness, and the exact extraction-only synthetic
+fixtures in specification Section 40. Rust text extraction and native-
+submission validation and Swift native extraction are proved separately
+against one shared byte-exact oracle. No live Swift-to-Rust integration,
+application, FFI, review UI, folder path, model, vault, tokenization, export,
+or publication behavior is claimed.
+
+S1-23 through S1-23B authorize documentation only. S1-23A closed the
+dependency closure, initial fixture-generation sequence, and independent
+Vision-oracle findings. S1-23B closed the text/native extraction identity,
+canonical preimage, literal schema, and production serializer finding. The
+corrected author pre-audit then blocked because exact failure-code mappings and
+competing-condition precedence are incomplete. MI-03 remains blocked until
+S1-23C is approved, the author and separate peer audits pass on rerun, and an
+exact implementation plan is written and explicitly approved.
 
 ## Runtime Data Is Outside the Source Tree
 
@@ -328,11 +365,10 @@ revision recorded in
 ONNX Runtime 1.28 CPU execution binding. Model acquisition and bundling remain
 blocked until the qualified model legal review is `CLEARED`. Before clearance,
 the exact model source, tests, fixtures, dependencies, artifacts, bundle phases,
-and temporary substitutes remain absent. MI-01 is complete. A later
-model-independent increment can proceed before legal clearance only through a
-separately approved amendment, author pre-audit, peer audit, and implementation
-plan; the approved and audited S1-22 through S1-22C telephone and IBAN design
-now has an exact plan that remains blocked pending explicit approval.
+and temporary substitutes remain absent. MI-01 and MI-02 are complete within
+their evidence boundaries. A later model-independent increment can proceed
+before legal clearance only through a separately approved amendment, author
+pre-audit, peer audit, and implementation plan.
 
 ### Vault Adapters
 

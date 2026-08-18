@@ -3,28 +3,28 @@
   "schema_version": "1.0",
   "architecture_id": "outis_local_pilot_file_architecture",
   "title": "Outis Local Pilot File and Folder Architecture",
-  "status": "P1_MI_02_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
-  "date": "2026-08-17",
+  "status": "S1_23B_APPROVED_AUTHOR_PRE_AUDIT_BLOCKED_S1_23C_REQUIRED",
+  "date": "2026-08-18",
   "document_role": {
     "classification": "normative S1 file-architecture companion",
     "parent_roadmap": "ROADMAP.json",
     "is_specification": false,
     "authorizes_file_creation": false,
     "authorizes_code": false,
-    "ratification_gate": "This document is normative through approved S1-22C. The amended author pre-audit, separate peer audit, and exact MI-02 implementation plan are approved. File changes remain blocked until the clean committed baseline and repeated offline preflight."
+    "ratification_gate": "This document is normative through approved S1-23B. MI-01 and MI-02 are validated. S1-23B closes S1-23-PA-07; the corrected MI-03 author pre-audit is blocked at S1-23-PA-08 pending S1-23C and passed audit reruns before implementation planning."
   },
   "architecture_rules": {
     "primary_rule": "Every production file has one semantic responsibility and one owning runtime or evidence surface.",
     "dependency_direction": "macOS app -> generated FFI contract -> outis-ffi -> outis-runtime -> outis-core",
     "rules": [
       "outis-core must not depend on Swift, macOS frameworks, a model runtime, a database engine, Keychain, or FFI.",
-      "outis-runtime owns approved local Rust side effects and concrete adapters; native Word/PDF/OCR remains in the macOS application target; no separate adapter crate is created without measured compile or isolation need.",
+      "outis-runtime owns approved local Rust side effects and concrete adapters; native Word/PDF/OCR remains in the permanent macOS Swift source surface and belongs to the application target when that later target exists; no separate adapter crate is created without measured compile or isolation need.",
       "outis-ffi owns only the language boundary and must not duplicate domain behavior.",
       "The macOS application owns user interaction and platform access; it must not reimplement Rust transformation rules.",
       "Synthetic fixtures, evaluation code, benchmarks, generated bindings, and model artifacts remain outside production source targets.",
       "No file or directory is created as an empty placeholder.",
       "No path for Finder, remote services, RAG, rendering, or post-quantum services is created in the first slice.",
-      "Rust runtime owns strict .txt and .md extraction; the single macOS application target owns small AppKit Word, PDFKit PDF, Core Graphics render, and Vision OCR adapters; no format-specific crate or extra Xcode target is created.",
+      "Rust runtime owns strict .txt and .md extraction. In MI-03 the permanent AppKit Word, PDFKit PDF, Core Graphics render, and Vision OCR files are compiled only with the test-only native harness; the later complete application target owns them without source duplication. No placeholder application, format-specific crate, Swift package, framework, or extra Xcode target is created.",
       "Every successfully processed source maps to exactly one .md target under a separate outis root; target paths preserve the source-relative structure and base names only after sensitive component tokenization."
     ]
   },
@@ -52,7 +52,7 @@
   "current_root_transitions": [
     {
       "path": "rust-toolchain.toml",
-      "proposed_action": "MI-01 created the stable rustup locator; later use retains the exact Rust 1.89.0 commit, Cargo, component, arm64 host and target, and offline-resolution preflight required by S1-21",
+      "proposed_action": "MI-01 created the stable rustup locator; validated S1-21A added only the already installed matching Rust 1.89.0 rust-analyzer component; later use retains the exact compiler, Cargo, components, arm64 host and target, and offline-resolution preflight",
       "gate": "completed for MI-01; future edits require a new approved plan"
     },
     {
@@ -62,7 +62,7 @@
     },
     {
       "path": "Cargo.lock",
-      "proposed_action": "MI-01 generated and committed format-4 Cargo.lock containing only outis-core and no registry package; MI-02 proposes no lockfile change",
+      "proposed_action": "MI-01 generated and committed format-4 Cargo.lock containing only outis-core and no registry package; MI-02 preserved it byte-for-byte",
       "gate": "completed for MI-01; future edits require a new approved plan"
     },
     {
@@ -236,6 +236,10 @@
           {
             "path": "Cargo.toml",
             "responsibility": "runtime package identity and approved adapter dependencies"
+          },
+          {
+            "path": "docs/inventory.md",
+            "responsibility": "handwritten runtime component inventory consumed by the existing generated root-inventory tool"
           },
           {
             "path": "src/lib.rs",
@@ -526,7 +530,7 @@
       "inventory.md through bin/generate_global_inventory.rs"
     ],
     "excluded_surfaces": "macOS application, Xcode, Swift, runtime, FFI, extraction, other detectors, entity resolution, review, tokenization, vault, export, production or test publication, fixtures, evidence, models, generated bindings, jobs, distribution, and funding-demo claims",
-    "authorization": "Closed: the S1-21 audits, exact MI-01 plan, pre-test audit, and complete validation passed. This closed authorization does not permit later changes.",
+    "authorization": "Closed: the S1-21 audits, exact MI-01 plan, pre-test audit, and complete validation passed. S1-21A later added only the installed matching rust-analyzer component and passed its own research, audit, plan, pre-test, and offline result chain. No broader toolchain or product change is authorized.",
     "toolchain_resolution": {
       "rustup_alias": "stable",
       "rustc_release": "1.89.0",
@@ -537,6 +541,7 @@
       "required_components": [
         "cargo-aarch64-apple-darwin",
         "clippy-aarch64-apple-darwin",
+        "rust-analyzer-aarch64-apple-darwin",
         "rustc-aarch64-apple-darwin",
         "rustfmt-aarch64-apple-darwin",
         "rust-std-aarch64-apple-darwin"
@@ -544,12 +549,15 @@
       "offline_proof": "RUSTUP_DIST_SERVER and RUSTUP_UPDATE_ROOT point to unreachable 127.0.0.1:9 tripwires and CARGO_NET_OFFLINE is true; exact Section 40 preflight commands must still exit zero."
     }
   },
-  "proposed_second_pre_model_increment": {
+  "second_pre_model_increment": {
     "id": "MI-02",
-    "status": "P1_MI_02_PLAN_APPROVED_AWAITING_BASELINE_AND_PREFLIGHT",
+    "status": "COMPLETE_MI_02_VALIDATION_PASSED",
     "capability": "separate deterministic telephone and IBAN discovery entrypoints",
     "research": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md",
     "implementation_plan": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md",
+    "pre_test_audit": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_pre_test_audit.md",
+    "result_review": "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_result_review.md",
+    "commit": "7faf40e",
     "specification_binding": "docs/specs/outis_local_pilot_SPEC.md Section 40 S1-22",
     "input": "one already validated UTF-8 document_text surface and one 32-byte source-snapshot SHA-256 identity per entrypoint call",
     "output": "ordered class-specific SensitiveCandidateV1 records or a shared typed all-or-nothing candidate-limit error",
@@ -569,11 +577,69 @@
       "inventory.md through bin/generate_global_inventory.rs"
     ],
     "unchanged_surfaces": "Cargo manifests, Cargo.lock, toolchain, build configuration, Swift, Xcode, runtime, FFI, extraction, model, entity graph, tokenization, vault, export, publication, fixtures, and benchmarks",
-    "authorization": "The exact MI-02 implementation plan was explicitly approved on 2026-08-17. S1-22B closes the telephone-extension contradiction, S1-22C establishes the Section 8 10 MiB caller ceiling, and the amended author pre-audit and separate peer audit passed. No listed source change is authorized until the clean committed baseline and repeated offline preflight pass."
+    "authorization": "Closed: S1-22B closes the telephone-extension contradiction, S1-22C establishes the Section 8 10 MiB caller ceiling, and the amended author pre-audit, separate peer audit, approved implementation plan, pre-test audit, and complete validation passed. The implementation is committed at 7faf40e. This closed authorization permits no later change."
+  },
+  "third_pre_model_increment": {
+    "id": "MI-03",
+    "status": "S1_23B_APPROVED_AUTHOR_PRE_AUDIT_BLOCKED_S1_23C_REQUIRED",
+    "capability": "one-source local extraction to ready or needs_review NormalizedDocumentV1 for every required initial format",
+    "research": "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_research_brief.md",
+    "specification_binding": "docs/specs/outis_local_pilot_SPEC.md Section 40 S1-23",
+    "formats": [
+      ".txt",
+      ".md",
+      ".doc",
+      ".docx",
+      "text-bearing PDF",
+      "scanned or image-only PDF"
+    ],
+    "rust_members_after_implementation": [
+      "crates/outis-core",
+      "crates/outis-runtime"
+    ],
+    "direct_registry_dependencies": [
+      "serde =1.0.229",
+      "serde_json =1.0.151 as runtime production identity/metadata and oracle dependency",
+      "sha2 =0.11.0"
+    ],
+    "product_and_test_paths": [
+      "Cargo.toml",
+      "Cargo.lock",
+      "inventory.md",
+      "crates/outis-core/Cargo.toml",
+      "crates/outis-core/docs/inventory.md",
+      "crates/outis-core/src/lib.rs",
+      "crates/outis-core/src/error.rs",
+      "crates/outis-core/src/source.rs",
+      "crates/outis-core/src/document.rs",
+      "crates/outis-runtime/Cargo.toml",
+      "crates/outis-runtime/docs/inventory.md",
+      "crates/outis-runtime/src/lib.rs",
+      "crates/outis-runtime/src/extraction.rs",
+      "crates/outis-runtime/src/extraction/text.rs",
+      "crates/outis-runtime/tests/extraction_contract.rs",
+      "apps/macos/Outis/Extraction/DocumentExtractor.swift",
+      "apps/macos/Outis/Extraction/WordExtractor.swift",
+      "apps/macos/Outis/Extraction/PDFExtractor.swift",
+      "apps/macos/Outis/Extraction/VisionOCR.swift",
+      "tests/native_extraction/Main.swift",
+      "tests/fixture_generation/Main.swift",
+      "tests/fixture_generation/WordFixtures.swift",
+      "tests/fixture_generation/PDFFixtures.swift"
+    ],
+    "fixture_paths": "the exact fixtures/outis_local_pilot/v1 README, SHA256SUMS, fixture_manifest.json, extraction source, expected_normalized, and oracle paths listed by S1-23",
+    "generated_only": [
+      "Cargo.lock through Cargo",
+      "inventory.md through bin/generate_global_inventory.rs",
+      "declared source fixtures, fixture_manifest.json, and SHA256SUMS through the approved fixture generator"
+    ],
+    "live_integration": "absent: the permanent Swift adapters and Rust validator are proved separately against one shared byte-exact synthetic oracle; no FFI or application behavior is claimed",
+    "unchanged_surfaces": "MI-01 and MI-02 detector source and expectations, outis-ffi, generated C bindings, Xcode project and targets, application UI, Finder, model, entity graph, review decisions, tokenization, vault, agent export, staging, publication, remote services, and confidential-data behavior",
+    "authorization": "S1-23 through S1-23B were explicitly approved on 2026-08-18. S1-23B closes the identity and canonical-serialization finding, but the corrected author pre-audit is blocked at S1-23-PA-08 because the exact failure-code and competing-condition precedence matrix is incomplete. No implementation plan or listed source, dependency, manifest, lockfile, Swift, fixture, generated, or build change is authorized before S1-23C approval and passed audit reruns."
   },
   "model_specific_gate": {
     "status": "BLOCKED_PENDING_QUALIFIED_LEGAL_CLEARANCE",
-    "does_not_block": "the completed MI-01 result or a separately approved model-independent increment that passes its own specification, audit, and plan gates",
+    "does_not_block": "the completed MI-01 and MI-02 results or a separately approved model-independent increment that passes its own specification, audit, and plan gates",
     "forbidden_before_cleared": [
       "crates/outis-runtime/src/local_entity_model.rs",
       "crates/outis-runtime/tests/model_contract.rs",
@@ -589,10 +655,24 @@
     "temporary_surface_rule": "Do not create a stub, fallback, substitute, feature flag, alternate manifest, model-free release mode, or speculative interface.",
     "mi_01_behavior": "MI-01 is a validated pure Rust capability with no application, FFI, job, publication, completed job status, or funding-demo behavior. S1-20 grants no blanket pre-model implementation permission."
   },
+  "native_extraction_support": {
+    "production_dependency": false,
+    "workspace_crate": false,
+    "shipped_product": false,
+    "creation_gate": "passed MI-03 audits and explicitly approved exact implementation plan",
+    "files": [
+      {
+        "path": "tests/native_extraction/Main.swift",
+        "responsibility": "argument-free synthetic native-extraction correctness, failure, replay, cancellation, timing, memory, and plaintext-output oracle for the four permanent Swift adapter files"
+      }
+    ],
+    "build_output": "target/tools/outis-native-extraction",
+    "rules": "Compile directly with the installed Xcode Swift compiler; read only the fixed synthetic fixture root; print no extracted plaintext; create no Xcode target, Swift package, framework, temporary product API, FFI, cache, or persistent extraction output."
+  },
   "fixture_generation_support": {
     "production_dependency": false,
     "production_logic_allowed": false,
-    "creation_gate": "approved implementation plan",
+    "creation_gate": "passed MI-03 audits and explicitly approved exact implementation plan",
     "modes": [
       "--write",
       "--check"
@@ -600,15 +680,15 @@
     "files": [
       {
         "path": "tests/fixture_generation/Main.swift",
-        "responsibility": "validate the sole mode, compile-time platform assumptions, declared manifest, and fresh output boundary"
+        "responsibility": "validate the sole mode, compile-time platform assumptions, exact S1-23 output allowlist, and fresh output boundary; emit only the generated fixture manifest and checksum file after all owned bytes validate"
       },
       {
         "path": "tests/fixture_generation/WordFixtures.swift",
-        "responsibility": "produce only the fixed synthetic .doc and .docx fixture bytes declared by the fixture manifest"
+        "responsibility": "produce only the fixed synthetic .doc and .docx fixture bytes declared by S1-23"
       },
       {
         "path": "tests/fixture_generation/PDFFixtures.swift",
-        "responsibility": "produce only the fixed synthetic text-bearing and scanned PDF fixture bytes declared by the fixture manifest"
+        "responsibility": "produce only the fixed synthetic text-bearing and scanned PDF fixture bytes declared by S1-23"
       }
     ]
   },
@@ -771,14 +851,20 @@
       "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_spec_pre_audit.md",
       "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_peer_audit.md",
       "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_implementation_plan.md",
+      "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_pre_test_audit.md",
+      "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_result_review.md",
+      "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_research_brief.md",
+      "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_spec_pre_audit.md",
+      "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_peer_audit.md",
       "docs/specs/outis_local_pilot_SPEC.md",
       "ROADMAP.json",
       "docs/roadmaps/outis_local_pilot_file_architecture.json"
     ],
     "future_lifecycle_artifacts": [
       "docs/reviews/outis_local_pilot/outis_local_pilot_model_legal_review.md",
-      "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_pre_test_audit.md",
-      "docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_result_review.md"
+      "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_implementation_plan.md",
+      "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_pre_test_audit.md",
+      "docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_result_review.md"
     ],
     "generated_evidence_root": "artifacts/outis_local_pilot/",
     "generated_evidence_rule": "Create only from approved commands; never place real sensitive data, vault records, or plaintext paths in evidence."
@@ -864,5 +950,5 @@
     "services/",
     "plugins/"
   ],
-  "approval_effect": "S1-18 accepts the final architecture allowlist, S1-19 partitions the model legal gate, S1-20 and S1-21 bind the validated MI-01 paths and toolchain evidence, S1-22 approves the MI-02 design and path boundary, S1-22A records the intentional exhaustive-enum API evolution and MI-01 regression contract, S1-22B closes the telephone-extension grammar, and S1-22C establishes the Section 8 10 MiB caller ceiling. The amended author pre-audit, separate peer audit, and exact MI-02 implementation plan are approved. Code remains blocked until the clean committed baseline and repeated offline preflight. Qualified legal clearance continues to gate every model-specific surface."
+  "approval_effect": "S1-18 accepts the final architecture allowlist, S1-19 partitions the model legal gate, S1-20 and S1-21 bind the validated MI-01 paths and toolchain evidence, S1-21A validates the matching rust-analyzer declaration, and S1-22 through S1-22C bind the validated MI-02 increment committed at 7faf40e. S1-23 through S1-23B approve the corrected MI-03 extraction-only boundary, but the author pre-audit is blocked at S1-23-PA-08 pending S1-23C and the separate peer audit has not restarted. No MI-03 implementation plan or source, dependency, manifest, lockfile, Swift, fixture, generated, or build change is authorized. Qualified legal clearance continues to gate every model-specific surface."
 }

@@ -10,7 +10,7 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 - Slug: `outis_local_pilot`
 - Product: Outis
 - Version: 0.1 working draft
-- Date: 2026-08-17
+- Date: 2026-08-18
 - Classification: specification authoring; no code
 - Measured slice: local macOS synthetic funding demo
 - Research input: `docs/reviews/outis_local_pilot/outis_local_pilot_r1_decision_closure.md`
@@ -18,7 +18,7 @@ Copyright (c) 2024 WUTHIER TERMINAL. All Rights Reserved.
 
 ## 2. Status
 
-Status: `S1_22C_APPROVED_PEER_AUDIT_PASSED_PLAN_APPROVED`
+Status: `S1_23B_APPROVED_AUTHOR_PRE_AUDIT_BLOCKED_S1_23C_REQUIRED`
 
 Approved decision packets:
 
@@ -58,6 +58,8 @@ Approved decision packets:
   2026-08-17.
 - `S1-21` exact installed-toolchain resolution and offline preflight,
   approved 2026-08-17.
+- `S1-21A` matching rust-analyzer toolchain-component correction, approved
+  2026-08-18.
 - `S1-22` deterministic telephone and IBAN discovery increment, approved
   2026-08-17.
 - `S1-22A` exhaustive-enum API-evolution and MI-01 regression correction,
@@ -65,16 +67,34 @@ Approved decision packets:
 - `S1-22B` deterministic telephone-extension maximal-digit-run correction,
   approved 2026-08-17.
 - `S1-22C` normalized-document caller-limit correction, approved 2026-08-17.
+- `S1-23` smallest local extraction-to-normalized-Markdown increment,
+  approved 2026-08-18.
+- `S1-23A` dependency-closure, fixture-bootstrap, and independent Vision-
+  oracle correction, approved 2026-08-18.
+- `S1-23B` extraction-identity schema, canonical hash preimage, and production
+  serialization ownership correction, approved 2026-08-18.
 
-All sequential S1 design packets through `S1-22C` are explicitly approved.
+All sequential S1 design packets through `S1-23B` are explicitly approved.
 `S1-20` supersedes the broad pre-model implementation permission in `S1-19`;
 `S1-21` resolves the toolchain name without changing the compiler identity or
-complete-pilot architecture. The S1-21 author pre-audit and separate peer audit
-have passed for the prior boundary. S1-22A closes the first S1-22 pre-audit
+complete-pilot architecture. S1-21A adds only the already installed matching
+rust-analyzer component to the repository toolchain declaration; it changes no
+compiler, Cargo, target, profile, dependency, product behavior, or architecture.
+The original S1-21 author pre-audit and separate peer audit passed, and S1-21A
+passed its own bounded review and offline validation chain. S1-22A closes the first S1-22 pre-audit
 finding, S1-22B closes the contradictory telephone-extension rule, and S1-22C
 makes the Section 8 10 MiB per-document normalized UTF-8 ceiling the single
 caller contract. The amended author pre-audit and separate MI-02 peer audit
 passed on 2026-08-17.
+
+S1-23 is a separately staged model-independent extraction amendment using the
+already-approved native extraction selections. S1-23A closes the measured
+dependency-closure wording, initial fixture creation, and independent Vision
+oracle defects. S1-23B closes the text and native extraction-identity schema,
+canonical identity-hash preimage, literal canonical metadata/oracle keys, and
+production serialization ownership. Corrected author and separate peer audit
+reruns are required before an exact implementation plan may be written. This
+does not clear or depend on the model legal gate.
 
 Conditional model stop gate: model-weight, base-model, training-corpus,
 commercial redistribution, attribution, notice, and source-obligation
@@ -96,11 +116,12 @@ generated bindings, model artifacts, schemas, fixtures, or build changes.
 `MI-01` passed its approved pre-test audit and complete validation sequence;
 the result is recorded in
 `docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md`. `S1-22`
-through `S1-22C` are explicitly approved, and the MI-02 author pre-audit and
-separate peer audit passed. The exact MI-02 implementation plan was explicitly
-approved on 2026-08-17. Implementation still requires the clean committed
-baseline and repeated offline preflight. Model-specific work also requires the
-qualified legal clearance above.
+through `S1-22C` are explicitly approved. The MI-02 author pre-audit, separate
+peer audit, exact implementation plan, pre-test audit, and complete validation
+passed. The result review classifies `MI_02_VALIDATION_PASSED`, and the
+implementation is committed at `7faf40e`. Model-specific work still requires
+the qualified legal clearance above. No post-MI-02 code is authorized without
+its own applicable lifecycle gates.
 
 ## 3. Purpose
 
@@ -441,17 +462,19 @@ normalized UTF-8 bytes and only at Unicode-scalar boundaries.
 
 ### Extraction replay identity
 
-Extraction identity binds:
+Every extraction identity binds source bytes, declared source format,
+extraction adapter, and normalized-document and provenance schema versions.
+The platform-independent Rust text identity additionally binds its text
+pipeline identifier and has no native field. A native identity additionally
+binds, when applicable:
 
-- source bytes and ordering;
 - macOS product version and build;
 - CPU architecture and framework environment;
 - extraction API and declared document type;
 - Vision revision and every option;
 - OCR-language availability result and order;
-- PDF page box and render configuration;
-- observation ordering; and
-- normalized-document schema version.
+- PDF page box and render configuration; and
+- observation ordering.
 
 Byte-identical replay is required only under the same complete identity. No
 equality across different macOS builds or machines is promised. A changed OS
@@ -706,11 +729,12 @@ Runtime dylib, model resources, model build phases, or a temporary model
 interface, stub, fallback, feature flag, or substitute.
 
 `MI-01` neither publishes nor simulates an agent repository, and it has no job
-or `completed` status. The approved `MI-02` telephone and IBAN increment is
-defined by `S1-22` in Section 40. It remains unauthorized until its amended
-author pre-audit and separate peer audit pass and its exact implementation
-plan is approved. Every other later pre-model increment requires the same
-gates.
+or `completed` status. The `MI-02` telephone and IBAN increment defined by
+`S1-22` in Section 40 passed its amended author pre-audit, separate peer audit,
+approved implementation plan, pre-test audit, and complete validation. It is
+committed at `7faf40e`. Every later pre-model increment requires its own
+applicable specification, author pre-audit, peer audit, and approved
+implementation plan.
 `S1-20` is not blanket authorization for model-independent surfaces.
 
 If clearance fails, model selection returns to research. There is no temporary,
@@ -3477,7 +3501,7 @@ docs/reviews/outis_local_pilot/outis_local_pilot_pre_test_audit.md
 docs/reviews/outis_local_pilot/outis_local_pilot_result_review.md
 ~~~
 
-The proposed MI-02 lifecycle uses separate artifacts so MI-01 evidence is not
+The completed MI-02 lifecycle uses separate artifacts so MI-01 evidence is not
 rewritten:
 
 ~~~text
@@ -3489,12 +3513,11 @@ docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_pre_test_audit.md
 docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_result_review.md
 ~~~
 
-The research brief, passed amended author pre-audit, and passed separate peer
-audit exist. S1-22A closes the exhaustive-enum finding, S1-22B closes the
-contradictory telephone-extension rule, and S1-22C closes the normalized-
-document caller-limit contradiction. Each later artifact is created at its
-applicable lifecycle stage; its path does not pre-authorize its content or any
-code.
+All six artifacts exist. S1-22A closes the exhaustive-enum finding, S1-22B
+closes the contradictory telephone-extension rule, and S1-22C closes the
+normalized-document caller-limit contradiction. The result review classifies
+`MI_02_VALIDATION_PASSED`. A later artifact path does not pre-authorize its
+content or any code.
 
 The model legal review must be authored or approved by a qualified human and
 classify exactly `CLEARED` or `BLOCKED`. `CLEARED` addresses model weights,
@@ -3504,10 +3527,25 @@ supply that legal conclusion. `BLOCKED` returns model selection to research.
 
 The author pre-audit records closure evidence without changing the spec. A
 separate peer audit then classifies exactly `PEER_AUDIT_PASSED` or `BLOCKED`.
-The MI-02 implementation plan is `APPROVED`; it binds every authorized change.
-The clean committed baseline and repeated offline preflight remain mandatory.
-The pre-test audit checks the completed implementation, and the result review
-may claim only evidence from the approved acceptance command.
+The approved MI-02 implementation plan bound every authorized change. Its
+clean baseline, repeated offline preflight, pre-test audit, and complete
+validation are closed by the result review and commit `7faf40e`.
+
+The S1-23 and proposed MI-03 lifecycle paths are:
+
+~~~text
+docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_research_brief.md
+docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_spec_pre_audit.md
+docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_peer_audit.md
+docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_implementation_plan.md
+docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_pre_test_audit.md
+docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_result_review.md
+~~~
+
+The research brief, author pre-audit, and peer audit exist. The author and peer
+artifacts are now `BLOCKED` by the implementation-plan preflight findings.
+Each remaining artifact is created only at its lifecycle stage. A listed path
+does not approve its content, implementation planning, or code.
 
 ## 40. Implementation-plan requirement
 
@@ -3636,7 +3674,7 @@ The complete `MI-01` manifest and toolchain content is:
 # rust-toolchain.toml
 [toolchain]
 channel = "stable"
-components = ["clippy", "rustfmt"]
+components = ["clippy", "rust-analyzer", "rustfmt"]
 profile = "minimal"
 targets = ["aarch64-apple-darwin"]
 
@@ -3666,8 +3704,13 @@ publish.workspace = true
 path = "src/lib.rs"
 ~~~
 
+S1-21A supersedes only the original S1-21 component array. Its purpose is to
+make the editor extension select the rust-analyzer shipped with the exact
+workspace toolchain instead of an incompatible newer standalone server. It
+does not install or update a component and records no absolute toolchain path.
+
 `stable` is only the installed rustup alias. Before any MI-01 Cargo, rustc,
-rustfmt, or Clippy operation, the following exact read-only preflight runs with
+rustfmt, Clippy, or rust-analyzer operation, the following exact read-only preflight runs with
 rustup distribution endpoints redirected to an unreachable loopback port and
 Cargo network access disabled:
 
@@ -3688,6 +3731,10 @@ env RUSTUP_TOOLCHAIN=stable \
   RUSTUP_DIST_SERVER=http://127.0.0.1:9 \
   RUSTUP_UPDATE_ROOT=http://127.0.0.1:9/rustup \
   CARGO_NET_OFFLINE=true rustfmt --version
+env RUSTUP_TOOLCHAIN=stable \
+  RUSTUP_DIST_SERVER=http://127.0.0.1:9 \
+  RUSTUP_UPDATE_ROOT=http://127.0.0.1:9/rustup \
+  CARGO_NET_OFFLINE=true rust-analyzer --version
 env RUSTUP_DIST_SERVER=http://127.0.0.1:9 \
   RUSTUP_UPDATE_ROOT=http://127.0.0.1:9/rustup \
   rustup component list --installed \
@@ -3708,7 +3755,8 @@ The preflight accepts only all of these observations:
   `aarch64-apple-darwin`;
 - Clippy `0.1.89` commit `29483883ee`;
 - rustfmt `1.8.0-stable` commit `29483883ee`;
-- installed `cargo`, `clippy`, `rustc`, `rustfmt`, and
+- rust-analyzer `1.89.0` commit `29483883` dated 2025-08-04;
+- installed `cargo`, `clippy`, `rust-analyzer`, `rustc`, `rustfmt`, and
   `rust-std-aarch64-apple-darwin` components; and
 - installed `aarch64-apple-darwin` target.
 
@@ -3834,7 +3882,8 @@ zero. This is an implementation result, not a broader pilot claim.
 
 ### `S1-22`: `MI-02` deterministic telephone and IBAN discovery
 
-Approval status: approved 2026-08-17; no code authorized.
+Closure status: approved 2026-08-17; validation passed and committed at
+`7faf40e` on 2026-08-18. The closed increment authorizes no later code.
 
 The research input is
 `docs/reviews/outis_local_pilot_mi_02/outis_local_pilot_mi_02_research_brief.md`.
@@ -3844,7 +3893,7 @@ cross-class overlap resolver, extractor, application, runtime, FFI, model,
 entity graph, tokenization path, vault, exporter, publication path, fixture
 tree, benchmark, or funding-demo behavior.
 
-The proposed public additions are exactly:
+The implemented public additions are exactly:
 
 ~~~text
 pub const MAX_STRUCTURED_CANDIDATES_PER_SURFACE: usize = 65_536;
@@ -3871,8 +3920,8 @@ email entrypoint, error, limit, and email behavior remain unchanged. Because
 the public enum is exhaustive, downstream exhaustive matches may require new
 arms; S1-22 does not claim source or binary compatibility for that enum
 expansion. The current repository has no such exhaustive match. MI-02
-validation must rerun all seven MI-01 tests unchanged in expectation and
-compile every workspace library and test target. The new error is shared only
+validation reran all seven MI-01 tests unchanged in expectation and compiled
+every workspace library and test target. The new error is shared only
 by the two new entrypoints; the existing `EmailDiscoveryErrorV1` and
 `MAX_EMAIL_CANDIDATES_PER_SURFACE` are not renamed or aliased. Each entrypoint
 has its own independent 65,536-record ceiling. A 65,537th record returns
@@ -4015,7 +4064,7 @@ table or claiming a later registry requires a new approved amendment.
 
 #### Exact MI-02 file boundary
 
-An MI-02 implementation plan may bind only these product and generated paths:
+The MI-02 implementation plan bound only these product and generated paths:
 
 ~~~text
 crates/outis-core/docs/inventory.md
@@ -4029,8 +4078,8 @@ crates/outis-core/src/detect/iban/tests.rs
 inventory.md
 ~~~
 
-The first four existing files may change, the four detector files are created,
-and `inventory.md` is regenerated only through the existing approved
+The first four existing files changed, the four detector files were created,
+and `inventory.md` was regenerated only through the existing approved
 generator. No other product, manifest, lockfile, toolchain, build, package,
 fixture, model, Swift, Xcode, runtime, FFI, vault, export, or generated path is
 allowed. Lifecycle review and plan artifacts remain governed by Section 39.
@@ -4043,7 +4092,7 @@ benchmark, integration-test target, or unused class variant is allowed.
 
 #### MI-02 oracle and validation
 
-The implementation plan must bind exact literal synthetic inputs and expected
+The implementation plan bound exact literal synthetic inputs and expected
 records for at least:
 
 - compact and formatted accepted values for `+33`, `+39`, `+41`, and `+49`;
@@ -4090,13 +4139,945 @@ candidate record is permitted.
 
 #### MI-02 lifecycle and rollback
 
-Before code, S1-22 through S1-22C require explicit user approval, an amended
-author pre-audit classification that closes MI-02, a separate peer-audit
-`PEER_AUDIT_PASSED` classification, and an exact approved implementation plan.
-The plan must record a clean committed baseline and bind all file states,
-literal tests, validation commands, expected outputs, line budgets, generated
-artifacts, risks, and a path-specific rollback procedure. A failure restarts
-validation; expectations or grammar must not be weakened to obtain a pass.
+S1-22 through S1-22C received explicit user approval. The amended author
+pre-audit and separate peer audit passed, the exact implementation plan was
+approved, the clean baseline and offline preflight passed, and the pre-test
+audit and complete validation passed. The result review records the bound file
+states, commands, outputs, corrections, generated inventory, and claim limits.
+Commit `7faf40e` closes MI-02. This closure grants no authorization to a later
+increment.
+
+### `S1-23`: `MI-03` local extraction to normalized Markdown
+
+Approval status: base boundary and S1-23A/S1-23B corrections approved by the
+user on 2026-08-18; corrected author and peer audits required before planning.
+No implementation code, dependency, manifest, lockfile, Swift source, fixture,
+generated artifact, or build change is authorized by this approval alone.
+
+The research input is
+`docs/reviews/outis_local_pilot_mi_03/outis_local_pilot_mi_03_research_brief.md`.
+S1-23 locally stages Sections 8, 9, 24 through 26, and 31 through 38 for one
+extraction-only increment. The complete-pilot contracts remain unchanged
+outside the explicit staging rules below.
+
+For MI-03 only, the exact fixture and validation matrix below locally
+supersedes the Section 32 `PERF-SMOKE-V1` 18-document corpus, Section 36 full-
+pilot fixture tree, Xcode tests, Rust integration-test list, application build,
+and full acceptance runner, and the Section 38 complete-pilot fixture-generator
+input, ownership, and compile command. Those complete-pilot requirements are
+not deleted or satisfied by MI-03 and return when their later implementation
+phase begins.
+
+S1-23A changes only three S1-23 contracts. It accepts the measured exact
+offline Cargo closure while preserving the direct-dependency boundary, adds
+one isolated test-only fixture-probe mode for first fixture creation, and
+separates independent synthetic-observation validation from actual Vision
+platform evidence. It does not change the measured object, supported formats,
+extraction choices, product paths, trust zones, outcomes, limits, or code gate.
+
+S1-23B defines the exact text and native extraction identities, canonical
+identity and native-metadata JSON encodings, SHA-256 preimages, and literal
+oracle keys. It promotes the already locked `serde_json =1.0.151` to an
+`outis-runtime` production dependency for only those encodings. It changes no
+package version, resolved package, source format, extractor, outcome, trust
+zone, product path, runtime option, or code gate.
+
+#### Goal and measured object
+
+MI-03 proves the permanent local extraction components for every required
+initial format without creating a placeholder application or temporary FFI.
+The one-source input is `SourceInputV1` containing stable repository-owned
+synthetic bytes, the expected source SHA-256, and exactly one declared
+`SourceFormatV1`:
+
+~~~text
+txt
+md
+doc
+docx
+pdf
+~~~
+
+`SourceInputV1` contains no path or filename. The format variant is the exact
+declared extension and source class. Rust recomputes SHA-256 from all bytes and
+validates the variant against the content signature before extraction or
+native-submission acceptance.
+
+The transformation returns exactly one `ExtractionOutcomeV1`:
+
+~~~text
+Ready(NormalizedDocumentV1)
+NeedsReview(NormalizedDocumentV1)
+Blocked { code: BlockedDomainCodeV1 }
+Failed { code: FailedDomainCodeV1 }
+Cancelled
+~~~
+
+Only valid `.txt` and `.md` can return `Ready`. Every successful `.doc`,
+`.docx`, native-text PDF, mixed PDF, and OCR PDF returns `NeedsReview`.
+`Blocked`, `Failed`, and `Cancelled` contain no normalized bytes, page record,
+or provenance segment.
+
+The increment has two permanent entry boundaries:
+
+1. Rust accepts stable `.txt` or `.md` bytes, validates the source, and returns
+   `ExtractionOutcomeV1`.
+2. Swift accepts stable Word or PDF bytes and returns
+   `NativeExtractionSubmissionV1`. Rust accepts the same source bytes and that
+   submission, validates both, and returns `ExtractionOutcomeV1`.
+
+The Swift harness and Rust tests invoke these boundaries separately against
+one shared byte-exact oracle. MI-03 does not claim a live Swift-to-Rust call or
+complete application path. Later FFI must compose the same permanent
+boundaries without changing their extraction semantics.
+
+#### Non-goals and rejected adjacent behavior
+
+MI-03 has no folder enumeration, path discovery, symlink handling,
+security-scoped access, source-to-target mapping, application, Xcode project,
+Swift package, Finder action, menu bar, Quick Look review, FFI, IPC, callback,
+job engine, detector orchestration, model, entity graph, review decision,
+tokenization, vault, agent repository, staging, publication, remote service,
+or confidential-data input.
+
+There is no temporary API, mock extractor, fallback converter, placeholder
+target, compatibility layer, feature flag, optional format, cache, concurrent
+extraction, or future-service abstraction. Unsupported or out-of-bound input
+returns a typed outcome; it is never skipped, truncated, downscaled, or
+represented as complete.
+
+#### Source and format contract
+
+All source fixtures are synthetic, repository-owned, checksum-bound, and read
+only. Real, pseudonymized real, or confidential documents are prohibited.
+MI-03 accepts exactly:
+
+- `.doc` with the eight-byte Compound File signature from Section 8;
+- `.docx` with one of the three Section 8 ZIP signatures;
+- `.pdf` with `%PDF-` inside the first 1,024 bytes;
+- `.txt` with optional UTF-8 BOM, strict UTF-8, and no NUL; and
+- `.md` with optional UTF-8 BOM, strict UTF-8, and no NUL.
+
+Extension and source class are supplied by the fixed fixture manifest. Rust
+validates their content signature before accepting a text result or native
+submission. A source SHA-256 supplied by the oracle must equal the SHA-256 of
+the complete bytes; mismatch returns `source_changed`.
+
+The one-source capability has no filesystem snapshot or mutation race after
+bytes are read. Folder entry, link, mount, package, archive, metadata, path,
+and nested-repository contracts are non-applicable under the no-enumeration
+non-goal. Adding filesystem enumeration requires a later amendment.
+
+Section 8 per-document limits remain exact: 10 MiB for `.txt` and `.md`, 50
+MiB for Word/PDF, 10 MiB normalized UTF-8, 100 PDF pages, 4,096 pixels on
+either render axis, and 16,777,216 rendered pixels per page. The job-wide file,
+source-byte, normalized-byte, and OCR-page ceilings do not apply to this
+one-source increment. Tests synthesize limit inputs in memory rather than
+committing large fixtures.
+
+#### Native adapter contract
+
+The native selection remains exactly Section 8:
+
+- AppKit `NSAttributedString` with `.docFormat` or `.officeOpenXML` for Word;
+- PDFKit access checks and `PDFPage.string` for a page with non-whitespace
+  native text;
+- PDFKit/Core Graphics page rendering plus Vision revision 3 for a page
+  without native text; and
+- no native-text/OCR merge on one page.
+
+OCR remains exact: accurate recognition; languages `it-IT`, `de-DE`, and
+`fr-FR` in that order; automatic language detection on; correction off; no
+custom words; minimum text height zero; top candidate only; fixed opaque-white
+sRGB 200-DPI RGBA rendering; one page and one request at a time; and the
+Section 8 total observation order. Missing language support blocks as
+`ocr_language_unavailable`.
+
+Word attachment evidence or reported lossy conversion blocks as
+`document_feature_unsupported`. PDF encryption, locking, password requirement,
+or copy prohibition blocks as `document_encrypted`. Rotation, annotation,
+form, attachment, or embedded-content evidence blocks as
+`document_feature_unsupported`. Corrupt, truncated, or zero-page input blocks
+as `document_corrupt`. Empty OCR, invalid geometry, or incomplete page
+coverage blocks as `extraction_incomplete` or `ocr_geometry_invalid` as
+applicable. Platform/API failure is `extraction_platform_failed`.
+
+Cancellation is checked before the first native operation and between PDF
+pages, renders, and Vision requests. AppKit, one PDFKit operation, and one
+Vision request remain bounded non-preemptible calls with no latency claim.
+
+#### Normalized-document and submission contract
+
+Section 9 remains authoritative. Text and Markdown preserve exact BOM-free
+bytes. Binary-derived CRLF, remaining CR, U+2028, and U+2029 become LF;
+trailing LF is removed per page; PDF pages are joined with exactly two LF
+bytes; and the complete binary-derived result ends with exactly one LF. Other
+spaces, tabs, scalars, and observed reading order remain unchanged. No heading,
+page label, filename, timestamp, front matter, comment, reflow, correction,
+translation, or normalization is injected.
+
+`NormalizedDocumentV1` contains exactly the source SHA-256, source format,
+normalized UTF-8 bytes, normalized SHA-256, `ExtractionIdentityV1`,
+`extraction_identity_sha256`, and ordered provenance segments. Source and
+normalized hashes are stored internally as 32 bytes and encoded in JSON only
+as 64 lowercase hexadecimal ASCII characters.
+
+`ExtractionIdentityV1` is one tagged object, without an outer enum envelope,
+discriminated by `adapter`. Its declared nested record fields remain nested.
+Every object rejects unknown, duplicate, missing, or variant-forbidden keys.
+Literal keys appear below in their canonical UTF-8 byte order.
+
+`rust_text` has exactly:
+
+~~~text
+adapter: "rust_text"
+identity_schema_version: 1
+normalized_document_schema_version: 1
+provenance_schema_version: 1
+source_format: "txt" or "md"
+source_sha256: 64 lowercase hexadecimal ASCII characters
+text_pipeline_id: "outis.mi03.text.v1"
+~~~
+
+It has no platform, framework, observation, OCR, language-support, or render
+key. The source SHA-256, source format, pipeline identity, and schema versions
+are the complete text extraction replay identity.
+
+`appkit_word` has exactly:
+
+~~~text
+adapter: "appkit_word"
+frameworks: ["AppKit", "Foundation"]
+identity_schema_version: 1
+normalized_document_schema_version: 1
+platform: PlatformIdentityV1
+provenance_schema_version: 1
+source_format: "doc" or "docx"
+source_sha256: 64 lowercase hexadecimal ASCII characters
+~~~
+
+`pdfkit_vision` has exactly:
+
+~~~text
+adapter: "pdfkit_vision"
+frameworks: ["CoreGraphics", "Foundation", "PDFKit", "Vision"]
+identity_schema_version: 1
+normalized_document_schema_version: 1
+observation_order_version: 1
+ocr_page_renders: [OcrPageRenderIdentityV1]
+platform: PlatformIdentityV1
+provenance_schema_version: 1
+required_language_support: [RequiredLanguageSupportV1]
+source_format: "pdf"
+source_sha256: 64 lowercase hexadecimal ASCII characters
+vision: VisionIdentityV1 or null
+~~~
+
+`PlatformIdentityV1` has exactly `architecture`, `macos_build`, and
+`macos_product_version`, in that key order. Architecture is exactly `arm64`.
+The product version is the dot-separated numeric value built from Foundation
+`ProcessInfo.operatingSystemVersion`, without a zero trailing patch component.
+The build is the non-empty visible-ASCII value inside the single `Build ...`
+component of `ProcessInfo.operatingSystemVersionString`; missing, duplicated,
+non-ASCII, or malformed build evidence is `extraction_platform_failed`. Product
+version and build are each at most 64 bytes. The exact macOS build plus the
+fixed framework-name array is the MI-03 framework-environment identity; no
+separate framework bundle version is inferred.
+
+`RequiredLanguageSupportV1` has exactly `language` then `supported`. OCR
+success has exactly three records in this order: `it-IT`, `de-DE`, `fr-FR`,
+each with `supported: true`. A PDF with no OCR page has an empty array and
+`vision: null`. A missing language blocks before a success identity exists.
+
+`VisionIdentityV1` has these literal keys and values in canonical order:
+
+~~~text
+automatically_detects_language: true
+custom_words: []
+minimum_text_height_ppm: 0
+recognition_languages: ["it-IT", "de-DE", "fr-FR"]
+recognition_level: "accurate"
+revision: 3
+uses_language_correction: false
+~~~
+
+It is present exactly when at least one page uses OCR. No floating-point value
+enters the identity.
+
+`OcrPageRenderIdentityV1` records one OCR page and has these keys in canonical
+order:
+
+~~~text
+alpha: "premultiplied_last"
+background: "opaque_white"
+bits_per_component: 8
+bits_per_pixel: 32
+color_space: "srgb"
+dpi: 200
+height_pixels: unsigned integer
+media_box_height_micropoints: positive unsigned integer
+media_box_width_micropoints: positive unsigned integer
+media_box_x_micropoints: signed integer
+media_box_y_micropoints: signed integer
+page_index: zero-based unsigned integer
+width_pixels: unsigned integer
+~~~
+
+Media-box point values are multiplied by 1,000,000 and rounded to the nearest
+integer with ties away from zero. Records are in ascending page index and exist
+only for OCR pages. Pixel dimensions and limits remain the native-adapter
+contract above.
+
+The canonical identity preimage is exactly the applicable
+`ExtractionIdentityV1` object encoded as compact UTF-8 JSON. Object keys at
+every depth are ordered by raw UTF-8 bytes; arrays retain contract order;
+integers use shortest decimal form; booleans and null use lowercase JSON
+literals; no floating-point number, insignificant whitespace, optional key,
+or trailing LF exists. Every string value in the identity is from the explicit
+visible-ASCII allowlists above. `serde_json =1.0.151` serializes Rust structs
+whose declaration order is exactly the canonical key order. Swift uses
+Foundation `JSONSerialization` with sorted keys. The shared exact oracle must
+prove byte equality. Rust computes `extraction_identity_sha256` as SHA-256 of
+only these canonical identity bytes and encodes the digest as 64 lowercase
+hexadecimal ASCII characters.
+
+`NativeExtractionMetadataV1` is the canonical native-submission JSON object.
+It always contains these keys in this order:
+
+~~~text
+adapter
+blocked_code
+extraction_identity
+extraction_identity_sha256
+failed_code
+normalized_utf8_len
+normalized_utf8_sha256
+outcome_status
+pages
+provenance
+schema_version
+source_format
+~~~
+
+`schema_version` is `1`; adapter is `appkit_word` or `pdfkit_vision`; source
+format is `doc`, `docx`, or `pdf`; and outcome is `needs_review`, `blocked`,
+`failed`, or `cancelled`. Every key is present. Inapplicable scalar or object
+values are JSON null, while inapplicable arrays are empty.
+
+For `needs_review`, identity, identity SHA-256, normalized UTF-8 byte length,
+normalized SHA-256, pages, and provenance are present; both domain codes are
+null. For `blocked`, only `blocked_code` is non-null among those conditional
+fields. For `failed`, only `failed_code` is non-null and is
+`extraction_platform_failed`. For `cancelled`, both codes are null. Rust
+canonical-serialization failure after otherwise valid input returns
+`Failed { code: internal_invariant_failed }`; no partial document is returned.
+
+`NativeExtractionSubmissionV1` contains this metadata plus normalized UTF-8
+bytes as a separate optional memory buffer. The buffer is present exactly for
+`needs_review`, its length and SHA-256 must match the metadata, and its content
+never enters JSON.
+
+`PageRecordV1` has exactly `end_byte`, `mode`, `page_index`, and `start_byte`.
+The half-open range is inside normalized UTF-8. AppKit success has one record
+covering the complete bytes with page index `0` and mode
+`appkit_visible_text`. PDF records are ordered by zero-based page index, cover
+each normalized page without its generated inter-page separator, and have mode
+`pdf_text` or `vision_ocr`.
+
+`ProvenanceSegmentV1` has exactly `end_byte`, `origin`, and `start_byte`.
+`ProvenanceOriginV1` always has exactly `bounding_box`, `confidence_ppm`,
+`kind`, `observation_index`, `page_index`, and `source_start_byte`, in that
+order. Inapplicable values are null. The allowed combinations are:
+
+| `kind` | Required non-null fields |
+|---|---|
+| `source_utf8` | `source_start_byte` |
+| `appkit_visible_text` | none |
+| `pdf_text` | `page_index` |
+| `vision_ocr` | `bounding_box`, `confidence_ppm`, `observation_index`, `page_index` |
+| `generated_page_separator` | `page_index`, identifying the following PDF page |
+
+`BoundingBoxPpmV1` has exactly `height`, `min_x`, `min_y`, and `width`.
+Coordinates and confidence are integers from zero through 1,000,000; width and
+height are positive; and minimum plus extent is at most 1,000,000. Conversion
+uses the existing Section 24 nearest, ties-away-from-zero rule.
+
+Provenance ranges cover normalized bytes once, at UTF-8 scalar boundaries,
+without overlap or unexplained gaps. Page and segment ranges use non-negative
+integers representable as Rust `usize` after the 10 MiB normalized-size check.
+
+The canonical native-submission preimage is exactly
+`NativeExtractionMetadataV1`, using the same compact recursively sorted-key
+JSON rules. It includes the identity and identity hash but excludes normalized
+UTF-8 bytes and excludes its own hash. The oracle field
+`canonical_native_submission_json_sha256` is SHA-256 of those bytes.
+
+Rust recomputes the source, normalized, identity, and canonical-metadata hashes
+and validates signature, class, status, normalization, page order, observation
+order, range coverage, scalar boundaries, identity, and limits. It does not
+trust Swift status, identity, or provenance. Any submission contradiction is
+`extraction_incomplete`; malformed or out-of-bound source data uses the
+applicable existing Section 29 blocked code.
+
+#### Trust zone, persistence, and claim boundary
+
+MI-03 is Human Zone only. Source bytes, framework objects, normalized text,
+rendered pixels, and provenance exist only in bounded memory during a run.
+Rendered page buffers are released after each page. The harness writes no
+extracted text, OCR text, submission, temporary plaintext file, cache, log, or
+diagnostic. It compares in memory with repository-owned expected synthetic
+bytes and prints only non-sensitive case IDs, statuses, counts, hashes,
+durations, memory evidence, and failures.
+
+The AI Zone and Key Zone are not read or written. No agent repository, source
+copy, vault, database, token, secret, staging directory, or publication path is
+created. Apple framework helper-process caches, crash artifacts, swap, backup,
+and operating-system diagnostics remain uncontrolled and unproved. This is why
+MI-03 is synthetic-only and cannot support privacy, security, confidentiality,
+or production-readiness claims.
+
+#### Rust, Swift, crate, target, and dependency staging
+
+MI-03 moves the Rust workspace from one member to exactly two used members:
+`outis-core` and `outis-runtime`. `outis-ffi` remains absent. The complete-pilot
+three-member statement remains a later gate. There is no empty crate.
+
+The only new direct Rust dependencies are exact versions already approved in
+Section 25:
+
+| Dependency | MI-03 owner | MI-03 use |
+|---|---|---|
+| `serde` `=1.0.229` | core and runtime | exact versioned extraction records |
+| `serde_json` `=1.0.151` | runtime production dependency | canonical identity/native-metadata serialization and handwritten oracle parsing |
+| `sha2` `=0.11.0` | runtime | source, normalized, identity, and canonical-metadata SHA-256 |
+
+The dependency features remain the Section 25 selections. No other direct
+dependency, build dependency, feature, patch, Git source, alternate registry,
+or runtime download is permitted. The exact accepted offline resolution has
+two local workspace packages and these 20 registry packages:
+
+| Package | Version | Registry SHA-256 |
+|---|---|---|
+| `block-buffer` | `0.12.1` | `d2f6c7dbe95a6ed67ad9f18e57daf93a2f034c524b99fd2b76d18fdfeb6660aa` |
+| `cfg-if` | `1.0.4` | `9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801` |
+| `cpufeatures` | `0.3.0` | `8b2a41393f66f16b0823bb79094d54ac5fbd34ab292ddafb9a0456ac9f87d201` |
+| `crypto-common` | `0.2.2` | `ce6e4c961d6cd6c9a86db418387425e8bdeaf05b3c8bc1411e6dca4c252f1453` |
+| `digest` | `0.11.3` | `f1dd6dbb5841937940781866fa1281a1ff7bd3bf827091440879f9994983d5c2` |
+| `hybrid-array` | `0.4.14` | `707114b52a152fa7bdb290cd7cd5912d9467273b6d74e21b8d81aca1f8533f6b` |
+| `itoa` | `1.0.18` | `8f42a60cbdf9a97f5d2305f08a87dc4e09308d1276d28c869c684d7777685682` |
+| `libc` | `0.2.189` | `3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2` |
+| `memchr` | `2.8.3` | `cf8baf1c55e62ffcace7a9f06f4bd9cd3f0c4beb022d3b367256b91b87513d98` |
+| `proc-macro2` | `1.0.107` | `985e7ec9bb745e6ce6535b544d84d6cd6f7ad8bd711c398938ae983b91a766d9` |
+| `quote` | `1.0.47` | `1fbf4db142a473a8d80c26bbf18454ed458bf8d26c8219c331daecfdbd079001` |
+| `serde` | `1.0.229` | `4148590afebada386688f18773da617792bf2ef03ffc1e4cbd2b1d45b023e0ba` |
+| `serde_core` | `1.0.229` | `67dca2c9c51e58a4791a4b1ed58308b39c64224d349a935ab5039aa360942a48` |
+| `serde_derive` | `1.0.229` | `e7a5d71263a5a7d47b41f6b3f06ba276f10cc18b0931f1799f710578e2309348` |
+| `serde_json` | `1.0.151` | `c841b55ecdae098c80dcae9cf767f6f8a0c2cdb3416bbef72181df4d0fe73f14` |
+| `sha2` | `0.11.0` | `446ba717509524cb3f22f17ecc096f10f4822d76ab5c0b9822c5f9c284e825f4` |
+| `syn` | `3.0.3` | `53e9bae58849f64dfa4f5d5ae372c8341f7305f82a3868709269343628b659a3` |
+| `typenum` | `1.20.1` | `b6f5e870be6c3b371b77fe0ee0bafb859fa4964b4404c27de1d380043c4dda20` |
+| `unicode-ident` | `1.0.24` | `e6e4313cd5fcd3dad5cafa179702e2b244f760991f45397d14d4ebf38247da75` |
+| `zmij` | `1.0.23` | `29666d0abbfad1e3dc4dcf6144730dd3a3ab225bbbdac83319345b1b44ccfc1b` |
+
+The observed format-four lockfile SHA-256 is
+`7181bfd53b17a9c371cea1fc044299cf1af58b8d31b5729284d1524219ce47ac`
+for the exact candidate manifests. Seven resolved packages declare custom
+build targets and no package version is duplicated. The implementation plan
+must bind the exact manifests and reproduce this lock and closure offline
+before source changes. A different package, version, checksum, source,
+feature, build target, duplicate, or lock hash blocks and requires a spec
+amendment.
+
+Direct `libc` `=0.2.183`, `unicode-normalization`, and `caseless` remain absent
+from MI-03. Transitive `libc` and `unicode-ident` are accepted only as the
+resolved implementation closure above; they authorize no publication,
+filesystem, Unicode normalization, case folding, or new runtime behavior.
+The model, SQLite, direct FFI, and codegen dependencies remain absent.
+
+The approved S1-23B production-serialization probe reran offline with exact
+Rust 1.89.0 and loopback rustup distribution endpoints. Promoting `serde_json`
+from development to production ownership preserved exactly two local packages,
+20 registry packages, seven custom-build packages, zero duplicate versions,
+and the same lockfile SHA-256. The exact candidate manifest SHA-256 values were
+`f53bfc6a4f731e57cef16b764ca1157d224b496a3524e61961130596a64c4bef`
+for the root, `9426a069b606835eb37cdc307e40533fb9aab06daca10064f4c17d2984564a55`
+for `outis-core`, and
+`14069a1033efbffcf5582d62506f78c1a367b8deb448fc4f25db5c1fb903619e`
+for `outis-runtime`.
+
+The disposable synthetic release probe compiled `serde_json`, `itoa`,
+`memchr`, and `zmij` into the production closure and completed in 4.14 seconds
+with 272,564,224 bytes maximum RSS; its probe `.rlib` was 44,048 logical bytes.
+These are planning observations on the recorded host, not MI-03 product-build,
+size, or performance acceptance. The implementation plan must reproduce the
+exact manifests, lock, source, feature, license, build-target, and package
+counts before product source changes.
+
+Swift uses Foundation, AppKit, PDFKit, Vision, and Core Graphics from the
+installed Xcode SDK. The four permanent adapter files are compiled directly
+with the test harness by Xcode's `swiftc`. MI-03 creates no Xcode project,
+target, app, bundle, Info.plist, entitlement, signing setting, module map,
+generated header, Swift package, framework, or shipped command-line product.
+The ignored executable under `target/tools/` is test output only.
+
+Rust runtime, measurement, and reusable logic contain no `unwrap`, `expect`,
+`panic!`, unchecked indexing, or silent error conversion. Swift runtime and
+platform paths contain no force unwrap, `try!`, unchecked cast, `fatalError`,
+or `preconditionFailure`. Objective-C exceptions remain an accepted
+synthetic-only limitation and may terminate the harness.
+
+#### Exact product, test, fixture, and generated path boundary
+
+The implementation plan may bind only these product and test-support paths:
+
+~~~text
+Cargo.toml
+Cargo.lock
+inventory.md
+
+crates/outis-core/Cargo.toml
+crates/outis-core/docs/inventory.md
+crates/outis-core/src/lib.rs
+crates/outis-core/src/error.rs
+crates/outis-core/src/source.rs
+crates/outis-core/src/document.rs
+
+crates/outis-runtime/Cargo.toml
+crates/outis-runtime/docs/inventory.md
+crates/outis-runtime/src/lib.rs
+crates/outis-runtime/src/extraction.rs
+crates/outis-runtime/src/extraction/text.rs
+crates/outis-runtime/tests/extraction_contract.rs
+
+apps/macos/Outis/Extraction/DocumentExtractor.swift
+apps/macos/Outis/Extraction/WordExtractor.swift
+apps/macos/Outis/Extraction/PDFExtractor.swift
+apps/macos/Outis/Extraction/VisionOCR.swift
+
+tests/native_extraction/Main.swift
+tests/fixture_generation/Main.swift
+tests/fixture_generation/WordFixtures.swift
+tests/fixture_generation/PDFFixtures.swift
+~~~
+
+`Cargo.toml`, `Cargo.lock`, `inventory.md`, both crate manifests and
+inventories, and `outis-core/src/lib.rs` are the only existing product or
+generated paths that may change. All other listed code/test paths are created.
+MI-01 and MI-02 detector files and expectations remain byte-identical.
+
+The exact fixture paths are:
+
+~~~text
+fixtures/outis_local_pilot/v1/README.md
+fixtures/outis_local_pilot/v1/SHA256SUMS
+fixtures/outis_local_pilot/v1/fixture_manifest.json
+
+fixtures/outis_local_pilot/v1/extraction/text/multilingual.txt
+fixtures/outis_local_pilot/v1/extraction/text/multilingual.md
+fixtures/outis_local_pilot/v1/extraction/text/bom.txt
+fixtures/outis_local_pilot/v1/extraction/text/invalid_utf8.txt
+fixtures/outis_local_pilot/v1/extraction/text/nul.md
+
+fixtures/outis_local_pilot/v1/extraction/doc/multilingual.doc
+fixtures/outis_local_pilot/v1/extraction/doc/truncated.doc
+fixtures/outis_local_pilot/v1/extraction/doc/signature_mismatch.doc
+
+fixtures/outis_local_pilot/v1/extraction/docx/multilingual.docx
+fixtures/outis_local_pilot/v1/extraction/docx/attachment.docx
+fixtures/outis_local_pilot/v1/extraction/docx/truncated.docx
+fixtures/outis_local_pilot/v1/extraction/docx/signature_mismatch.docx
+
+fixtures/outis_local_pilot/v1/extraction/pdf_text/multilingual.pdf
+fixtures/outis_local_pilot/v1/extraction/pdf_text/mixed_text_scan.pdf
+fixtures/outis_local_pilot/v1/extraction/pdf_text/protected.pdf
+fixtures/outis_local_pilot/v1/extraction/pdf_text/zero_page.pdf
+fixtures/outis_local_pilot/v1/extraction/pdf_text/rotated.pdf
+fixtures/outis_local_pilot/v1/extraction/pdf_text/annotated.pdf
+fixtures/outis_local_pilot/v1/extraction/pdf_text/page_limit.pdf
+fixtures/outis_local_pilot/v1/extraction/pdf_text/truncated.pdf
+fixtures/outis_local_pilot/v1/extraction/pdf_text/signature_mismatch.pdf
+
+fixtures/outis_local_pilot/v1/extraction/pdf_scan/multilingual_scan.pdf
+fixtures/outis_local_pilot/v1/extraction/pdf_scan/empty_scan.pdf
+fixtures/outis_local_pilot/v1/extraction/pdf_scan/oversized_media_box.pdf
+
+fixtures/outis_local_pilot/v1/extraction/expected_normalized/text.md
+fixtures/outis_local_pilot/v1/extraction/expected_normalized/markdown.md
+fixtures/outis_local_pilot/v1/extraction/expected_normalized/bom_text.md
+fixtures/outis_local_pilot/v1/extraction/expected_normalized/word_doc.md
+fixtures/outis_local_pilot/v1/extraction/expected_normalized/word_docx.md
+fixtures/outis_local_pilot/v1/extraction/expected_normalized/pdf_text.md
+fixtures/outis_local_pilot/v1/extraction/expected_normalized/pdf_mixed.md
+fixtures/outis_local_pilot/v1/extraction/expected_normalized/pdf_scan.md
+
+fixtures/outis_local_pilot/v1/extraction/oracle.json
+~~~
+
+`fixture_manifest.json` has schema version `1`, one generator identity, and one
+`files` array sorted by relative UTF-8 path bytes. The array records every
+declared file below the fixture root except `fixture_manifest.json` and
+`SHA256SUMS`, avoiding self-referential hashes. Every file record contains
+exactly relative path, ownership (`generated_source` or
+`handwritten_oracle`), byte size, lowercase SHA-256, source format, language
+set, purpose, generator/tool identity when generated, macOS build when a native
+generator affects bytes, and one limitation string. Unknown or duplicate
+fields and paths block. `SHA256SUMS` contains `fixture_manifest.json` first and
+then every manifest file record once in the same path order; it excludes only
+itself and uses the standard two-space separator. Manifest paths are relative
+to `fixtures/outis_local_pilot/v1/`; checksum-file paths are the corresponding
+repository-root-relative paths because the bound `shasum` command runs from
+the repository root.
+
+`oracle.json` has exactly `cases`, `schema_version`, and
+`synthetic_observation_cases`, in canonical key order. Schema version is `1`.
+Both arrays use ascending unique ASCII `case_id`, with no ID shared between
+them.
+
+Every `cases` record has these literal keys in canonical order:
+
+~~~text
+canonical_native_submission_json_sha256
+case_id
+expected_adapter
+expected_blocked_code
+expected_extraction_identity
+expected_extraction_identity_sha256
+expected_failed_code
+expected_normalized_relative_path
+expected_normalized_sha256
+expected_pages
+expected_provenance
+expected_status
+limitation
+oracle_class
+source_format
+source_relative_path
+source_sha256
+vision_requirements
+~~~
+
+Oracle class is `exact` or `vision_platform`. Conditional scalar, object, or
+hash fields are null when inapplicable; arrays are empty only when the contract
+requires an empty array. Expected identity and its SHA-256 are either both
+present or both null. Page and provenance records use the literal production
+schemas above. Blocked and failed codes have separate keys and cannot both be
+non-null.
+
+An `exact` record uses exact ordered provenance when a document is present.
+Every exact native record, including a blocked, failed, or cancelled record,
+uses an exact canonical native-submission hash; an exact Rust-text record uses
+null because it has no native submission. Its Vision requirements are null. A
+`vision_platform` record uses independently handwritten visible normalized
+text and hash, exact status, exact adapter, exact page indices and modes, and
+exact extraction-configuration identity. Its exact provenance and canonical
+submission hash are null. Its Vision requirements contain exactly geometry
+`finite_positive_normalized_ppm`, confidence
+`integer_0_through_1000000`, ordering version `1`, provenance
+`complete_nonoverlapping_utf8_scalar_coverage`, and replay count `3`. The
+literal `vision_requirements` keys are `confidence`, `geometry`,
+`ordering_version`, `provenance`, and `replay_count`, in that order.
+
+Every `synthetic_observation_cases` record has these literal keys in canonical
+order:
+
+~~~text
+canonical_native_submission_json_sha256
+case_id
+expected_extraction_identity
+expected_extraction_identity_sha256
+expected_normalized_sha256
+expected_normalized_utf8
+expected_pages
+expected_provenance
+limitation
+observations
+page_index
+source_format
+source_sha256
+~~~
+
+Each input observation has exactly `bounding_box`, `confidence`,
+`original_index`, and `text`. Its bounding box has exactly `height`, `min_x`,
+`min_y`, and `width`. Synthetic floating inputs use only the exactly
+representable dyadic values bound by the implementation plan. Text is fixed
+synthetic UTF-8. These cases alone own exact boxes, confidence, total-order
+ties, fixed-point conversion, normalization, provenance, identity hash, and
+canonical native-metadata expectations for Vision observation mapping.
+
+Unknown fields, duplicate IDs, an unlisted source, an unlisted expected file,
+an inconsistent null/non-null field, or a Vision requirement different from
+the fixed values above blocks. Neither fixture schema contains absolute paths,
+timestamps, user names, or real values.
+
+`README.md`, all expected normalized `.md` files, and `oracle.json` are
+handwritten independent oracle inputs. The fixture generator owns the source
+fixtures, `fixture_manifest.json`, and `SHA256SUMS`. The implementation plan
+must bind exact bytes or exact generator inputs for every generated fixture.
+
+`Cargo.lock` is generated only by Cargo under the approved offline resolution.
+Root `inventory.md` is generated only by the unchanged existing inventory
+generator. No other generated or model artifact exists.
+
+#### Fixture and native-harness commands
+
+The fixture tool is compiled to ignored test output:
+
+~~~text
+/usr/bin/time -lp env DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer \
+  xcrun --sdk macosx swiftc \
+  -swift-version 6 -strict-concurrency=complete -warnings-as-errors -O \
+  tests/fixture_generation/Main.swift \
+  tests/fixture_generation/WordFixtures.swift \
+  tests/fixture_generation/PDFFixtures.swift \
+  -framework Foundation -framework AppKit -framework PDFKit \
+  -framework CoreGraphics \
+  -o target/tools/outis-fixture-generation
+
+target/tools/outis-fixture-generation --write
+target/tools/outis-fixture-generation --check
+shasum -a 256 -c fixtures/outis_local_pilot/v1/SHA256SUMS
+~~~
+
+The first creation sequence inserts this command before `--write`:
+
+~~~text
+target/tools/outis-fixture-generation --probe
+~~~
+
+`--probe` is test-only. It requires the fixed ignored
+`target/fixture-probe/` root to be absent, writes only the complete generated
+source-fixture candidate tree below that root, and writes
+`target/fixture-probe/source_identities.json`. The identity file has schema
+version `1` and exactly the top-level keys `files` and `schema_version`, in
+that order. `files` is sorted by fixture-root-relative UTF-8 path bytes. Each
+record has exactly `byte_size`, `generator_identity`, `macos_build`,
+`relative_path`, and `sha256`, in that order. It contains no source or
+normalized document content. Probe mode does not read or write any committed
+fixture, manifest, checksum, expected-output, or oracle path.
+
+After the probe, the handwritten normalized outputs and `oracle.json` bind the
+observed source identities independently. `--write` requires every committed
+generated destination to be absent and the fixed probe identity file to be
+present. It regenerates every source byte in memory, requires exact equality
+with the probe identity records, requires every oracle source SHA-256 to match,
+and validates all handwritten inputs before it creates any declared committed
+generated path. It never writes expected normalized files or `oracle.json`.
+
+`--check` writes only below a fresh ignored `target/fixture-check/` directory,
+compares every generated byte and manifest field, then removes that directory.
+An unknown mode or output, existing fresh-output root, changed byte, missing
+file, unexpected identity record, oracle mismatch, or generator-identity
+mismatch blocks. The implementation plan must bind removal of only the exact
+ignored probe root after successful committed-fixture creation.
+
+The native extraction harness is compiled and run as:
+
+~~~text
+env DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer \
+  xcrun --sdk macosx swiftc \
+  -swift-version 6 -strict-concurrency=complete -warnings-as-errors -O \
+  apps/macos/Outis/Extraction/DocumentExtractor.swift \
+  apps/macos/Outis/Extraction/WordExtractor.swift \
+  apps/macos/Outis/Extraction/PDFExtractor.swift \
+  apps/macos/Outis/Extraction/VisionOCR.swift \
+  tests/native_extraction/Main.swift \
+  -framework Foundation -framework AppKit -framework PDFKit \
+  -framework Vision -framework CoreGraphics \
+  -o target/tools/outis-native-extraction
+
+target/tools/outis-native-extraction
+~~~
+
+The harness accepts no argument, configuration, environment setting, input
+path, or mode. It reads only the fixed synthetic fixture root relative to the
+repository root. It performs correctness, failure, three-run replay, warm
+timing, and cancellation cases and prints no extracted plaintext.
+
+#### Correctness and privacy oracle
+
+The handwritten oracle binds source size and SHA-256, class, expected status,
+adapter, normalized-output file and SHA-256 when present, extraction-identity
+fields, ordered pages, exact provenance where independently knowable, fixed
+Vision validity requirements otherwise, and expected stable error code.
+It covers:
+
+- exact `.txt`, `.md`, BOM, `.doc`, `.docx`, native PDF, mixed PDF, and
+  Italian/German/French scan output;
+- separate in-memory empty `.txt`, empty `.md`, BOM `.txt`, and BOM `.md`
+  cases, including exact valid empty normalized documents;
+- binary-derived CRLF, remaining CR, U+2028, U+2029, tabs, repeated spaces,
+  trailing-LF removal, two-LF page separation, and one final LF;
+- whitespace-only Word review status and a whitespace-only PDF page that must
+  use OCR rather than native text;
+- actual OCR multi-column visible text and exact synthetic-observation cases
+  for every complete tie-key ordering branch;
+- invalid UTF-8, NUL, every signature mismatch, every corrupt/truncated input,
+  Word attachment, protected PDF, zero page, rotation, annotation, page limit,
+  no OCR observation, render limit, invalid synthetic OCR geometry, and
+  unavailable-language query behavior;
+- in-memory exact-bound and one-over-limit source, normalized, page, render,
+  and source-identity cases;
+- cancellation before Word import, before the first PDF page, and between PDF
+  pages;
+- exact status and absence of a document on every non-success outcome; and
+- three exact replays under one complete extraction identity, including the
+  full observed actual-Vision submission bytes.
+
+The harness exercises the same production pure validators with a declared
+missing-language list and invalid normalized geometry; it does not alter
+process configuration or add a runtime test branch. It exercises the same
+production platform-error mapper with a synthetic `NSError` and requires
+`Failed { code: extraction_platform_failed }`. This proves mapping behavior,
+not that every Apple framework failure can be induced or recovered.
+
+The generated `multilingual.doc`, `multilingual.docx`, and
+`multilingual.pdf` contain the declared binary line-separator, whitespace, and
+page-boundary cases. `mixed_text_scan.pdf` contains one native-text page, one
+whitespace-only native page that routes to OCR, and one image-only page.
+`multilingual_scan.pdf` contains Italian, German, and French pages plus fixed
+visible multi-column content. Exact full-order-tie observations exist only in
+the independent synthetic-observation cases. `annotated.pdf` contains a text
+annotation, widget/form annotation, and a file-attachment annotation whose
+embedded file stream supplies both attachment and embedded-content evidence,
+so every declared PDF feature category is observed. Each intended platform
+feature is verified after generation; failure to expose it blocks the
+generator check.
+
+For every native success, Swift encodes the submission metadata without
+normalized text using schema version `1`, sorted UTF-8 JSON keys, no optional
+pretty printing, and no non-finite number. Exact native and synthetic-
+observation cases require the independently authored canonical-submission
+SHA-256. Rust parses the same exact oracle fields into its submission type,
+rejects unknown fields, and requires exact field equality before validating
+the separately hashed normalized bytes.
+
+Actual Vision cases do not use a predeclared full-submission hash, exact box,
+exact confidence, or exact provenance segmentation as a correctness oracle.
+They require the independently authored visible normalized text and hash,
+exact status and page modes, every converted box to be finite, positive, and
+bounded from zero through 1,000,000, every confidence to be an integer in the
+same range, the declared total order, and complete non-overlapping provenance
+coverage at UTF-8 scalar boundaries. Three runs under one complete platform
+identity must produce byte-identical full submission metadata. The observed
+submission SHA-256 is recorded in the result review as run evidence only.
+
+Together, exact synthetic observations test mapping and schema correctness;
+actual Vision fixtures test visible text, mode, validity, coverage, and replay.
+Neither oracle lets observed Vision geometry define its own expected result,
+and neither claims live Swift/Rust integration.
+
+Expected normalized outputs are independently authored and are not derived by
+the fixture generator or production extraction logic. Every mismatch fails;
+there is no tolerance, skipped case, expected failure, or alternate output.
+
+The 21 existing email, telephone, and IBAN unit tests run with unchanged
+expectations. Static checks reject normal logging, network, process execution,
+temporary plaintext writing, FFI symbols, model/database imports, unchecked
+failure constructs, and unapproved files. Privacy acceptance proves only that
+the declared harness and Rust paths create no plaintext output beyond the
+committed synthetic fixture/oracle tree and in-memory values. It does not prove
+control over Apple helpers or the operating system.
+
+#### Compile-surface and runtime budgets
+
+The S1-21 exact toolchain preflight remains mandatory. MI-03 accepts exactly
+two Rust workspace members, the three direct dependencies above, no model or
+database package, no Xcode target, and two ignored Swift test executables.
+
+On the Section 32 reference host:
+
+| Measurement | MI-03 acceptance budget |
+|---|---:|
+| Clean release `outis-runtime` build | at most 120 seconds |
+| Native extraction harness compile | at most 120 seconds |
+| Fixture generator compile | at most 120 seconds |
+| Each ignored Swift executable logical size | at most 10 MiB |
+| Warm non-OCR extraction per success fixture | p95 at most 100 ms |
+| Warm 200-DPI OCR per page | p95 at most 250 ms |
+| Complete no-argument native harness | at most 15 seconds |
+| Peak native-harness RSS | at most 750,000,000 bytes |
+
+Warm p95 uses nearest-rank over 20 measured operations after one excluded
+warm-up and reports every sample and failure. The harness remains sequential.
+The result review records commands, profile, dirty state, machine, toolchain,
+fixture identity, wall/user/system time, maximum RSS, binary sizes, Cargo
+metadata/tree, and every miss. A passed budget supports only the recorded host,
+implementation, fixture, and extraction identity. It is not a general speed,
+capacity, energy, or production claim.
+
+The implementation plan must bind the exact clean-output removal and then run
+these measurement command forms from the repository root:
+
+~~~text
+/usr/bin/time -lp env RUSTUP_TOOLCHAIN=stable CARGO_NET_OFFLINE=true \
+  cargo build --locked --offline --release \
+  --package outis-runtime --target aarch64-apple-darwin
+
+/usr/bin/time -lp env DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer \
+  xcrun --sdk macosx swiftc \
+  -swift-version 6 -strict-concurrency=complete -warnings-as-errors -O \
+  apps/macos/Outis/Extraction/DocumentExtractor.swift \
+  apps/macos/Outis/Extraction/WordExtractor.swift \
+  apps/macos/Outis/Extraction/PDFExtractor.swift \
+  apps/macos/Outis/Extraction/VisionOCR.swift \
+  tests/native_extraction/Main.swift \
+  -framework Foundation -framework AppKit -framework PDFKit \
+  -framework Vision -framework CoreGraphics \
+  -o target/tools/outis-native-extraction
+
+/usr/bin/time -lp target/tools/outis-native-extraction
+
+/usr/bin/stat -f '%z' target/tools/outis-native-extraction \
+  target/tools/outis-fixture-generation
+~~~
+
+The clean-output removal targets only the two explicit files under
+`target/tools/`; it must not remove the repository `target/` root or an
+unresolved path. The result review preserves every measurement output and
+harness sample table in concise non-plaintext form.
+
+#### Validation sequence
+
+After a passed pre-test audit, validation runs in this order:
+
+1. S1-21 exact offline Rust toolchain preflight.
+2. `cargo fmt --all -- --check`.
+3. offline locked Clippy for the workspace and all targets with warnings
+   denied.
+4. offline locked workspace tests, single-threaded, including all 21 unchanged
+   MI-01/MI-02 tests.
+5. offline metadata, dependency tree, source, feature, license, advisory, and
+   lockfile checks for the exact MI-03 closure.
+6. strict fixture-tool compilation, `--check`, and SHA-256 verification.
+7. strict native-harness compilation and no-argument run.
+8. generated inventory replay, path allowlist, line-budget, forbidden-surface,
+   whitespace, and docs/reference checks.
+9. result review with exact failures, limitations, and classification.
+
+Any failure stops the sequence. Expectations, fixtures, normalization,
+thresholds, time limits, or memory limits are not weakened to obtain a pass.
+
+#### Line and responsibility budgets
+
+Ordinary Rust and Swift production files remain at most 300 logical lines,
+the native and integration test files at most 400, and each component inventory
+contains one complete one-line purpose per owned source/test path. A cohesive
+file above its maximum requires a specification amendment; artificial
+compression or a generic helper module is forbidden.
+
+#### Lifecycle and rollback
+
+Before code, MI-03 requires a passed author pre-audit, separate
+`PEER_AUDIT_PASSED` review, an exact implementation plan, explicit user plan
+approval, a clean committed documentation baseline, and the S1-21 offline
+preflight. The plan must bind every initial and final file state, generated
+byte, command, expected output, line budget, compile/resource measurement,
+risk, cleanup step, and path-specific rollback.
+
+Rollback may remove only MI-03-created paths, restore only plan-listed modified
+paths to the recorded baseline, regenerate no historical artifact, and must
+preserve MI-01/MI-02 code and evidence. A rollback command is not authorized by
+this specification.
 
 After a qualified `CLEARED` review, a separate model-specific implementation
 plan binds the excluded paths, two dependencies, lockfile transition, Xcode
@@ -4141,6 +5122,10 @@ plan requires explicit approval before model-specific work.
   approved.
 - [x] `S1-21` installed-stable exact-identity and offline-resolution amendment
   explicitly approved.
+- [x] `S1-21A` matching rust-analyzer toolchain-component correction
+  explicitly approved on 2026-08-18.
+- [x] `S1-21A` author audit, separate peer audit, exact implementation plan,
+  pre-test audit, and offline validation passed on 2026-08-18.
 - [ ] Model legal-clearance stop gate resolved; required only before
   model-specific implementation and complete-pilot acceptance.
 - [x] Full Xcode 26.6 installation and active-developer-directory stop gate
@@ -4175,15 +5160,37 @@ plan requires explicit approval before model-specific work.
 - [x] `S1-22` amended author pre-audit passed.
 - [x] `S1-22` separate peer audit passed.
 - [x] MI-02 exact implementation plan explicitly approved.
+- [x] MI-02 pre-test audit passed.
+- [x] MI-02 complete validation passed and result review classified
+  `MI_02_VALIDATION_PASSED`.
+- [x] MI-02 implementation and evidence committed at `7faf40e`.
+- [x] `S1-23` local extraction-to-normalized-Markdown increment explicitly
+  approved on 2026-08-18.
+- [x] MI-03 research brief complete.
+- [x] `S1-23A` dependency-closure, fixture-bootstrap, and independent Vision-
+  oracle correction explicitly approved on 2026-08-18.
+- [x] `S1-23B` text extraction identity, canonical identity-hash preimage, and
+  production serialization ownership correction explicitly approved on
+  2026-08-18.
+- [ ] MI-03 author pre-audit passed after the required S1-23B correction.
+- [ ] MI-03 separate peer audit passed after the required S1-23B correction.
+- [ ] MI-03 exact implementation plan written and explicitly approved.
 
-Specification approval, including `S1-22C`: granted by the user on 2026-08-17.
+Base specification approval through `S1-22C`: granted by the user on
+2026-08-17, with S1-21A approved on 2026-08-18. S1-23, S1-23A, and S1-23B
+approval: granted by the user on 2026-08-18.
 
 ## 42. Open questions
 
-The base S1 design through S1-21 and MI-01 has no intentionally open design
-decision. MI-01 is complete within its evidence boundary. The missing
-qualified model legal review blocks only the exact model-specific surfaces and
-complete-pilot acceptance defined above.
+The base S1 design through S1-22C has no intentionally open decision inside
+MI-01 or MI-02. Both increments are complete within their evidence boundaries.
+The missing qualified model legal review blocks only the exact model-specific
+surfaces and complete-pilot acceptance defined above.
+
+S1-21A changes only the active `rust-toolchain.toml` component declaration
+from Clippy plus rustfmt to Clippy plus matching rust-analyzer plus rustfmt. The
+exact Rust 1.89.0 and Cargo identities, stable locator, minimal profile, arm64
+target, loopback/offline preflight, and all product behavior remain unchanged.
 
 `S1-22A` through `S1-22C` are approved. S1-22B defines one maximal non-empty
 extension-digit run, classifies 1 through 6 digits as the declared shape and 7
@@ -4197,9 +5204,21 @@ the historical MI-01 author pre-audit and implementation plan supersede their
 stale 16 MiB references. This documentation-contract correction changes no
 implemented size check, code, API, detector grammar, or MI-01 evidence.
 
-The amended author pre-audit, separate MI-02 peer audit, and exact MI-02
-implementation plan were approved on 2026-08-17. MI-02 code remains blocked
-until a clean committed baseline and the repeated S1-21 preflight. An
-implementation detail that contradicts or is absent from the approved
-specification requires another amendment; it cannot be delegated to the
-implementation plan.
+The amended author pre-audit, separate MI-02 peer audit, exact MI-02
+implementation plan, pre-test audit, and complete validation passed. MI-02 is
+committed at `7faf40e` and closed within the result review's evidence limits.
+No later increment is authorized. An implementation detail that contradicts
+or is absent from the approved specification requires another amendment; it
+cannot be delegated to an implementation plan.
+
+S1-23 through S1-23B are approved as the next model-independent specification
+amendment. They do not authorize code. S1-23A accepts the exact transitive
+dependency interpretation, first fixture-generation probe sequence, and split
+independent Vision correctness oracle. S1-23B defines the missing text/native
+identity, canonical JSON and SHA-256 contracts, and production serializer
+ownership. The corrected author audit now requires S1-23C to bind the exact
+MI-03 failure-code and competing-condition precedence matrix. Corrected author
+and separate peer audits must pass before an exact implementation plan may be
+written. Live Swift/Rust FFI, application
+behavior, extraction review confirmation, folder processing, and agent-
+repository publication remain explicitly unproved and outside MI-03.

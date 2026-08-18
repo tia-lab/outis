@@ -1,3 +1,5 @@
+use std::matches;
+
 use crate::{
     CandidateEvidenceV1, CandidateStatusV1, CandidateSurfaceV1, SensitiveCandidateV1,
     SensitiveClassV1, StructuredDiscoveryErrorV1,
