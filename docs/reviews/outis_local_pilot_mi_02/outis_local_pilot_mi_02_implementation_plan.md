@@ -554,7 +554,7 @@ Three calls with the same identity return exactly equal vectors.
 The input is:
 
 ~~~text
-"GB00ABCDEFGHIJK ".repeat(65_535) + "GB00ABCDEFGHIJK"
+"GB00ABCDEFGHIJK|".repeat(65_535) + "GB00ABCDEFGHIJK"
 ~~~
 
 It is 1,048,575 bytes and requests exactly 65,536 review records. Candidate
@@ -567,7 +567,7 @@ It is 1,048,575 bytes and requests exactly 65,536 review records. Candidate
 The input is:
 
 ~~~text
-"GB00ABCDEFGHIJK ".repeat(65_536) + "GB00ABCDEFGHIJK"
+"GB00ABCDEFGHIJK|".repeat(65_536) + "GB00ABCDEFGHIJK"
 ~~~
 
 It is 1,048,591 bytes and requests 65,537 records. The exact result is the

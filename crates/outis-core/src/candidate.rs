@@ -22,6 +22,8 @@ pub enum CandidateSurfaceV1 {
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum SensitiveClassV1 {
     Email,
+    TelephoneNumber,
+    Iban,
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]
@@ -37,5 +39,10 @@ pub enum CandidateStatusV1 {
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub enum EmailDiscoveryErrorV1 {
+    CandidateLimitExceeded { limit: usize },
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum StructuredDiscoveryErrorV1 {
     CandidateLimitExceeded { limit: usize },
 }
